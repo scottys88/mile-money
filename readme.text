@@ -1,0 +1,13 @@
+**To get started
+
+git bash on application folder (i.e. Mile Money)
+
+To start server enter:
+
+node server.js
+
+Then go to 127.0.0:3000
+
+This will then serve the static html files
+
+**

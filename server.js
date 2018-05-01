@@ -9,6 +9,9 @@ var cache = {};
 
 var mime = require('mime');
 
+var socketio = require('socket.io');
+
+
 //Setting up sending file data and error responses
 //For 404 Errors
 function send404(response) {
@@ -99,8 +102,9 @@ const strava = new require("strava")({
 							   
 strava.athlete.get(function(err, res) {
         console.log(res);
-});							   
-							   
+});	
+
+						   
 							   
 							   
 							   

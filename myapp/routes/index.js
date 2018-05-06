@@ -17,21 +17,10 @@ strava.athlete.get(function(err, res) {
 router.get('/', function(req, res, next) {
   let stravaData = strava.athlete.get(function(err, response) {
   	return response;
+  	res.render('index', { title: response });
   });
-  res.render('index', { title: response });
-});
-
-module.exports = router;
-
-
-/* GET home page. */
-router.get('/', function(req, res, next) {
   
-
-	strava.athlete.get(function(err, response) {
-        console.log(response);
-    });
-  	res.send(response);
 });
 
 module.exports = router;
+

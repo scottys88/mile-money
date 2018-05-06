@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const dataController = require('../controllers/dataController');
 const strava = require('strava')({
         client_id: "22264",	
         client_secret: "f31774d980e2f6e97403b8fd404deecff420201a",
@@ -14,13 +15,7 @@ strava.athlete.get(function(err, res) {
 							   	
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  let stravaData = strava.athlete.get(function(err, response) {
-  	return response;
-  	res.render('index', { title: response });
-  });
-  
-});
+router.get('/', dataController.homePage);
 
 module.exports = router;
 

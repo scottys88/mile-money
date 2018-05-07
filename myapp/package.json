@@ -14,5 +14,8 @@
     "pug": "2.0.0-beta11",
     "strava": "0.0.2",
     "strava-v3": "^1.14.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.4"
   }
 }

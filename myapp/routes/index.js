@@ -16,7 +16,8 @@ strava.athlete.get(function(err, res) {
 
 /* GET home page. */
 router.get('/', dataController.homePage);
-router.get('/', dataController.scottStrava);
+// router.get('/', dataController.scottStrava);
 
 module.exports = router;
+
 

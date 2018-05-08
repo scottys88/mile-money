@@ -1,0 +1,8 @@
+extends layout
+
+include mixins/_wishlistForm.pug
+
+block content
+	.inner
+		h2 #{title}
+		+wishlistForm({name: 'Scott Shcubert'})

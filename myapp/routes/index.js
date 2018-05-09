@@ -8,12 +8,7 @@ const strava = require('strava')({
         access_token: "a481290c9c01de67dbef70f0fb0b1207591c75cb"
 }); 
 
-const { catchErrors } = require('../handlers/errorHandlers')
-
-strava.athlete.get(function(err, res) {
-        console.log(res);
-});				
- 		   					   
+const { catchErrors } = require('../handlers/errorHandlers')	   
 							   	
 
 /* GET home page. */

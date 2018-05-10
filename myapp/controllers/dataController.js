@@ -7,6 +7,11 @@ const strava = require('strava')({
         access_token: "a481290c9c01de67dbef70f0fb0b1207591c75cb"
 }); 
 
+strava.athlete.get(function(err, data) {
+  const stravaData = data;
+  console.log(stravaData);
+  });
+
 
 exports.homePage = (req, res) => {
   // let stravaData = strava.athlete.get(function(err, response) {
@@ -24,7 +29,8 @@ exports.saveItem = async (req, res) => {
   res.redirect('/');
 };
 
-exports.scottStrava = (req, res) => {
-  let stravaData = strava.athlete.get(function(err, stravaData) {
-  	res.render('index', { stravaData: stravaData });
-  })};
+exports.scottStrava = async (req, res) => {
+  
+  console.log(stravaData);
+  res.render('athlete', { stravaData: stravaData });
+};

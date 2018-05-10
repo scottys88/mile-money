@@ -15,6 +15,7 @@ const { catchErrors } = require('../handlers/errorHandlers')
 router.get('/', dataController.homePage);
 router.get('/add-item', dataController.addItem);
 router.post('/add-item', catchErrors(dataController.saveItem));
+router.get('/athlete', catchErrors(dataController.scottStrava));
 // router.get('/', dataController.scottStrava);
 
 module.exports = router;

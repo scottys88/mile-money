@@ -1,0 +1,14 @@
+{
+  "name": "passport-strava-examples-login",
+  "version": "0.0.0",
+  "dependencies": {
+    "dotenv": "^6.0.0",
+    "ejs": ">= 0.0.0",
+    "express": "2.x.x",
+    "mocha": "^5.2.0",
+    "mongoose": "^5.2.0",
+    "passport": ">= 0.0.0",
+    "passport-strava-oauth2": ">= 0.1.1",
+    "strava-v3": "^1.14.0"
+  }
+}

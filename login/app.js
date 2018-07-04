@@ -4,6 +4,7 @@ var express = require('express')
   , StravaStrategy = require('passport-strava-oauth2').Strategy
   , StravaApiV3 = require('strava-v3')
   , mongoose = require('mongoose')
+  , promisify = require('es6-promisify')
   , mocha = require('mocha');
 const Athlete = require('./models/athlete');
 
@@ -92,31 +93,51 @@ app.get('/', function(req, res){
     lastName: req.user.name.familyName,
     profilePic: req.user.photos[0].value,
     commutes: [{ 
+    }],
+    settings: [{
+      
     }]
   });
-  console.log(req.user.firstname);
-  console.log(req.user.lasttname);
+
   athlete.save();
   }
   res.render('index', { user: req.user });
 });
 
-app.get('/account', ensureAuthenticated, function(req, res){
+app.get('/account', ensureAuthenticated, async (req, res) => {
+  const athlete = await (Athlete.findOne( {id: req.user.id }));
+
   StravaApiV3.athlete.listActivities({id: req.user.id},function(err,payload,limits) {
     //do something with your payload, track rate limits
     stravaActivities = payload;
     let commuteNumber = 0;
+    
+    
+    console.log(req.user.id);
     stravaActivities.forEach(activity => {
-      console.log(activity.commute);
       if(activity.commute === true) {
         commuteNumber += 1;
-      }
+        athlete.commutes.push( { 
+          id: activity.id,
+          start_latlng: activity.start_latlng,
+          end_latlng: activity.end_latlng,
+          isCommute: activity.commute,
+          account: "Charity",
+          commuteType: "Monday Commute"
+         });
+         
+      };
 
-    });
-    console.log(commuteNumber);
+   });
+    console.log(athlete.commutes);
+    console.log(`The number of commutes is ${commuteNumber}`);
 });
-  res.render('account', { user: req.user });
+  res.render('account', { user: req.user});
 });
+
+
+
+
 
 app.get('/login', function(req, res){
   res.render('login', { user: req.user});

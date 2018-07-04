@@ -4,6 +4,7 @@
   "dependencies": {
     "dotenv": "^6.0.0",
     "ejs": ">= 0.0.0",
+    "es6-promisify": "^6.0.0",
     "express": "2.x.x",
     "mocha": "^5.2.0",
     "mongoose": "^5.2.0",

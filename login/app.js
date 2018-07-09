@@ -114,7 +114,7 @@ app.get('/', async (req, res) => {
 });
 
 app.get('/account', ensureAuthenticated, async (req, res) => {
-  const athlete = await (Athlete.findOne( {id: req.user.id }));
+  let athlete = await (Athlete.findOne( {id: req.user.id }));
 
   StravaApiV3.athlete.listActivities({id: req.user.id},function(err,payload,limits) {
     //do something with your payload, track rate limits
@@ -132,12 +132,15 @@ app.get('/account', ensureAuthenticated, async (req, res) => {
           end_latlng: activity.end_latlng,
           isCommute: activity.commute,
           account: "Charity",
-          commuteType: "Monday Commute"
+          commuteType: activity.type,
+          commuteName: activity.name,
+          commuteDate: activity.start_date
          });
          
       };
 
    });
+   athlete.save();
     console.log(athlete.commutes);
     console.log(`The number of commutes is ${commuteNumber}`);
 });

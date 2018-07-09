@@ -13,8 +13,7 @@ const commuteSchema = new Schema({
     },
     commuteType: String,
     commuteName: {
-        type: String,
-        default: "Regular Commute"
+        type: String
     }
 });
 

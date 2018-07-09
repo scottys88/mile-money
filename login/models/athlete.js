@@ -2,12 +2,20 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const commuteSchema = new Schema({
-    id: Number,
+    id: String,
     start_latlng : [],
     end_latlng : [],
     isCommute: Boolean,
     account: String,
-    commuteType: String
+    commuteDate: {
+        type: Date,
+        default: Date.now
+    },
+    commuteType: String,
+    commuteName: {
+        type: String,
+        default: "Regular Commute"
+    }
 });
 
 const settingsSchema = new Schema({
@@ -22,12 +30,16 @@ const settingsSchema = new Schema({
 const athleteSchema = new Schema({
     id: { 
         type: Number,
-        unique: true,
-        dropDups: true
+        // unique: true,
+        // dropDups: true
     },
     firstName: String,
     lastName: String,
     profilePic: String,
+    city: String,
+    state: String,
+    country: String,
+    gender: String,
     commutes: [commuteSchema],
     settings: [settingsSchema]
 });

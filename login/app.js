@@ -7,18 +7,21 @@ var express = require('express')
   , promisify = require('es6-promisify')
   , mocha = require('mocha');
 const Athlete = require('./models/athlete');
+mongoose.Promise = global.Promise;
 
 require('dotenv').config({ path: 'process.env' });
 var STRAVA_CLIENT_ID = process.env.STRAVA_CLIENT_ID;
 var STRAVA_CLIENT_SECRET = process.env.STRAVA_CLIENT_SECRET;
-
+var DB_CONNECTION_STRING = process.env.DB_CONNECTION_STRING;
+var PORT_NUMBER_LISTEN = process.env.PORT_NUMBER;
 
 //Connect to the Dabatase
 
     //Connect to mongoDB
-  mongoose.connect('mongodb://localhost:27017/mile-money');
+
+  mongoose.connect(DB_CONNECTION_STRING);
       mongoose.connection.once('open', function() {
-          console.log('Connection has been made.');
+          console.log(`Connection has been made. Listening on port:${PORT_NUMBER_LISTEN}`);
       }).on('error', function(error) {
           console.log(`Connection error ${error}`);
   });
@@ -47,7 +50,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new StravaStrategy({
     clientID: process.env.STRAVA_CLIENT_ID,
     clientSecret: process.env.STRAVA_CLIENT_SECRET,
-    callbackURL: "http://127.0.0.1:3000/auth/strava/callback"
+    callbackURL: `http://127.0.0.1:${PORT_NUMBER_LISTEN}/auth/strava/callback`
   },
   function(accessToken, refreshToken, profile, done) {
     // asynchronous verification, for effect...
@@ -85,13 +88,17 @@ app.configure(function() {
 });
 
 
-app.get('/', function(req, res){
+app.get('/', async (req, res) => {
   if(req.user) {
   const athlete = new Athlete({
     id: req.user.id,
     firstName: req.user.name.givenName,
     lastName: req.user.name.familyName,
     profilePic: req.user.photos[0].value,
+    city: req.user._json.city,
+    state: req.user._json.state,
+    country: req.user._json.country,
+    gender: req.user._json.sex,
     commutes: [{ 
     }],
     settings: [{
@@ -99,7 +106,9 @@ app.get('/', function(req, res){
     }]
   });
 
-  athlete.save();
+  await athlete.save();
+  console.log(req.user._json.state);
+  console.log(req.user.id);
   }
   res.render('index', { user: req.user });
 });
@@ -171,7 +180,7 @@ app.get('/logout', function(req, res){
   res.redirect('/');
 });
 
-app.listen(3000);
+app.listen(process.env.PORT_NUMBER);
 
 
 // Simple route middleware to ensure user is authenticated.

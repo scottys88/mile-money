@@ -1,6 +1,9 @@
 {
   "name": "passport-strava-examples-login",
   "version": "0.0.0",
+  "scripts": {
+    "test": "mocha"
+  },
   "dependencies": {
     "dotenv": "^6.0.0",
     "ejs": ">= 0.0.0",

@@ -109,6 +109,7 @@ app.get('/', async (req, res) => {
   await athlete.save();
   console.log(req.user._json.state);
   console.log(req.user.id);
+  console.log(req.user.token);
   }
   res.render('index', { user: req.user });
 });
@@ -116,7 +117,14 @@ app.get('/', async (req, res) => {
 app.get('/account', ensureAuthenticated, async (req, res) => {
   let athlete = await (Athlete.findOne( {id: req.user.id }));
 
-  StravaApiV3.athlete.listActivities({id: req.user.id},function(err,payload,limits) {
+  StravaApiV3.athlete.get({'access_token':req.user.token},function(err,payload,limits) {
+    //do something with your payload, track rate limits
+    console.log(payload);
+  });
+
+  console.log(athlete);
+
+  StravaApiV3.athlete.listActivities({'access_token':req.user.token},function(err,payload,limits) {
     //do something with your payload, track rate limits
     stravaActivities = payload;
     let commuteNumber = 0;

@@ -99,11 +99,6 @@ app.get('/', async (req, res) => {
     state: req.user._json.state,
     country: req.user._json.country,
     gender: req.user._json.sex,
-    commutes: [{ 
-    }],
-    settings: [{
-      
-    }]
   });
 
   await athlete.save();
@@ -135,7 +130,7 @@ app.get('/account', ensureAuthenticated, async (req, res) => {
       if(activity.commute === true) {
         commuteNumber += 1;
         athlete.commutes.push( { 
-          id: activity.id,
+          commuteId: activity.id,
           start_latlng: activity.start_latlng,
           end_latlng: activity.end_latlng,
           isCommute: activity.commute,
@@ -162,6 +157,33 @@ app.get('/account', ensureAuthenticated, async (req, res) => {
 app.get('/login', function(req, res){
   res.render('login', { user: req.user});
 });
+
+app.get('/commute-costs', function(req, res){
+  res.render('commutes', { user: req.user});
+});
+
+app.post('/commute-costs', async (req, res) => {
+  const newCommuteCosts = await Athlete.findOneAndUpdate({
+    id: req.user.id
+  }, 
+  {
+    $push: {
+      settings: {
+        userCommute: req.body.userCommute,
+        fuel: req.body.fuel,
+        bus: req.body.bus,
+        parking: req.body.parking,
+        timeHours: req.body.timeHours,
+        timeMinutes: req.body.timeMinutes,
+        train: req.body.train,
+        totalCost: req.body.totalCost
+      }
+    }
+
+  }).exec();
+  res.render('commutes', { user: req.user});
+});
+
 
 // GET /auth/strava
 //   Use passport.authenticate() as route middleware to authenticate the

@@ -2,7 +2,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const commuteSchema = new Schema({
-    id: String,
+    commuteId: {
+        type: String,
+        unique: true,
+        dropDups: true
+    },
     start_latlng : [],
     end_latlng : [],
     isCommute: Boolean,
@@ -18,19 +22,21 @@ const commuteSchema = new Schema({
 });
 
 const settingsSchema = new Schema({
-   commuteType: String,
+   userCommute: String,
    fuel: Number,
    bus: Number,
    parking: Number,
    timeHours: Number,
+   train: Number,
+   totalCost: Number,
    timeMinutes: Number
 });
 
 const athleteSchema = new Schema({
     id: { 
         type: Number,
-        // unique: true,
-        // dropDups: true
+        unique: true,
+        dropDups: true
     },
     firstName: String,
     lastName: String,

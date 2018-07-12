@@ -4,21 +4,28 @@ const Schema = mongoose.Schema;
 const commuteSchema = new Schema({
     commuteId: {
         type: String,
-        unique: true,
-        dropDups: true
+        // unique: true,
+        // dropDups: true
     },
     start_latlng : [],
     end_latlng : [],
     isCommute: Boolean,
-    account: String,
+    account: {
+        type: String,
+        default: "Main"
+    },
     commuteDate: {
         type: Date,
         default: Date.now
     },
+    startDateLocal: Date,
     commuteType: String,
-    commuteName: {
-        type: String
-    }
+    commuteName: String,
+    distance: Number,
+    movingTime: Number,
+    elapsedTime: Number
+
+
 });
 
 const settingsSchema = new Schema({
@@ -32,11 +39,21 @@ const settingsSchema = new Schema({
    timeMinutes: Number
 });
 
+const shoeSchema = new Schema({
+    name: String,
+    distance: Number
+});
+
+const bikeSchema = new Schema({
+    name: String,
+    distance: Number
+});
+
 const athleteSchema = new Schema({
     id: { 
         type: Number,
-        unique: true,
-        dropDups: true
+        // unique: true,
+        // dropDups: true
     },
     firstName: String,
     lastName: String,
@@ -46,7 +63,9 @@ const athleteSchema = new Schema({
     country: String,
     gender: String,
     commutes: [commuteSchema],
-    settings: [settingsSchema]
+    settings: [settingsSchema],
+    shoes: [shoeSchema],
+    bikes: [bikeSchema]
 });
 
 

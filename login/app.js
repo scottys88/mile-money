@@ -101,6 +101,22 @@ app.get('/', async (req, res) => {
     gender: req.user._json.sex,
   });
 
+  req.user._json.shoes.forEach(shoe => {
+    athlete.shoes.push({
+      name: shoe.name,
+      distance: shoe.distance
+    });
+  });
+
+    req.user._json.bikes.forEach(bike => {
+    athlete.bikes.push({
+      name: bike.name,
+      distance: bike.distance
+    });
+  });
+
+  console.log(req.user._json.shoes[0].distance);
+
   await athlete.save();
   console.log(req.user._json.state);
   console.log(req.user.id);
@@ -114,16 +130,17 @@ app.get('/account', ensureAuthenticated, async (req, res) => {
 
   StravaApiV3.athlete.get({'access_token':req.user.token},function(err,payload,limits) {
     //do something with your payload, track rate limits
-    console.log(payload);
+    
   });
 
-  console.log(athlete);
+  
 
-  StravaApiV3.athlete.listActivities({'access_token':req.user.token},function(err,payload,limits) {
+  StravaApiV3.athlete.listActivities({'access_token':req.user.token,
+      'resource_state':3},function(err,payload,limits) {
     //do something with your payload, track rate limits
     stravaActivities = payload;
     let commuteNumber = 0;
-    
+   
     
     console.log(req.user.id);
     stravaActivities.forEach(activity => {
@@ -133,18 +150,21 @@ app.get('/account', ensureAuthenticated, async (req, res) => {
           commuteId: activity.id,
           start_latlng: activity.start_latlng,
           end_latlng: activity.end_latlng,
-          isCommute: activity.commute,
-          account: "Charity",
+          isCommute: activity.commute, 
           commuteType: activity.type,
           commuteName: activity.name,
-          commuteDate: activity.start_date
+          commuteDate: activity.start_date,
+          startDateLocal: activity.start_date_local,
+          distance: activity.distance,
+          movingTime: activity.moving_time,
+          elapsedTime: activity.elapsed_time
          });
          
       };
-
+      
    });
    athlete.save();
-    console.log(athlete.commutes);
+    
     console.log(`The number of commutes is ${commuteNumber}`);
 });
   res.render('account', { user: req.user});

@@ -90,6 +90,7 @@ app.configure(function() {
 
 app.get('/', async (req, res) => {
   if(req.user) {
+  if(!Athlete.findOne({id: req.user.id})){
   const athlete = new Athlete({
     id: req.user.id,
     firstName: req.user.name.givenName,
@@ -114,12 +115,12 @@ app.get('/', async (req, res) => {
       distance: bike.distance
     });
   });
-
-  console.log(req.user._json.shoes[0].distance);
-
   await athlete.save();
-  console.log(req.user._json.state);
-  console.log(req.user.id);
+  }
+  else {
+    console.log('already exists');
+  }
+
   console.log(req.user.token);
   }
   res.render('index', { user: req.user });

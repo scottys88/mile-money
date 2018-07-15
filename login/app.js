@@ -87,10 +87,35 @@ app.configure(function() {
   app.use(express.static(__dirname + '/public'));
 });
 
+app.get('/', ensureAuthenticated, async (req, res, next) => {
+  existingUser = await Athlete.findOne({id: req.user.id});
+  if(existingUser) {
+    existingUser = await Athlete.findOneAndUpdate({ id: req.user.id }, {
+      id: req.user.id,
+      firstName: req.user.name.givenName,
+      lastName: req.user.name.familyName,
+      profilePic: req.user.photos[0].value,
+      city: req.user._json.city,
+      state: req.user._json.state,
+      country: req.user._json.country,
+      gender: req.user._json.sex,
+      shoes: { 
+        name: req.user._json.shoes.name,
+        distance: req.user._json.shoes.distance
+    }
+  },{upsert: true}).exec();
+    
+    console.log('existing user');
+    res.render('index', { user: req.user });
+  }
+  else {
+    next();
+  }
+  
+});
 
 app.get('/', async (req, res) => {
   if(req.user) {
-  if(!Athlete.findOne({id: req.user.id})){
   const athlete = new Athlete({
     id: req.user.id,
     firstName: req.user.name.givenName,
@@ -115,20 +140,16 @@ app.get('/', async (req, res) => {
       distance: bike.distance
     });
   });
+  console.log("New user");
   await athlete.save();
   }
-  else {
-    console.log('already exists');
-  }
 
-  console.log(req.user.token);
-  }
   res.render('index', { user: req.user });
 });
 
 app.get('/account', ensureAuthenticated, async (req, res) => {
   let athlete = await (Athlete.findOne( {id: req.user.id }));
-
+  console.log(athlete);
   StravaApiV3.athlete.get({'access_token':req.user.token},function(err,payload,limits) {
     //do something with your payload, track rate limits
     

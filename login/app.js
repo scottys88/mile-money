@@ -98,21 +98,34 @@ app.get('/', ensureAuthenticated, async (req, res, next) => {
       city: req.user._json.city,
       state: req.user._json.state,
       country: req.user._json.country,
-      gender: req.user._json.sex,
-      shoes: { 
-        name: req.user._json.shoes.name,
-        distance: req.user._json.shoes.distance
-    }
+      gender: req.user._json.sex
   },{upsert: true}).exec();
-    
     console.log('existing user');
     res.render('index', { user: req.user });
+    next();
   }
   else {
     next();
   }
-  
 });
+
+app.get('/', ensureAuthenticated, async (req, res, next) => { 
+  Athlete.findOne({id: req.user.id}, {}, function (err, athlete) {
+    if (err) {
+      console.log('Error');
+    }
+    else {
+      req.user._json.shoes.forEach(shoe => {
+        athlete.shoes.push({
+          name: shoe.name,
+          distance: shoe.distance
+        });
+      });
+  };
+  res.render('index', { user: req.user });
+  });
+});
+
 
 app.get('/', async (req, res) => {
   if(req.user) {

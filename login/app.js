@@ -87,49 +87,49 @@ app.configure(function() {
   app.use(express.static(__dirname + '/public'));
 });
 
+// app.get('/', ensureAuthenticated, async (req, res, next) => {
+//   existingUser = await Athlete.findOne({id: req.user.id});
+//   if(existingUser) {
+//     existingUser = await Athlete.findOneAndUpdate({ id: req.user.id }, {
+//       id: req.user.id,
+//       firstName: req.user.name.givenName,
+//       lastName: req.user.name.familyName,
+//       profilePic: req.user.photos[0].value,
+//       city: req.user._json.city,
+//       state: req.user._json.state,
+//       country: req.user._json.country,
+//       gender: req.user._json.sex
+//   },{upsert: true}).exec();
+//     console.log('existing user');
+//     res.render('index', { user: req.user });
+//     next();
+//   }
+//   else {
+//     next();
+//   }
+// });
+
+// app.get('/', ensureAuthenticated, async (req, res, next) => { 
+//   Athlete.findOne({id: req.user.id}, {}, function (err, athlete) {
+//     if (err) {
+//       console.log('Error');
+//     }
+//     else {
+//       req.user._json.shoes.forEach(shoe => {
+//         athlete.shoes.push({
+//           name: shoe.name,
+//           distance: shoe.distance
+//         });
+//       });
+//   };
+//   res.render('index', { user: req.user });
+//   });
+// });
+
+
 app.get('/', ensureAuthenticated, async (req, res, next) => {
-  existingUser = await Athlete.findOne({id: req.user.id});
-  if(existingUser) {
-    existingUser = await Athlete.findOneAndUpdate({ id: req.user.id }, {
-      id: req.user.id,
-      firstName: req.user.name.givenName,
-      lastName: req.user.name.familyName,
-      profilePic: req.user.photos[0].value,
-      city: req.user._json.city,
-      state: req.user._json.state,
-      country: req.user._json.country,
-      gender: req.user._json.sex
-  },{upsert: true}).exec();
-    console.log('existing user');
-    res.render('index', { user: req.user });
-    next();
-  }
-  else {
-    next();
-  }
-});
-
-app.get('/', ensureAuthenticated, async (req, res, next) => { 
-  Athlete.findOne({id: req.user.id}, {}, function (err, athlete) {
-    if (err) {
-      console.log('Error');
-    }
-    else {
-      req.user._json.shoes.forEach(shoe => {
-        athlete.shoes.push({
-          name: shoe.name,
-          distance: shoe.distance
-        });
-      });
-  };
-  res.render('index', { user: req.user });
-  });
-});
-
-
-app.get('/', async (req, res) => {
   if(req.user) {
-  const athlete = new Athlete({
+  const athlete = await Athlete.findOneAndUpdate({ id: req.user.id },{
     id: req.user.id,
     firstName: req.user.name.givenName,
     lastName: req.user.name.familyName,
@@ -138,26 +138,36 @@ app.get('/', async (req, res) => {
     state: req.user._json.state,
     country: req.user._json.country,
     gender: req.user._json.sex,
-  });
+  }, { upsert: true} ).exec();
 
-  req.user._json.shoes.forEach(shoe => {
-    athlete.shoes.push({
-      name: shoe.name,
-      distance: shoe.distance
-    });
-  });
 
-    req.user._json.bikes.forEach(bike => {
-    athlete.bikes.push({
-      name: bike.name,
-      distance: bike.distance
-    });
-  });
-  console.log("New user");
-  await athlete.save();
+  // await athlete.save();
+  next();
   }
-
   res.render('index', { user: req.user });
+});
+
+app.get('/', ensureAuthenticated, async (req, res, next) => {
+
+   let athlete =  await Athlete.findOne({ id: req.user._json.id });
+   let stravaShoes = req.user._json.shoes;
+   console.log(stravaShoes.length);
+
+   for(i = 0; i <= stravaShoes.length; i++){
+   Athlete.findOneAndUpdate({ "shoes.$.id": stravaShoes[i].id}, {
+     $push: {
+       shoes: {
+         id: stravaShoes[i].id,
+         name: stravaShoes[i].name,
+         distance: stravaShoes[i].distance
+       } 
+     }
+   })
+   console.log(stravaShoes[0].name);
+   }
+
+
+   res.render('index', { user: req.user });
 });
 
 app.get('/account', ensureAuthenticated, async (req, res) => {

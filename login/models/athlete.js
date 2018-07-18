@@ -41,11 +41,13 @@ const settingsSchema = new Schema({
 });
 
 const shoeSchema = new Schema({
+    id: String,
     name: String,
     distance: Number
 });
 
 const bikeSchema = new Schema({
+    id: String,
     name: String,
     distance: Number
 });

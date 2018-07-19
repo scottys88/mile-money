@@ -41,7 +41,11 @@ const settingsSchema = new Schema({
 });
 
 const shoeSchema = new Schema({
-    id: String,
+    id: {
+        type: String,
+        unique: true,
+        sparese: true
+    },
     name: String,
     distance: Number
 });
@@ -73,7 +77,7 @@ const athleteSchema = new Schema({
 });
 
 
-
+const Shoes = mongoose.model('Shoes', shoeSchema);
 const Athlete = mongoose.model('Athlete', athleteSchema);
 
 module.exports = Athlete;

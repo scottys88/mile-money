@@ -7,6 +7,7 @@ var express = require('express')
   , promisify = require('es6-promisify')
   , mocha = require('mocha');
 const Athlete = require('./models/athlete');
+const Shoe = require('./models/athlete');
 mongoose.Promise = global.Promise;
 
 require('dotenv').config({ path: 'process.env' });
@@ -129,6 +130,7 @@ app.configure(function() {
 
 app.get('/', ensureAuthenticated, async (req, res, next) => {
   if(req.user) {
+  
   const athlete = await Athlete.findOneAndUpdate({ id: req.user.id },{
     id: req.user.id,
     firstName: req.user.name.givenName,
@@ -137,7 +139,7 @@ app.get('/', ensureAuthenticated, async (req, res, next) => {
     city: req.user._json.city,
     state: req.user._json.state,
     country: req.user._json.country,
-    gender: req.user._json.sex,
+    gender: req.user._json.sex
   }, { upsert: true} ).exec();
 
 
@@ -149,22 +151,43 @@ app.get('/', ensureAuthenticated, async (req, res, next) => {
 
 app.get('/', ensureAuthenticated, async (req, res, next) => {
 
-   let athlete =  await Athlete.findOne({ id: req.user._json.id });
-   let stravaShoes = req.user._json.shoes;
-   console.log(stravaShoes.length);
+  const athlete = await Athlete.find({ id: req.user.id });
+  const stravaShoes = req.user._json.shoes;
+  console.log(athlete);
+  console.log(stravaShoes.length);
 
-   for(i = 0; i <= stravaShoes.length; i++){
-   Athlete.findOneAndUpdate({ "shoes.$.id": stravaShoes[i].id}, {
-     $push: {
-       shoes: {
-         id: stravaShoes[i].id,
-         name: stravaShoes[i].name,
-         distance: stravaShoes[i].distance
-       } 
-     }
-   })
-   console.log(stravaShoes[0].name);
-   }
+//https://stackoverflow.com/questions/45353560/how-do-i-update-sub-document-with-save-function-in-mongoose
+  for(i = 0; i <= stravaShoes.length; i++) {
+      // let currentAthleteShoe = athlete.shoes[i];
+      let currentShoeFromStrava = stravaShoes[i];
+      Shoe.update({ "shoes.$.id": currentShoeFromStrava.id }, {
+        
+          id: currentShoeFromStrava.id,
+          name: currentShoeFromStrava.name,
+          distance: currentShoeFromStrava.distance
+        
+      }, {upsert: true}, function(err, raw) {
+        if(err) return;
+        
+        console.log(raw);
+      })
+  };
+
+
+
+
+  //  for(i = 0; i <= stravaShoes.length; i++){
+  //  Athlete.findOneAndUpdate({ "shoes.$.id": stravaShoes[i].id}, {
+  //    $push: {
+  //      shoes: {
+  //        id: stravaShoes[i].id,
+  //        name: stravaShoes[i].name,
+  //        distance: stravaShoes[i].distance
+  //      } 
+  //    }
+  //  })
+  //  console.log(stravaShoes[0].name);
+  //  }
 
 
    res.render('index', { user: req.user });

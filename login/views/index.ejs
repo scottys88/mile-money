@@ -3,6 +3,11 @@
 <% } else { %>
 	<h2>Hello, <%= user.displayName %>.</h2>
 	<p>
-		<%= user %>
+		Total number of commutes is:
+		<%= athlete.commutes.length %>
+		<% if(athlete.settings.length >= 1) { %>	
+		Total saved from commuting is: 
+		<%= parseFloat(athlete.settings[0].totalCost) * parseFloat(athlete.commutes.length) %>
+		<% } %>
 	</p>
 <% } %>

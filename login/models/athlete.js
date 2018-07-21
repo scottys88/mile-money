@@ -3,9 +3,9 @@ const Schema = mongoose.Schema;
 
 const commuteSchema = new Schema({
     commuteId: {
-        type: String,
+        type: Number,
         unique: true,
-        required: true,
+        dropDups: true,
         sparse: true
     },
     start_latlng : [],
@@ -52,7 +52,12 @@ const shoeSchema = new Schema({
 });
 
 const bikeSchema = new Schema({
-    id: String,
+    id: {
+        type: String,
+        unique: true,
+        sparse: true,
+        dropDups: true
+    },
     name: String,
     distance: Number
 });

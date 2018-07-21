@@ -141,15 +141,14 @@ app.get('/', ensureAuthenticated, async (req, res, next) => {
     country: req.user._json.country,
     gender: req.user._json.sex,
     shoes: [],
-    bikes: [],
-    settings: []
+    bikes: []
   }, { upsert: true} ).exec();
 
 
   // await athlete.save();
   next();
   }
-  res.render('index', { user: req.user });
+  res.render('index', { user: req.user, athlete });
 });
 
 
@@ -166,13 +165,28 @@ if(req.user) {
       });
     };
     athlete.save();
-
-
-    Athlete.findOne({  })
-
-
+    next();
    res.render('index', { user: req.user });
 });
+
+app.get('/', ensureAuthenticated, async (req, res, next) => {
+
+if(req.user) {
+      athlete = await Athlete.findOne({ id: req.user.id});
+      req.user._json.bikes.forEach(bike => {
+        athlete.bikes.push({
+          name: bike.name,
+          distance: bike.distance,
+          id: bike.id
+        });
+      });
+    };
+    athlete.save();
+   res.render('index', { user: req.user });
+});
+
+
+
 
 app.get('/account', ensureAuthenticated, async (req, res) => {
   let athlete = await (Athlete.findOne( {id: req.user.id }));
@@ -181,16 +195,11 @@ app.get('/account', ensureAuthenticated, async (req, res) => {
     //do something with your payload, track rate limits
     
   });
-
-  
-
   StravaApiV3.athlete.listActivities({'access_token':req.user.token,
       'resource_state':3},function(err,payload,limits) {
     //do something with your payload, track rate limits
     stravaActivities = payload;
     let commuteNumber = 0;
-   
-    
     console.log(req.user.id);
     stravaActivities.forEach(activity => {
       if(activity.commute === true) {

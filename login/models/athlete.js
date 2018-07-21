@@ -44,7 +44,8 @@ const shoeSchema = new Schema({
     id: {
         type: String,
         unique: true,
-        sparese: true
+        sparse: true,
+        dropDups: true
     },
     name: String,
     distance: Number

@@ -139,7 +139,10 @@ app.get('/', ensureAuthenticated, async (req, res, next) => {
     city: req.user._json.city,
     state: req.user._json.state,
     country: req.user._json.country,
-    gender: req.user._json.sex
+    gender: req.user._json.sex,
+    shoes: [],
+    bikes: [],
+    settings: []
   }, { upsert: true} ).exec();
 
 
@@ -149,45 +152,23 @@ app.get('/', ensureAuthenticated, async (req, res, next) => {
   res.render('index', { user: req.user });
 });
 
+
 app.get('/', ensureAuthenticated, async (req, res, next) => {
 
-  const athlete = await Athlete.find({ id: req.user.id });
-  const stravaShoes = req.user._json.shoes;
-  console.log(athlete);
-  console.log(stravaShoes.length);
-
-//https://stackoverflow.com/questions/45353560/how-do-i-update-sub-document-with-save-function-in-mongoose
-  for(i = 0; i <= stravaShoes.length; i++) {
-      // let currentAthleteShoe = athlete.shoes[i];
-      let currentShoeFromStrava = stravaShoes[i];
-      Shoe.update({ "shoes.$.id": currentShoeFromStrava.id }, {
-        
-          id: currentShoeFromStrava.id,
-          name: currentShoeFromStrava.name,
-          distance: currentShoeFromStrava.distance
-        
-      }, {upsert: true}, function(err, raw) {
-        if(err) return;
-        
-        console.log(raw);
-      })
-  };
+if(req.user) {
+      athlete = await Athlete.findOne({ id: req.user.id});
+      req.user._json.shoes.forEach(shoe => {
+        athlete.shoes.push({
+          name: shoe.name,
+          distance: shoe.distance,
+          id: shoe.id
+        });
+      });
+    };
+    athlete.save();
 
 
-
-
-  //  for(i = 0; i <= stravaShoes.length; i++){
-  //  Athlete.findOneAndUpdate({ "shoes.$.id": stravaShoes[i].id}, {
-  //    $push: {
-  //      shoes: {
-  //        id: stravaShoes[i].id,
-  //        name: stravaShoes[i].name,
-  //        distance: stravaShoes[i].distance
-  //      } 
-  //    }
-  //  })
-  //  console.log(stravaShoes[0].name);
-  //  }
+    Athlete.findOne({  })
 
 
    res.render('index', { user: req.user });

@@ -2,10 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const commuteSchema = new Schema({
+    _id: false,
     commuteId: {
-        type: String,
+        type: Number,
         unique: true,
-        dropDups: true,
         sparse: true
     },
     start_latlng : [],
@@ -22,6 +22,10 @@ const commuteSchema = new Schema({
     startDateLocal: Date,
     commuteType: String,
     commuteName: String,
+    commuteCosts: {
+        type: String,
+        default: 'Running commute'
+    },
     distance: Number,
     movingTime: Number,
     elapsedTime: Number
@@ -82,7 +86,7 @@ const athleteSchema = new Schema({
     bikes: [bikeSchema]
 });
 
-
+const Commutes = mongoose.model('Commutes', commuteSchema);
 const Shoes = mongoose.model('Shoes', shoeSchema);
 const Athlete = mongoose.model('Athlete', athleteSchema);
 

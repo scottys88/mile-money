@@ -186,47 +186,87 @@ if(req.user) {
 });
 
 
-
-
 app.get('/account', ensureAuthenticated, async (req, res) => {
-  let athlete = await (Athlete.findOne( {id: req.user.id }));
-  console.log(athlete);
   StravaApiV3.athlete.get({'access_token':req.user.token},function(err,payload,limits) {
     //do something with your payload, track rate limits
-    
   });
   StravaApiV3.athlete.listActivities({'access_token':req.user.token,
-      'resource_state':3},function(err,payload,limits) {
-    //do something with your payload, track rate limits
-    stravaActivities = payload;
-    let commuteNumber = 0;
-    console.log(req.user.id);
+        'resource_state':3},function(err,payload,limits) {
+      //do something with your payload, track rate limits
+      stravaActivities = payload;
+
     stravaActivities.forEach(activity => {
       if(activity.commute === true) {
-        commuteNumber += 1;
-        athlete.commutes.push( { 
-          commuteId: activity.id,
-          start_latlng: activity.start_latlng,
-          end_latlng: activity.end_latlng,
-          isCommute: activity.commute, 
-          commuteType: activity.type,
-          commuteName: activity.name,
-          commuteDate: activity.start_date,
-          startDateLocal: activity.start_date_local,
-          distance: activity.distance,
-          movingTime: activity.moving_time,
-          elapsedTime: activity.elapsed_time
-         });
-         
-      };
-      
-   });
-   athlete.save();
-    
-    console.log(`The number of commutes is ${commuteNumber}`);
+      let athlete = Athlete.update( {id: req.user.id },
+      { $addToSet: 
+        { commutes: { $each: [ {
+            commuteId: activity.id,
+            start_latlng: activity.start_latlng,
+            end_latlng: activity.end_latlng,
+            isCommute: activity.commute, 
+            commuteType: activity.type,
+            commuteName: activity.name,
+            commuteDate: activity.start_date,
+            startDateLocal: activity.start_date_local,
+            distance: activity.distance,
+            movingTime: activity.moving_time,
+            elapsedTime: activity.elapsed_time
+      }] } } 
+      }).exec(); 
+    }
+  });
 });
+  
+  
+
+  console.log(athlete);
+
+
+
   res.render('account', { user: req.user});
 });
+
+
+
+// app.get('/account', ensureAuthenticated, async (req, res) => {
+//   let athlete = await (Athlete.findOne( {id: req.user.id }));
+//   console.log(athlete);
+//   StravaApiV3.athlete.get({'access_token':req.user.token},function(err,payload,limits) {
+//     //do something with your payload, track rate limits
+    
+//   });
+//   StravaApiV3.athlete.listActivities({'access_token':req.user.token,
+//       'resource_state':3},function(err,payload,limits) {
+//     //do something with your payload, track rate limits
+//     stravaActivities = payload;
+//     let commuteNumber = 0;
+
+//     stravaActivities.forEach(activity => {
+//       if(activity.commute === true) {
+//         commuteNumber += 1;
+//         athlete.commutes.push( { 
+//           commuteId: activity.id,
+//           start_latlng: activity.start_latlng,
+//           end_latlng: activity.end_latlng,
+//           isCommute: activity.commute, 
+//           commuteType: activity.type,
+//           commuteName: activity.name,
+//           commuteDate: activity.start_date,
+//           startDateLocal: activity.start_date_local,
+//           distance: activity.distance,
+//           movingTime: activity.moving_time,
+//           elapsedTime: activity.elapsed_time
+//          });
+         
+//       };
+      
+//    });
+//    athlete.save();
+    
+//     console.log(`The number of commutes is ${commuteNumber}`);
+// });
+//   res.render('account', { user: req.user});
+// });
 
 
 

@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const commuteSchema = new Schema({
     commuteId: {
-        type: Number,
+        type: String,
         unique: true,
         dropDups: true,
         sparse: true

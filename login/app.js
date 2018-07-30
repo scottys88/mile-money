@@ -103,9 +103,7 @@ app.get('/', ensureAuthenticated, async (req, res, next) => {
     country: req.user._json.country,
     gender: req.user._json.sex,
     shoes: [],
-    bikes: [],
-    wishList: [],
-    accounts: []
+    bikes: []
   }, { upsert: true} ).exec();
 
 
@@ -199,7 +197,7 @@ app.post('/commute-costs', async (req, res) => {
   }, 
   {
     $push: {
-      settings: {
+      commuteCosts: {
         userCommute: req.body.userCommute,
         fuel: req.body.fuel,
         bus: req.body.bus,
@@ -236,6 +234,27 @@ app.post('/wishlist', async (req, res) => {
 
   }).exec();
   res.render('wishlist', { user: req.user});
+});
+
+
+app.get('/accounts', ensureAuthenticated, function(req, res, next){
+  res.render('accounts', { user: req.user});
+});
+
+app.post('/accounts', async (req, res) => {
+  const newAccount = await Athlete.findOneAndUpdate({
+    id: req.user.id
+  }, 
+  {
+    $push: {
+      accounts: {
+        accountName: req.body.accountName,
+        accountNotes: req.body.accountNotes
+      }
+    }
+
+  }).exec();
+  res.render('accounts', { user: req.user});
 });
 
 

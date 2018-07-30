@@ -5,9 +5,9 @@
 	<p>
 		Total number of commutes is:
 		<%= athlete.commutes.length %>
-		<% if(athlete.settings.length >= 1) { %>	
+		<% if(athlete.commuteCosts.length > 0) { %>	
 		Total saved from commuting is: 
-		<%= parseFloat(athlete.settings[0].totalCost) * parseFloat(athlete.commutes.length) %>
+		<%= parseFloat(athlete.commuteCosts[0].totalCost) * parseFloat(athlete.commutes.length) %>
 		<% } %>
 	</p>
 <% } %>

@@ -33,7 +33,7 @@ const commuteSchema = new Schema({
 
 });
 
-const settingsSchema = new Schema({
+const commuteCostSchema = new Schema({
    userCommute: String,
    fuel: Number,
    bus: Number,
@@ -94,7 +94,7 @@ const athleteSchema = new Schema({
     country: String,
     gender: String,
     commutes: [commuteSchema],
-    settings: [settingsSchema],
+    commuteCosts: [commuteCostSchema],
     shoes: [shoeSchema],
     bikes: [bikeSchema],
     wishList: [wishListSchema],
@@ -107,7 +107,7 @@ const athleteSchema = new Schema({
 
 
 
-const Commutes = mongoose.model('Commutes', commuteSchema);
+const Commutes = mongoose.model('Commutes', commuteCostSchema);
 const Shoes = mongoose.model('Shoes', shoeSchema);
 const Athlete = mongoose.model('Athlete', athleteSchema);
 

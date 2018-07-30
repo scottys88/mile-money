@@ -48,6 +48,7 @@ const shoeSchema = new Schema({
     id: {
         type: String,
         unique: true,
+        _id: false,
         sparse: true,
         dropDups: true
     },
@@ -64,6 +65,18 @@ const bikeSchema = new Schema({
     },
     name: String,
     distance: Number
+});
+
+const wishListSchema = new Schema({
+    itemName: String,
+    itemCost: Number,
+    itemURL: String,
+    tags: [String]
+});
+
+const accountSchema = new Schema({
+    accountName: String,
+    accountNotes: String
 });
 
 const athleteSchema = new Schema({
@@ -83,8 +96,16 @@ const athleteSchema = new Schema({
     commutes: [commuteSchema],
     settings: [settingsSchema],
     shoes: [shoeSchema],
-    bikes: [bikeSchema]
+    bikes: [bikeSchema],
+    wishList: [wishListSchema],
+    accounts: [accountSchema]
 });
+
+
+
+
+
+
 
 const Commutes = mongoose.model('Commutes', commuteSchema);
 const Shoes = mongoose.model('Shoes', shoeSchema);

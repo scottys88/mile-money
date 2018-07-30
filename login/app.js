@@ -8,6 +8,7 @@ var express = require('express')
   , mocha = require('mocha');
 const Athlete = require('./models/athlete');
 const Shoe = require('./models/athlete');
+
 mongoose.Promise = global.Promise;
 
 require('dotenv').config({ path: 'process.env' });
@@ -88,45 +89,6 @@ app.configure(function() {
   app.use(express.static(__dirname + '/public'));
 });
 
-// app.get('/', ensureAuthenticated, async (req, res, next) => {
-//   existingUser = await Athlete.findOne({id: req.user.id});
-//   if(existingUser) {
-//     existingUser = await Athlete.findOneAndUpdate({ id: req.user.id }, {
-//       id: req.user.id,
-//       firstName: req.user.name.givenName,
-//       lastName: req.user.name.familyName,
-//       profilePic: req.user.photos[0].value,
-//       city: req.user._json.city,
-//       state: req.user._json.state,
-//       country: req.user._json.country,
-//       gender: req.user._json.sex
-//   },{upsert: true}).exec();
-//     console.log('existing user');
-//     res.render('index', { user: req.user });
-//     next();
-//   }
-//   else {
-//     next();
-//   }
-// });
-
-// app.get('/', ensureAuthenticated, async (req, res, next) => { 
-//   Athlete.findOne({id: req.user.id}, {}, function (err, athlete) {
-//     if (err) {
-//       console.log('Error');
-//     }
-//     else {
-//       req.user._json.shoes.forEach(shoe => {
-//         athlete.shoes.push({
-//           name: shoe.name,
-//           distance: shoe.distance
-//         });
-//       });
-//   };
-//   res.render('index', { user: req.user });
-//   });
-// });
-
 
 app.get('/', ensureAuthenticated, async (req, res, next) => {
   if(req.user) {
@@ -141,7 +103,9 @@ app.get('/', ensureAuthenticated, async (req, res, next) => {
     country: req.user._json.country,
     gender: req.user._json.sex,
     shoes: [],
-    bikes: []
+    bikes: [],
+    wishList: [],
+    accounts: []
   }, { upsert: true} ).exec();
 
 
@@ -186,7 +150,7 @@ if(req.user) {
 });
 
 
-app.get('/account', ensureAuthenticated, async (req, res) => {
+app.get('/profile', ensureAuthenticated, async (req, res) => {
   StravaApiV3.athlete.get({'access_token':req.user.token},function(err,payload,limits) {
     //do something with your payload, track rate limits
   });
@@ -216,60 +180,9 @@ app.get('/account', ensureAuthenticated, async (req, res) => {
     }
   });
 });
-  
-  
-
   console.log(athlete);
-
-
-
-  res.render('account', { user: req.user});
+  res.render('profile', { user: req.user});
 });
-
-
-
-// app.get('/account', ensureAuthenticated, async (req, res) => {
-//   let athlete = await (Athlete.findOne( {id: req.user.id }));
-//   console.log(athlete);
-//   StravaApiV3.athlete.get({'access_token':req.user.token},function(err,payload,limits) {
-//     //do something with your payload, track rate limits
-    
-//   });
-//   StravaApiV3.athlete.listActivities({'access_token':req.user.token,
-//       'resource_state':3},function(err,payload,limits) {
-//     //do something with your payload, track rate limits
-//     stravaActivities = payload;
-//     let commuteNumber = 0;
-
-//     stravaActivities.forEach(activity => {
-//       if(activity.commute === true) {
-//         commuteNumber += 1;
-//         athlete.commutes.push( { 
-//           commuteId: activity.id,
-//           start_latlng: activity.start_latlng,
-//           end_latlng: activity.end_latlng,
-//           isCommute: activity.commute, 
-//           commuteType: activity.type,
-//           commuteName: activity.name,
-//           commuteDate: activity.start_date,
-//           startDateLocal: activity.start_date_local,
-//           distance: activity.distance,
-//           movingTime: activity.moving_time,
-//           elapsedTime: activity.elapsed_time
-//          });
-         
-//       };
-      
-//    });
-//    athlete.save();
-    
-//     console.log(`The number of commutes is ${commuteNumber}`);
-// });
-//   res.render('account', { user: req.user});
-// });
-
-
-
 
 
 app.get('/login', function(req, res){
@@ -301,6 +214,31 @@ app.post('/commute-costs', async (req, res) => {
   }).exec();
   res.render('commutes', { user: req.user});
 });
+
+
+app.get('/wishlist', ensureAuthenticated, function(req, res, next){
+  res.render('wishlist', { user: req.user});
+});
+
+app.post('/wishlist', async (req, res) => {
+  const newWishList = await Athlete.findOneAndUpdate({
+    id: req.user.id
+  }, 
+  {
+    $push: {
+      wishList: {
+        itemName: req.body.itemName,
+        itemCost: req.body.itemCost,
+        itemURL: req.body.itemURL,
+        tags: req.body.tags
+      }
+    }
+
+  }).exec();
+  res.render('wishlist', { user: req.user});
+});
+
+
 
 
 // GET /auth/strava

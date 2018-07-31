@@ -1,0 +1,10 @@
+Wish List:
+<% if(athlete && athlete.commutes) { %>
+    <% const commutes = athlete.commutes %>
+    <% commutes.forEach(commute => { %>
+    <div>
+        <h4>Commute</h4>
+        <p>Commute name: <%= commute.commuteName %></p>
+    </div>
+    <% }) %>
+<% } %>

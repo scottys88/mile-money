@@ -164,7 +164,7 @@ app.get('/', ensureAuthenticated, async (req, res, next) => {
 app.get('/', ensureAuthenticated, async (req, res) => {
 
   const athlete = await Athlete.findOne( { id: req.user.id } );
-  console.log(athlete);
+
 
    res.render('index', { user: req.user, athlete });
 });

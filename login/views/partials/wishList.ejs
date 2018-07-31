@@ -1,0 +1,12 @@
+Wish List:
+<% if(athlete && athlete.wishList) { %>
+    <% const wishListItems = athlete.wishList %>
+    <% wishListItems.forEach(item => { %>
+    <div>
+        <h3>Wish list item</h3>
+        <p>Goal name: <%= item.itemName %></p>
+        <p>Goal cost: <%= item.itemCost %></p>
+        <p>url: <%= item.itemURL %></p>
+    </div>
+    <% }) %>
+<% } %>

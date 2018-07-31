@@ -3,11 +3,8 @@
 <% } else { %>
 	<h2>Hello, <%= user.displayName %>.</h2>
 	<p>
-		Total number of commutes is:
-		<%= athlete.commutes.length %>
-		<% if(athlete.commuteCosts.length > 0) { %>	
-		Total saved from commuting is: 
-		<%= parseFloat(athlete.commuteCosts[0].totalCost) * parseFloat(athlete.commutes.length) %>
-		<% } %>
+		
+		<%- include('./partials/welcomeBanner'); -%>
+
 	</p>
 <% } %>

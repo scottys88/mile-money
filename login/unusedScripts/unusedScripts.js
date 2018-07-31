@@ -78,3 +78,22 @@ app.get('/', ensureAuthenticated, async (req, res, next) => {
   res.render('index', { user: req.user });
   });
 });
+
+
+//Previously used script for adding new shoes to an account
+
+// app.get('/', ensureAuthenticated, async (req, res, next) => {
+// if(req.user) {
+//       athlete = await Athlete.findOne({ id: req.user.id});
+//       req.user._json.shoes.forEach(shoe => {
+//         athlete.shoes.push({
+//           name: shoe.name,
+//           distance: shoe.distance,
+//           id: shoe.id
+//         });
+//       });
+//     };
+//     athlete.save();
+//     next();
+//    res.render('index', { user: req.user });
+// });

@@ -109,43 +109,66 @@ app.get('/', ensureAuthenticated, async (req, res, next) => {
 
   // await athlete.save();
   next();
-  }
-  res.render('index', { user: req.user, athlete });
-});
+
+  }}
+);
 
 
 app.get('/', ensureAuthenticated, async (req, res, next) => {
 
+const stravaShoes = req.user._json.shoes;
+
 if(req.user) {
-      athlete = await Athlete.findOne({ id: req.user.id});
-      req.user._json.shoes.forEach(shoe => {
-        athlete.shoes.push({
-          name: shoe.name,
-          distance: shoe.distance,
-          id: shoe.id
-        });
-      });
-    };
-    athlete.save();
+    const stravaShoes = req.user._json.shoes;
+      stravaShoes.forEach(shoe => {
+      let athlete = Athlete.update({ id: req.user.id}, 
+        { $addToSet:
+          { shoes: { $each: [ { 
+              name: shoe.name,
+              distance: shoe.distance,
+              id: shoe.id
+        }] } } 
+      }).exec();
+    }
+  )
+  next();
+}
+
+
+
+});
+
+
+
+app.get('/', ensureAuthenticated, async (req, res, next) => {
+
+    if(req.user) {
+        const stravaBikes = req.user._json.bikes;
+          stravaBikes.forEach(bike => {
+          let athlete = Athlete.update({ id: req.user.id}, 
+            { $addToSet:
+              { bikes: { $each: [ { 
+                  name: bike.name,
+                  distance: bike.distance,
+                  id: bike.id
+            }] } } 
+          }).exec();
+        }
+
+    )
     next();
-   res.render('index', { user: req.user });
+  }
+
 });
 
-app.get('/', ensureAuthenticated, async (req, res, next) => {
+app.get('/', ensureAuthenticated, async (req, res) => {
 
-if(req.user) {
-      athlete = await Athlete.findOne({ id: req.user.id});
-      req.user._json.bikes.forEach(bike => {
-        athlete.bikes.push({
-          name: bike.name,
-          distance: bike.distance,
-          id: bike.id
-        });
-      });
-    };
-    athlete.save();
-   res.render('index', { user: req.user });
+  const athlete = await Athlete.findOne( { id: req.user.id } );
+  console.log(athlete);
+
+   res.render('index', { user: req.user, athlete });
 });
+
 
 
 app.get('/profile', ensureAuthenticated, async (req, res) => {
@@ -178,7 +201,6 @@ app.get('/profile', ensureAuthenticated, async (req, res) => {
     }
   });
 });
-  console.log(athlete);
   res.render('profile', { user: req.user});
 });
 

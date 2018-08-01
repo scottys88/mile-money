@@ -7,6 +7,7 @@ Wish List:
         <p>Goal name: <%= item.itemName %></p>
         <p>Goal cost: <%= item.itemCost %></p>
         <p>url: <%= item.itemURL %></p>
+        <a href=<%= `/wishlist/${ item._id }` %>>Edit</a>
     </div>
     <% }) %>
 <% } %>

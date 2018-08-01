@@ -259,6 +259,14 @@ app.post('/wishlist', async (req, res) => {
 });
 
 
+app.get('/wishlist/:id', ensureAuthenticated, async (req, res) => {
+  const athlete = await Athlete.find({ 'wishList._id': req.params.id  }, { 'wishList.$': 1 });
+  const wishListItem = athlete[0].wishList[0];
+  console.log(wishListItem);
+  res.render('wishlist', { user: req.user, wishListItem });
+});
+
+
 app.get('/accounts', ensureAuthenticated, function(req, res, next){
   res.render('accounts', { user: req.user});
 });

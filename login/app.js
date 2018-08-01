@@ -266,6 +266,23 @@ app.get('/wishlist/:id', ensureAuthenticated, async (req, res) => {
   res.render('wishlist', { user: req.user, wishListItem });
 });
 
+app.post('/wishlist/:id', ensureAuthenticated, async (req, res) => {
+  console.log(req.params);
+
+  const wishList = await Athlete.update({ 'wishList._id': req.params.id},
+    {
+      $set: {
+        "wishList.$.itemName": req.body.itemName,
+        "wishList.$.itemCost": req.body.itemCost,
+        "wishList.$.itemURL": req.body.itemURL,
+      }
+    });
+
+  console.log(wishList);
+
+  res.render('commutes', { user: req.user });
+});
+
 
 app.get('/accounts', ensureAuthenticated, function(req, res, next){
   res.render('accounts', { user: req.user});

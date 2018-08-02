@@ -1,4 +1,4 @@
-Wish List:
+
 <% if(athlete && athlete.wishList) { %>
     <% const wishListItems = athlete.wishList %>
     <% wishListItems.forEach(item => { %>
@@ -8,6 +8,7 @@ Wish List:
         <p>Goal cost: <%= item.itemCost %></p>
         <p>url: <%= item.itemURL %></p>
         <a href=<%= `/wishlist/${ item._id }` %>>Edit</a>
+        <a href=<%= `/wishlist/delete/${ item._id }` %>>Delete</a>
     </div>
     <% }) %>
 <% } %>

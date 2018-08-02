@@ -1,38 +1,14 @@
 
-<% if (typeof wishListItem == 'object' && wishListItem) { %>
-<% var wishListItem = wishListItem } %>
-
-<form action= 
-
-    <%= `/wishlist/${wishListItem._id  || ''}` %> method="POST" class="wish-list-form">
-
+<form action="/wishlist" method="POST" class="wish-list-form">
 
 <label for="itemName">Goal Name</label>
-    <input type="text" name="itemName" 
-        <% if (typeof wishListItem == 'object' && wishListItem) { %>
-             value= "<%= wishListItem.itemName %>"
-        <% } else { %>
-            value=""
-        <% } %>  
-    >
+    <input type="text" name="itemName">
 
 <label for="itemCost">Goal Cost</label>
-    <input type="text" name="itemCost" 
-        <% if (typeof wishListItem == 'object' && wishListItem) { %>
-            value="<%= wishListItem.itemCost %>"
-            <% } else { %>
-            value=""
-        <% } %>  
-        >
+    <input type="text" name="itemCost">
 
 <label for="itemURL">Item web address</label>
-    <input type="text" name="itemURL" 
-        <% if (typeof wishListItem == 'object' && wishListItem) { %>
-            value="<%= wishListItem.itemURL %>"
-            <% } else { %>
-            value=""
-        <% } %>  
-        >
+    <input type="text" name="itemURL">
 
 <p>Tags</p>
 

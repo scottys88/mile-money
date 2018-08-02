@@ -263,8 +263,9 @@ app.get('/wishlist/:id', ensureAuthenticated, async (req, res) => {
   const athlete = await Athlete.find({ 'wishList._id': req.params.id  }, { 'wishList.$': 1 });
   const wishListItem = athlete[0].wishList[0];
   console.log(wishListItem);
-  res.render('wishlist', { user: req.user, wishListItem });
+  res.render('wishlistEdit', { user: req.user, wishListItem });
 });
+
 
 app.post('/wishlist/:id', ensureAuthenticated, async (req, res) => {
   console.log(req.params);
@@ -277,10 +278,25 @@ app.post('/wishlist/:id', ensureAuthenticated, async (req, res) => {
         "wishList.$.itemURL": req.body.itemURL,
       }
     });
-
   console.log(wishList);
 
-  res.render('commutes', { user: req.user });
+  res.redirect('/');
+});
+
+app.get('/wishlist/delete/:id', ensureAuthenticated, async (req, res) => {
+  console.log(req.params);
+  console.log(req.body);
+
+  const deletedItem = await Athlete.update({ 'wishList._id': req.params.id},
+    {
+      $pull: {
+        wishList: {
+          _id: req.params.id
+        } 
+      }
+    });
+
+  res.redirect('/');
 });
 
 

@@ -1,0 +1,45 @@
+
+<form action= 
+
+    <%= `/wishlist/${wishListItem._id  || ''}` %> method="POST" class="wish-list-form">
+
+
+<label for="itemName">Goal Name</label>
+    <input type="text" name="itemName" 
+        <% if (typeof wishListItem == 'object' && wishListItem) { %>
+             value= "<%= wishListItem.itemName %>"
+        <% } else { %>
+            value=""
+        <% } %>  
+    >
+
+<label for="itemCost">Goal Cost</label>
+    <input type="text" name="itemCost" 
+        <% if (typeof wishListItem == 'object' && wishListItem) { %>
+            value="<%= wishListItem.itemCost %>"
+            <% } else { %>
+            value=""
+        <% } %>  
+        >
+
+<label for="itemURL">Item web address</label>
+    <input type="text" name="itemURL" 
+        <% if (typeof wishListItem == 'object' && wishListItem) { %>
+            value="<%= wishListItem.itemURL %>"
+            <% } else { %>
+            value=""
+        <% } %>  
+        >
+
+<p>Tags</p>
+
+<% var tags= ['Holiday', 'Electronics', 'Something'] %>
+<ul class="tags">
+    <% tags.forEach(tag => { %>
+    <li><%= tag %></li>
+    <% }); %>
+</ul>
+
+<input type="submit" value="Save" class="button">
+
+</form>

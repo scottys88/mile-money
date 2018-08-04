@@ -165,6 +165,20 @@ app.get('/', ensureAuthenticated, async (req, res) => {
 
   const athlete = await Athlete.findOne( { id: req.user.id } );
 
+  const athleteCommutes = athlete.commutes.length;
+  const athleteWishListItems = athlete.wishList;
+  let totalRedeemed;
+
+  athleteWishListItems.forEach(item => {
+    if(item.redeemed === true) {
+      totalRedeemed += item.itemCost;
+    };
+  })
+
+  console.log(`Total value redeemed is ${totalRedeemed}`);
+
+  console.log(athleteWishListItems);
+
 
    res.render('index', { user: req.user, athlete });
 });
@@ -250,7 +264,8 @@ app.post('/wishlist', async (req, res) => {
         itemName: req.body.itemName,
         itemCost: req.body.itemCost,
         itemURL: req.body.itemURL,
-        tags: req.body.tags
+        tags: req.body.tags,
+        redeemed: false
       }
     }
 

@@ -71,7 +71,8 @@ const wishListSchema = new Schema({
     itemName: String,
     itemCost: Number,
     itemURL: String,
-    tags: [String]
+    tags: [String],
+    redeemed: Boolean
 });
 
 const accountSchema = new Schema({

@@ -167,12 +167,13 @@ app.get('/', ensureAuthenticated, async (req, res) => {
 
   const athleteCommutes = athlete.commutes.length;
   const athleteWishListItems = athlete.wishList;
-  let totalRedeemed;
+  let totalRedeemed = 0;
 
   athleteWishListItems.forEach(item => {
     if(item.redeemed === true) {
       console.log(item.itemCost);
       totalRedeemed += item.itemCost;
+      console.log(totalRedeemed);
     };
   })
 
@@ -181,7 +182,7 @@ app.get('/', ensureAuthenticated, async (req, res) => {
   console.log(athleteWishListItems);
 
 
-   res.render('index', { user: req.user, athlete });
+   res.render('index', { user: req.user, athlete, totalRedeemed });
 });
 
 

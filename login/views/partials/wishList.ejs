@@ -9,6 +9,7 @@
         <p>url: <%= item.itemURL %></p>
         <a href=<%= `/wishlist/${ item._id }` %>>Edit</a>
         <a href=<%= `/wishlist/delete/${ item._id }` %>>Delete</a>
+        <a href=<%= `/wishlist/redeem/${ item._id }` %>>Redeem</a>
     </div>
     <% }) %>
 <% } %>

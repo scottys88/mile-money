@@ -171,6 +171,7 @@ app.get('/', ensureAuthenticated, async (req, res) => {
 
   athleteWishListItems.forEach(item => {
     if(item.redeemed === true) {
+      console.log(item.itemCost);
       totalRedeemed += item.itemCost;
     };
   })
@@ -308,6 +309,20 @@ app.get('/wishlist/delete/:id', ensureAuthenticated, async (req, res) => {
         wishList: {
           _id: req.params.id
         } 
+      }
+    });
+
+  res.redirect('/');
+});
+
+app.get('/wishlist/redeem/:id', ensureAuthenticated, async (req, res) => {
+  console.log(req.params);
+  console.log(req.body);
+
+  const redeemedItem = await Athlete.updateOne({ 'wishList._id': req.params.id},
+    {
+      $set: {
+        "wishList.$.redeemed": true 
       }
     });
 

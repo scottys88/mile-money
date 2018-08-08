@@ -165,7 +165,7 @@ app.get('/', ensureAuthenticated, async (req, res) => {
 
   const athlete = await Athlete.findOne( { id: req.user.id } );
 
-  const athleteCommutes = athlete.commutes.length;
+  const athleteCommutes = athlete.commutes;
   const athleteWishListItems = athlete.wishList;
   let totalRedeemed = 0;
 
@@ -176,6 +176,9 @@ app.get('/', ensureAuthenticated, async (req, res) => {
       console.log(totalRedeemed);
     };
   })
+
+  
+
 
   console.log(`Total value redeemed is ${totalRedeemed}`);
 

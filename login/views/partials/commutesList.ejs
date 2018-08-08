@@ -4,7 +4,14 @@ Commute list:
     <% commutes.forEach(commute => { %>
     <div>
         <h4>Commute</h4>
+        <p><%= commute.commuteDate %></p>
+        <p>Mile Money: <%= athlete.commuteCosts[0].totalCost %></p>
+        <p>Mile Money account: <%= commute.account %></p>
+        <p>Commute cost used: <%= commute.commuteCosts %></p>
         <p>Commute name: <%= commute.commuteName %></p>
+        <p>Commute type: <%= commute.commuteType %></p>
+        <p>Commute distance: <%= commute.distance / 1000 %></p>
+        <a href=<%= `/commute/${ commute.commuteId }` %>>Edit</a>
     </div>
     <% }) %>
 <% } %>

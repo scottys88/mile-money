@@ -166,7 +166,9 @@ app.get('/', ensureAuthenticated, async (req, res) => {
   const athlete = await Athlete.findOne( { id: req.user.id } );
 
   const athleteCommutes = athlete.commutes;
+  const commuteCosts = athlete.commuteCosts;
   const athleteWishListItems = athlete.wishList;
+  const athleteAccounts = athlete.accounts;
   let totalRedeemed = 0;
 
   athleteWishListItems.forEach(item => {
@@ -176,6 +178,23 @@ app.get('/', ensureAuthenticated, async (req, res) => {
       console.log(totalRedeemed);
     };
   })
+
+  athleteCommutes.forEach(commute => {
+    commuteCosts.forEach(cost => {
+      if(commute.commuteCosts == cost.userCommute) {
+        console.log(`Match: ${cost.totalCost}`);
+        athleteAccounts.forEach(account => {
+          if(commute.account == account.accountName) {
+            console.log(`Matched to the account ${account.accountName}`);
+          }
+        })
+        console.log(`Add to the account: `)
+      }
+      else {
+        console.log("no matches")
+      }
+    });
+  });
 
   
 

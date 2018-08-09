@@ -9,10 +9,4 @@ Total number of commutes is:
         Total redeemed Mile Money: <%= totalRedeemed %>
 
     </p>
-    <h3>Accounts</h3>
-    <% if (athlete.accounts.length >= 1) { %>
-    <%  athlete.accounts.forEach(account => { %>
-    <p>Account: <%= account.accountName %></p>
-    <p>Commutes:</p>
-    <% })} %>
 <% } %>

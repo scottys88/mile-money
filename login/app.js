@@ -170,6 +170,7 @@ app.get('/', ensureAuthenticated, async (req, res) => {
   const athleteWishListItems = athlete.wishList;
   const athleteAccounts = athlete.accounts;
   let totalRedeemed = 0;
+  
 
   athleteWishListItems.forEach(item => {
     if(item.redeemed === true) {
@@ -185,7 +186,12 @@ app.get('/', ensureAuthenticated, async (req, res) => {
         console.log(`Match: ${cost.totalCost}`);
         athleteAccounts.forEach(account => {
           if(commute.account == account.accountName) {
+            let accountTotal = account.accountBalance;
+            console.log(accountTotal);
+            
+            accountTotal += cost.totalCost;
             console.log(`Matched to the account ${account.accountName}`);
+            console.log(`total account balance ${accountTotal}`);
           }
         })
         console.log(`Add to the account: `)
@@ -365,7 +371,8 @@ app.post('/accounts', async (req, res) => {
     $push: {
       accounts: {
         accountName: req.body.accountName,
-        accountNotes: req.body.accountNotes
+        accountNotes: req.body.accountNotes,
+        accountBalance
       }
     }
 

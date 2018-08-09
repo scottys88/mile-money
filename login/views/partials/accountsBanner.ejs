@@ -1,0 +1,47 @@
+<% const athleteCommutes = athlete.commutes; %>
+<% const commuteCosts = athlete.commuteCosts; %>
+<% const athleteWishListItems = athlete.wishList; %>
+<% const athleteAccounts = athlete.accounts; %>
+<% let totalRedeemed = 0; %>
+
+<% athleteWishListItems.forEach(item => { %>
+    <%   if(item.redeemed === true) { %>
+        <%    console.log(item.itemCost); %>
+        <%    totalRedeemed += item.itemCost; %>
+        <%    console.log(totalRedeemed); %>
+        <%   }; %>
+        <% }) %>
+
+        <% athleteCommutes.forEach(commute => { %>
+            <%  commuteCosts.forEach(cost => { %>
+                <%   if(commute.commuteCosts == cost.userCommute) { %>
+                    <%     console.log(`Match: ${cost.totalCost}`); %>
+                    <%     athleteAccounts.forEach(account => { %>
+                        <%       if(commute.account == account.accountName) { %>
+                            <%     account.accountBalance += cost.totalCost    %>
+                            <%       } %>
+                        <%     }) %>
+                    <%     console.log(`Add to the account: `) %>
+                <%   } else { %>
+            <%    console.log("no matches") %>
+        <%     } %>
+    <%  }); %>
+<% }); %>
+
+
+
+
+
+
+Total number of commutes is:
+<% if(athlete) { %>
+    <h3>Accounts</h3>
+    <% if (athlete.accounts.length >= 1) { %>
+    <%  athlete.accounts.forEach(account => { %>
+    <p>Account: <%= account.accountName %></p>
+    <p>Commutes:</p>
+    <p>Mile Money in this account: <%= account.accountBalance %></p>
+    <% })} %>
+<% } %>
+
+

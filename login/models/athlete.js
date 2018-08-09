@@ -78,7 +78,10 @@ const wishListSchema = new Schema({
 const accountSchema = new Schema({
     accountName: String,
     accountNotes: String,
-    accountBalance: Number
+    accountBalance: { 
+        type: Number,
+        default: 0
+    }
 });
 
 const athleteSchema = new Schema({

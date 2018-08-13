@@ -4,6 +4,7 @@
 <% const athleteAccounts = athlete.accounts; %>
 <% let totalRedeemed = 0; %>
 
+
 <% athleteWishListItems.forEach(item => { %>
     <%   if(item.redeemed === true) { %>
         <%    console.log(item.itemCost); %>
@@ -11,7 +12,7 @@
         <%    console.log(totalRedeemed); %>
         <%   }; %>
         <% }) %>
-
+  
         <% athleteCommutes.forEach(commute => { %>
             <%  commuteCosts.forEach(cost => { %>
                 <%   if(commute.commuteCosts == cost.userCommute) { %>
@@ -26,11 +27,7 @@
             <%    console.log("no matches") %>
         <%     } %>
     <%  }); %>
-<% }); %>
-
-
-
-
+  <% }); %>
 
 
 Total number of commutes is:

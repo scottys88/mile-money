@@ -161,6 +161,20 @@ app.get('/', ensureAuthenticated, async (req, res, next) => {
 
 });
 
+app.get('/', ensureAuthenticated, async (req, res, next) => {
+
+  let athlete = await Athlete.findOne( { id: req.user.id } );
+  const athleteCommutes = athlete.commutes;
+  const commuteCosts = athlete.commuteCosts;
+  const athleteAccounts = athlete.accounts;
+    
+  console.log(athlete.accounts);
+
+  
+next();
+});
+
+
 app.get('/', ensureAuthenticated, async (req, res) => {
 
   const athlete = await Athlete.findOne( { id: req.user.id } );
@@ -180,35 +194,7 @@ app.get('/', ensureAuthenticated, async (req, res) => {
     };
   })
 
-  athleteCommutes.forEach(commute => {
-    commuteCosts.forEach(cost => {
-      if(commute.commuteCosts == cost.userCommute) {
-        console.log(`Match: ${cost.totalCost}`);
-        athleteAccounts.forEach(account => {
-          if(commute.account == account.accountName) {
-            let accountTotal = account.accountBalance;
-            console.log(accountTotal);
-            
-            accountTotal += cost.totalCost;
-            console.log(`Matched to the account ${account.accountName}`);
-            console.log(`total account balance ${accountTotal}`);
-          }
-        })
-        console.log(`Add to the account: `)
-      }
-      else {
-        console.log("no matches")
-      }
-    });
-  });
-
-  
-
-
   console.log(`Total value redeemed is ${totalRedeemed}`);
-
-  console.log(athleteWishListItems);
-
 
    res.render('index', { user: req.user, athlete, totalRedeemed });
 });
@@ -372,7 +358,7 @@ app.post('/accounts', async (req, res) => {
       accounts: {
         accountName: req.body.accountName,
         accountNotes: req.body.accountNotes,
-        accountBalance
+        accountBalance: 0
       }
     }
 

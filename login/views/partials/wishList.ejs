@@ -7,6 +7,7 @@
         <p>Goal name: <%= item.itemName %></p>
         <p>Goal cost: <%= item.itemCost %></p>
         <p>url: <%= item.itemURL %></p>
+        <p>Redeemed: <%= item.redeemed %></p>
         <a href=<%= `/wishlist/${ item._id }` %>>Edit</a>
         <a href=<%= `/wishlist/delete/${ item._id }` %>>Delete</a>
         <a href=<%= `/wishlist/redeem/${ item._id }` %>>Redeem</a>

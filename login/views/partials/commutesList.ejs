@@ -5,7 +5,11 @@ Commute list:
     <div>
         <h4>Commute</h4>
         <p><%= commute.commuteDate %></p>
-        <p>Mile Money: <%= athlete.commuteCosts[0].totalCost %></p>
+
+        <% athlete.commuteCosts.forEach(cost => { %>
+        <% if(cost.userCommute == commute.commuteCosts) { %>
+        <p>Mile Money: <%= cost.totalCost %></p>
+        <% } } ) %>
         <p>Mile Money account: <%= commute.account %></p>
         <p>Commute cost used: <%= commute.commuteCosts %></p>
         <p>Commute name: <%= commute.commuteName %></p>

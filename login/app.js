@@ -230,22 +230,26 @@ for (var i=0,c;c=array[i];++i) {
         sum[c[0]][1] += c[1];
     }
 }
-accountValues = Object.keys(sum).map(function(val) { return sum[val]});
 
+
+accountValues = Object.keys(sum).map(function(val) { return sum[val]});
 console.log((JSON.stringify(accountValues)));
 
-const reducer = (accumulator, currentValue) => accumulator[1] + currentValue[1];
-var mileMoneyBalance = accountValues.reduce(reducer);
+var balance = array.map(x => x[1]);
+
+const reducer = (accumulator, currentValue) => accumulator + currentValue;
+var mileMoneyBalance = balance.reduce(reducer);
+
+
   
   
   athleteWishListItems.forEach(item => {
     if(item.redeemed === true) {
       console.log(item.itemCost);
       totalRedeemed += item.itemCost;
-      console.log(totalRedeemed);
     };
   })
-
+  console.log(mileMoneyBalance);
   console.log(`Total value redeemed is ${totalRedeemed}`);
 
    res.render('index', { user: req.user, athlete, totalRedeemed, accountValues, mileMoneyBalance });

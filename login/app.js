@@ -161,18 +161,31 @@ app.get('/', ensureAuthenticated, async (req, res, next) => {
 
 });
 
-app.get('/', ensureAuthenticated, async (req, res, next) => {
+// app.get('/', ensureAuthenticated, async (req, res, next) => {
 
-  let athlete = await Athlete.findOne( { id: req.user.id } );
-  const athleteCommutes = athlete.commutes;
-  const commuteCosts = athlete.commuteCosts;
-  const athleteAccounts = athlete.accounts;
+//   let athlete = await Athlete.findOne( { id: req.user.id } );
+//   const athleteCommutes = athlete.commutes;
+//   const commuteCosts = athlete.commuteCosts;
+//   const athleteAccounts = athlete.accounts;
+//   var array = [];
     
-  console.log(athlete.accounts);
+//   athleteAccounts.forEach(account => {
+//     commuteCosts.forEach(cost => {
+//       athleteCommutes.forEach(commute => {
+//         if((commute.commuteCosts) == cost.userCommute && (commute.account == account.accountName)) {
+          
+//           array.push([account.accountName, cost.totalCost]);
+          
+//         }
+//       })
+//     })
+//   });
+
+//   console.log(array);
 
   
-next();
-});
+// next();
+// });
 
 
 app.get('/', ensureAuthenticated, async (req, res) => {
@@ -184,6 +197,24 @@ app.get('/', ensureAuthenticated, async (req, res) => {
   const athleteWishListItems = athlete.wishList;
   const athleteAccounts = athlete.accounts;
   let totalRedeemed = 0;
+
+  var array = [];
+    
+  athleteAccounts.forEach(account => {
+    commuteCosts.forEach(cost => {
+      athleteCommutes.forEach(commute => {
+        if((commute.commuteCosts) == cost.userCommute && (commute.account == account.accountName)) {
+          
+          array.push([account.accountName, cost.totalCost]);
+          
+        }
+      })
+    })
+  });
+
+  console.log(array);
+  var uniqueAccounts  = [...(new Set(array))];
+  console.log(uniqueAccounts);
   
 
   athleteWishListItems.forEach(item => {

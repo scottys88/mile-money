@@ -212,11 +212,32 @@ app.get('/', ensureAuthenticated, async (req, res) => {
     })
   });
 
-  console.log(array);
-  var uniqueAccounts  = [...(new Set(array))];
-  console.log(uniqueAccounts);
-  
 
+  function onlyUnique(value, index, self) { 
+    return self.indexOf(value) === index;
+  }
+  var uniqueAccounts = array.map(x => x[0]).filter( onlyUnique );
+  console.log(uniqueAccounts);
+
+
+//To calculate the total account value for each unique account https://stackoverflow.com/questions/40055589/how-to-find-sum-of-duplicate-values-in-an-array-using-javascript
+  var sum = {},accountValues;
+for (var i=0,c;c=array[i];++i) {
+    if ( undefined === sum[c[0]] ) {        
+       sum[c[0]] = c;
+    }
+    else {
+        sum[c[0]][1] += c[1];
+    }
+}
+accountValues = Object.keys(sum).map(function(val) { return sum[val]});
+
+console.log((JSON.stringify(accountValues)));
+
+const reducer = (accumulator, currentValue) => accumulator[1] + currentValue[1];
+var mileMoneyBalance = accountValues.reduce(reducer);
+  
+  
   athleteWishListItems.forEach(item => {
     if(item.redeemed === true) {
       console.log(item.itemCost);
@@ -227,7 +248,7 @@ app.get('/', ensureAuthenticated, async (req, res) => {
 
   console.log(`Total value redeemed is ${totalRedeemed}`);
 
-   res.render('index', { user: req.user, athlete, totalRedeemed });
+   res.render('index', { user: req.user, athlete, totalRedeemed, accountValues, mileMoneyBalance });
 });
 
 

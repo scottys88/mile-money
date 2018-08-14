@@ -1,9 +1,10 @@
 Total number of commutes is:
 <% if(athlete) { %>
     <%= athlete.commutes.length %>
-    <% if(athlete.commuteCosts.length >= 1) { %>	
+    <% if(athlete.commuteCosts.length >= 1) { %>
+	
         Your total Mile Money balance is: 
-        <%= (parseFloat(athlete.commuteCosts[0].totalCost) * parseFloat(athlete.commutes.length)) - totalRedeemed %>
+        <%= mileMoneyBalance - totalRedeemed %>
     <% } else { return ;} %>
     <p>
         Total redeemed Mile Money: <%= totalRedeemed %>

@@ -41,4 +41,9 @@ Total number of commutes is:
     <% })} %>
 <% } %>
 
+<% if(accountValues) { %>
+    <% accountValues.forEach(account => { %>
+    <p><%= account[0] %></p>
+    <p><%= account[1] %></p>
+<% })} %>
 

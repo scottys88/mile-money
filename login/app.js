@@ -103,7 +103,8 @@ app.get('/', ensureAuthenticated, async (req, res, next) => {
     country: req.user._json.country,
     gender: req.user._json.sex,
     shoes: [],
-    bikes: []
+    bikes: [],
+    commuteCosts: []
   }, { upsert: true} ).exec();
 
 
@@ -161,31 +162,7 @@ app.get('/', ensureAuthenticated, async (req, res, next) => {
 
 });
 
-// app.get('/', ensureAuthenticated, async (req, res, next) => {
 
-//   let athlete = await Athlete.findOne( { id: req.user.id } );
-//   const athleteCommutes = athlete.commutes;
-//   const commuteCosts = athlete.commuteCosts;
-//   const athleteAccounts = athlete.accounts;
-//   var array = [];
-    
-//   athleteAccounts.forEach(account => {
-//     commuteCosts.forEach(cost => {
-//       athleteCommutes.forEach(commute => {
-//         if((commute.commuteCosts) == cost.userCommute && (commute.account == account.accountName)) {
-          
-//           array.push([account.accountName, cost.totalCost]);
-          
-//         }
-//       })
-//     })
-//   });
-
-//   console.log(array);
-
-  
-// next();
-// });
 
 
 app.get('/', ensureAuthenticated, async (req, res) => {
@@ -212,7 +189,7 @@ app.get('/', ensureAuthenticated, async (req, res) => {
     })
   });
 
-
+  
   function onlyUnique(value, index, self) { 
     return self.indexOf(value) === index;
   }
@@ -313,12 +290,40 @@ app.post('/commute-costs', async (req, res) => {
         timeHours: req.body.timeHours,
         timeMinutes: req.body.timeMinutes,
         train: req.body.train,
+        other: req.body.other,
         totalCost: req.body.totalCost
       }
     }
 
   }).exec();
   res.render('commutes', { user: req.user});
+});
+
+app.get('/commute-costs/edit/:id', ensureAuthenticated, async (req, res) => {
+  const athlete = await Athlete.find({ 'commuteCosts._id': req.params.id  }, { 'commuteCosts.$': 1 });
+  const commuteCostEdit = athlete[0].commuteCosts[0];
+  console.log(commuteCostEdit);
+  res.render('commuteEdit', { user: req.user, commuteCostEdit });
+});
+
+app.post('/commute-costs/edit/:id', ensureAuthenticated, async (req, res) => {
+  console.log(req.params);
+
+  const commuteCost = await Athlete.update({ 'commuteCosts._id': req.params.id},
+    {
+      $set: {
+        "commuteCosts.$.userCommute": req.body.userCommute,
+        "commuteCosts.$.fuel": req.body.fuel,
+        "commuteCosts.$.bus": req.body.bus,
+        "commuteCosts.$.parking": req.body.parking,
+        "commuteCosts.$.train": req.body.train,
+        "commuteCosts.$.other": req.body.other,
+        "commuteCosts.$.totalCost": req.body.totalCost
+      }
+    });
+    console.log(commuteCost);
+
+  res.redirect('/');
 });
 
 

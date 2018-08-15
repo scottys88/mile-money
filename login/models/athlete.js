@@ -24,7 +24,7 @@ const commuteSchema = new Schema({
     commuteName: String,
     commuteCosts: {
         type: String,
-        default: 'Running commute'
+        default: 'Main commute cost'
     },
     distance: Number,
     movingTime: Number,
@@ -34,14 +34,21 @@ const commuteSchema = new Schema({
 });
 
 const commuteCostSchema = new Schema({
-   userCommute: String,
+   userCommute: { 
+       type: String,
+       default: "Main commute cost"
+   },
    fuel: Number,
    bus: Number,
    parking: Number,
    timeHours: Number,
    train: Number,
-   totalCost: Number,
-   timeMinutes: Number
+   totalCost: {
+       type: Number,
+       default: 0
+   },
+   timeMinutes: Number,
+   other: Number
 });
 
 const shoeSchema = new Schema({
@@ -76,7 +83,10 @@ const wishListSchema = new Schema({
 });
 
 const accountSchema = new Schema({
-    accountName: String,
+    accountName: {
+        type: String,
+        default: "Main"
+    },
     accountNotes: String,
     accountBalance: { 
         type: Number,

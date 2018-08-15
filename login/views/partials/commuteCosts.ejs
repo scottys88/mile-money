@@ -1,8 +1,8 @@
 <h2>Commute costs:</h2>
 
 <% if(athlete && athlete.commuteCosts) { %>
-    <p><% athlete.commuteCosts.forEach(cost => { %>
-    Name: <%= cost.userCommute %>
-    Cost: <%= cost.totalCost %>
-    </p>
+    <% athlete.commuteCosts.forEach(cost => { %>
+        <p>Name: <%= cost.userCommute %></p>
+        <p>Cost: <%= cost.totalCost %></p>
+        <a href=<%= `/commute-costs/edit/${ cost._id }` %>>Edit</a>
 <% }) } %>

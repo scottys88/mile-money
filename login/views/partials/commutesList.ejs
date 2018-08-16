@@ -15,7 +15,7 @@ Commute list:
         <p>Commute name: <%= commute.commuteName %></p>
         <p>Commute type: <%= commute.commuteType %></p>
         <p>Commute distance: <%= commute.distance / 1000 %></p>
-        <a href=<%= `/commute/${ commute.commuteId }` %>>Edit</a>
+        <a href=<%= `/commute/edit/${ commute.commuteId }` %>>Edit</a>
     </div>
     <% }) %>
 <% } %>

@@ -1,27 +1,21 @@
 
-<form action="/commute-costs/edit/<%= commuteCostEdit._id %>" method="POST" class="commute-form">
 
-    <label for="userCommute">Commute name</label>
-    <input type="text" value="<%= commuteCostEdit.userCommute %>" name="userCommute">
-
-    <label for="fuel">Fuel</label>
-    <input type="text" value="<%= commuteCostEdit.fuel %>" name="fuel">
-
-    <label for="bus">Bus</label>
-    <input type="text" value="<%= commuteCostEdit.bus %>" name="bus">
-
-    <label for="parking">Parking</label>
-    <input type="text" value="<%= commuteCostEdit.parking %>" name="parking">
-
-    <label for="train">Train</label>
-    <input type="text" value="<%= commuteCostEdit.train %>" name="train">
-
-    <label for="other">Other</label>
-    <input type="text" value="<%= commuteCostEdit.other %>" name="other">
-
-    <label for="totalCost">Total Cost</label>
-    <input type="text" value="<%= commuteCostEdit.totalCost %>" name="totalCost">
-
+<form action="/commute/edit/<%= commute.commuteId %>" method="POST" class="commute-form">
+    <label for="commuteDate">Commute date</label>
+    <input type="text" name="commuteDate" value="<%= commute.commuteDate %>"readonly>
+    <label for="account">Account</label>
+    <input type="text" name="account" readonly>
+    <label for="commuteCosts">Cost for this commute</label>
+    <select>
+      <% person.commuteCosts.forEach(cost => { %>
+        <option name=commuteCosts value="<%= cost.userCommute %>"> <%= cost.userCommute %></option>
+      <% }) %>
+    </select>
+    <label for="commuteName">Commute Name</label>
+    <input type="text" name="commuteName" value="<%= commute.commuteName %>" readonly>
+    <label for="commuteType">Commute Type</label>
+    <input type="text" name="commuteType" value="<%= commute.commuteType %>" readonly>
+    <label for="distance">Commute Distance</label>
+    <input type="text" name="distance" value="<%= commute.distance %>" readonly>
     <input type="submit" value="Save" class="button">
-
-    </form>
+</form>

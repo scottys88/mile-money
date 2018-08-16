@@ -286,7 +286,7 @@ app.get('/login', function(req, res){
 });
 
 app.get('/commute-costs', function(req, res){
-  res.render('commutes', { user: req.user});
+  res.render('commuteCostNew', { user: req.user});
 });
 
 app.post('/commute-costs', async (req, res) => {
@@ -309,14 +309,37 @@ app.post('/commute-costs', async (req, res) => {
     }
 
   }).exec();
-  res.render('commutes', { user: req.user});
+  res.render('commuteCostNew', { user: req.user});
 });
+
+app.get('/commute/edit/:id', ensureAuthenticated, async (req, res) => {
+  const athlete = await Athlete.find({ 'commutes.commuteId': req.params.id  }, { 'commutes.$': 1 });
+  const person = await Athlete.findOne({ 'id': req.user.id  });
+  console.log(person.commuteCosts[0]);
+  const commute = athlete[0].commutes[0];
+  res.render('commuteEdit', { user: req.user, commute, person });
+});
+
+app.post('/commute/edit/:id', async (req, res) => {
+  console.log(req.body.commuteCosts);
+
+  const commute = await Athlete.update({ 'commutes.commuteId': req.params.id},
+    {
+      $set: {
+        "commutes.$.commuteCosts": req.body.commuteCosts
+      }
+    });
+
+
+  res.redirect('/');
+});
+
 
 app.get('/commute-costs/edit/:id', ensureAuthenticated, async (req, res) => {
   const athlete = await Athlete.find({ 'commuteCosts._id': req.params.id  }, { 'commuteCosts.$': 1 });
   const commuteCostEdit = athlete[0].commuteCosts[0];
   console.log(commuteCostEdit);
-  res.render('commuteEdit', { user: req.user, commuteCostEdit });
+  res.render('commuteCostEdit', { user: req.user, commuteCostEdit });
 });
 
 app.post('/commute-costs/edit/:id', ensureAuthenticated, async (req, res) => {

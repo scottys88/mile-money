@@ -1,0 +1,27 @@
+
+<form action="/commute-costs/edit/<%= commuteCostEdit._id %>" method="POST" class="commute-form">
+
+    <label for="userCommute">Commute name</label>
+    <input type="text" value="<%= commuteCostEdit.userCommute %>" name="userCommute">
+
+    <label for="fuel">Fuel</label>
+    <input type="text" value="<%= commuteCostEdit.fuel %>" name="fuel">
+
+    <label for="bus">Bus</label>
+    <input type="text" value="<%= commuteCostEdit.bus %>" name="bus">
+
+    <label for="parking">Parking</label>
+    <input type="text" value="<%= commuteCostEdit.parking %>" name="parking">
+
+    <label for="train">Train</label>
+    <input type="text" value="<%= commuteCostEdit.train %>" name="train">
+
+    <label for="other">Other</label>
+    <input type="text" value="<%= commuteCostEdit.other %>" name="other">
+
+    <label for="totalCost">Total Cost</label>
+    <input type="text" value="<%= commuteCostEdit.totalCost %>" name="totalCost">
+
+    <input type="submit" value="Save" class="button">
+
+    </form>

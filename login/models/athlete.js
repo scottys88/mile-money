@@ -44,8 +44,7 @@ const commuteCostSchema = new Schema({
    timeHours: Number,
    train: Number,
    totalCost: {
-       type: Number,
-       default: 0
+       type: Number
    },
    timeMinutes: Number,
    other: Number
@@ -82,17 +81,16 @@ const wishListSchema = new Schema({
     redeemed: Boolean
 });
 
-const accountSchema = new Schema({
-    accountName: {
-        type: String,
-        default: "Main"
-    },
-    accountNotes: String,
-    accountBalance: { 
-        type: Number,
-        default: 0
-    }
-});
+// const accountSchema = new Schema({
+//     accountName: {
+//         type: String,
+//         default: "Main"
+//     },
+//     accountNotes: String,
+//     accountBalance: { 
+//         type: Number
+//     }
+// });
 
 const athleteSchema = new Schema({
     id: { 
@@ -113,7 +111,10 @@ const athleteSchema = new Schema({
     shoes: [shoeSchema],
     bikes: [bikeSchema],
     wishList: [wishListSchema],
-    accounts: [accountSchema]
+    accounts: {
+        accountName: "Main",
+        type: String
+    }
 });
 
 

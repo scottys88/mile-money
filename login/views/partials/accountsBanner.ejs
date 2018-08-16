@@ -10,40 +10,19 @@
 
 
   
-        <% athleteCommutes.forEach(commute => { %>
-            <%  commuteCosts.forEach(cost => { %>
-                <%   if(commute.commuteCosts == cost.userCommute) { %>
-                    <%     console.log(`Match: ${cost.totalCost}`); %>
-                    <%     athleteAccounts.forEach(account => { %>
-                        <%       if(commute.account == account.accountName) { %>
-                            <%     account.accountBalance += cost.totalCost    %>
-                            <%       } %>
-                        <%     }) %>
-                    <%     console.log(`Add to the account: `) %>
-                <%   } else { %>
-            <%    console.log("no matches") %>
-        <%     } %>
-    <%  }); %>
-  <% }); %>
+    
 
   
 
 
 <% if(athlete) { %>
     <h3>Accounts</h3>
-    <% if (athlete.accounts.length >= 1) { %>
-    <%  athlete.accounts.forEach(account => { %>
-    <p>Account: <%= account.accountName %></p>
-    <% var commutesInAccount = 0 %> 
-    <% athleteCommutes.forEach(commute => { %>
-        <% if(commute.account == account.accountName) { %>
-           <% commutesInAccount++ %>      
-        <% }}) %>
-        <p>Commutes in account: <%= commutesInAccount %></p>
-
-    <p>Mile Money in this account: <%= account.accountBalance %></p>
-    <% })} %>
+    <p>Account: Main</p>
+    <% var commutesInAccount = athlete.commutes.length %> 
+    <p>Commutes in account: <%= commutesInAccount %></p>
+    <p>Mile Money in this account: <%= mileMoneyBalance %></p>
 <% } %>
+
 
 
 

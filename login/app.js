@@ -103,8 +103,7 @@ app.get('/', ensureAuthenticated, async (req, res, next) => {
     country: req.user._json.country,
     gender: req.user._json.sex,
     shoes: [],
-    bikes: [],
-    commuteCosts: []
+    bikes: []
   }, { upsert: true} ).exec();
 
 
@@ -172,52 +171,66 @@ app.get('/', ensureAuthenticated, async (req, res) => {
   const athleteCommutes = athlete.commutes;
   const commuteCosts = athlete.commuteCosts;
   const athleteWishListItems = athlete.wishList;
-  const athleteAccounts = athlete.accounts;
+  // const athleteAccounts = athlete.accounts[0];
   let totalRedeemed = 0;
+  let mileMoneyBalance = 0;
 
   var array = [];
-    
-  athleteAccounts.forEach(account => {
+  
+  athleteCommutes.forEach(commute => {
     commuteCosts.forEach(cost => {
-      athleteCommutes.forEach(commute => {
-        if((commute.commuteCosts) == cost.userCommute && (commute.account == account.accountName)) {
-          
-          array.push([account.accountName, cost.totalCost]);
-          
-        }
-      })
-    })
+      if(commute.commuteCosts == cost.userCommute){
+      mileMoneyBalance += cost.totalCost;
+      console.log(cost.totalCost);
+      console.log(mileMoneyBalance);
+      }
+    });
   });
+  
+  
+
+//   if(commuteCosts.length >= 1) {
+//   athleteAccounts.forEach(account => {
+//     commuteCosts.forEach(cost => {
+//       athleteCommutes.forEach(commute => {
+//         if((commute.commuteCosts) == cost.userCommute && (commute.account == account.accountName)) {
+          
+//           array.push([account.accountName, cost.totalCost]);
+          
+//         }
+//       })
+//     })
+//   });
 
   
-  function onlyUnique(value, index, self) { 
-    return self.indexOf(value) === index;
-  }
-  var uniqueAccounts = array.map(x => x[0]).filter( onlyUnique );
-  console.log(uniqueAccounts);
+//   function onlyUnique(value, index, self) { 
+//     return self.indexOf(value) === index;
+//   }
+//   var uniqueAccounts = array.map(x => x[0]).filter( onlyUnique );
+//   console.log(uniqueAccounts);
 
 
-//To calculate the total account value for each unique account https://stackoverflow.com/questions/40055589/how-to-find-sum-of-duplicate-values-in-an-array-using-javascript
-  var sum = {},accountValues;
-for (var i=0,c;c=array[i];++i) {
-    if ( undefined === sum[c[0]] ) {        
-       sum[c[0]] = c;
-    }
-    else {
-        sum[c[0]][1] += c[1];
-    }
-}
+// //To calculate the total account value for each unique account https://stackoverflow.com/questions/40055589/how-to-find-sum-of-duplicate-values-in-an-array-using-javascript
+//   var sum = {},accountValues;
+// for (var i=0,c;c=array[i];++i) {
+//     if ( undefined === sum[c[0]] ) {        
+//        sum[c[0]] = c;
+//     }
+//     else {
+//         sum[c[0]][1] += c[1];
+//     }
+// }
 
 
-accountValues = Object.keys(sum).map(function(val) { return sum[val]});
-console.log((JSON.stringify(accountValues)));
+// accountValues = Object.keys(sum).map(function(val) { return sum[val]});
+// console.log((JSON.stringify(accountValues)));
 
-var balance = array.map(x => x[1]);
+// var balance = array.map(x => x[1]);
 
-const reducer = (accumulator, currentValue) => accumulator + currentValue;
-var mileMoneyBalance = balance.reduce(reducer);
+// const reducer = (accumulator, currentValue) => accumulator + currentValue;
+// var mileMoneyBalance = balance.reduce(reducer);
 
-
+//   };
   
   
   athleteWishListItems.forEach(item => {
@@ -229,7 +242,7 @@ var mileMoneyBalance = balance.reduce(reducer);
   console.log(mileMoneyBalance);
   console.log(`Total value redeemed is ${totalRedeemed}`);
 
-   res.render('index', { user: req.user, athlete, totalRedeemed, accountValues, mileMoneyBalance });
+   res.render('index', { user: req.user, athlete, totalRedeemed, mileMoneyBalance });
 });
 
 

@@ -6,9 +6,9 @@
     <label for="account">Account</label>
     <input type="text" name="account" readonly>
     <label for="commuteCosts">Cost for this commute</label>
-    <select>
+    <select name=commuteCosts>
       <% person.commuteCosts.forEach(cost => { %>
-        <option name=commuteCosts value="<%= cost.userCommute %>"> <%= cost.userCommute %></option>
+        <option  value="<%= cost.userCommute %>"> <%= cost.userCommute %></option>
       <% }) %>
     </select>
     <label for="commuteName">Commute Name</label>

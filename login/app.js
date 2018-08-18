@@ -5,6 +5,7 @@ var express = require('express')
   , StravaApiV3 = require('strava-v3')
   , mongoose = require('mongoose')
   , promisify = require('es6-promisify')
+  , path = require('path')
   , mocha = require('mocha');
 const Athlete = require('./models/athlete');
 const Shoe = require('./models/athlete');
@@ -86,7 +87,7 @@ app.configure(function() {
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(app.router);
-  app.use(express.static(__dirname + '/public'));
+  app.use(express.static(path.join(__dirname + '/public')));
 });
 
 
@@ -161,7 +162,81 @@ app.get('/', ensureAuthenticated, async (req, res, next) => {
 
 });
 
+app.get('/', ensureAuthenticated, async (req, res, next) => {
+    StravaApiV3.athlete.get({'access_token':req.user.token},function(err,payload,limits) {
+      //do something with your payload, track rate limits
+    });
+    StravaApiV3.athlete.listActivities({'access_token':req.user.token,
+          'resource_state':3},function(err,payload,limits) {
+        //do something with your payload, track rate limits
+        stravaActivities = payload;
 
+      stravaActivities.forEach(activity => {
+        if(activity.commute === true) {
+        let athlete = Athlete.update( {id: req.user.id },
+        { $addToSet: 
+          { commutes: { $each: [ {
+              commuteId: activity.id,
+              start_latlng: activity.start_latlng,
+              end_latlng: activity.end_latlng,
+              isCommute: activity.commute, 
+              commuteType: activity.type,
+              commuteName: activity.name,
+              commuteDate: activity.start_date,
+              startDateLocal: activity.start_date_local,
+              distance: activity.distance,
+              movingTime: activity.moving_time,
+              elapsedTime: activity.elapsed_time
+        }] } } 
+        }).exec(); 
+      }
+    });
+  });
+
+
+  next();
+
+});
+
+app.get('/', ensureAuthenticated, async (req, res, next) => {
+
+  let athlete = await Athlete.aggregate([ { $match: { id: req.user.id } }, 
+    {
+     $unwind: "$commutes" },
+     { $project: { commuteId: "$commutes.commuteId" }},
+     { $group: {
+        _id: { commuteId: "$commuteId" },
+        dups: { $addToSet: "$commuteId" },
+        count: { $sum: 1 }
+        }
+      },
+     {
+      $match:
+        {
+          count: {"$gt": 1}
+        }
+      
+    }
+     
+    ]);
+
+    let duplicates = athlete.map(x => x.dups[0]);
+    console.log(duplicates);
+
+    const deletedItem = await Athlete.updateOne({ 'commutes.commuteId': duplicates[0]},
+    {
+      $pull: {
+        commutes: {
+          commuteId: duplicates[0]
+        } 
+      }
+    });
+
+
+
+  next();
+
+});
 
 
 app.get('/', ensureAuthenticated, async (req, res) => {
@@ -273,7 +348,7 @@ app.get('/profile', ensureAuthenticated, async (req, res) => {
             movingTime: activity.moving_time,
             elapsedTime: activity.elapsed_time
       }] } } 
-      }).exec(); 
+      },{upsert: true}).exec(); 
     }
   });
 });

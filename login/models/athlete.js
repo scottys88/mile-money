@@ -28,7 +28,8 @@ const commuteSchema = new Schema({
     },
     distance: Number,
     movingTime: Number,
-    elapsedTime: Number
+    elapsedTime: Number,
+    updaDate: { type: Date }
 
 
 });

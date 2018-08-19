@@ -1,19 +1,29 @@
 {
   "name": "passport-strava-examples-login",
   "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "build": "webpack"
   },
   "dependencies": {
     "dotenv": "^6.0.0",
     "ejs": ">= 0.0.0",
     "es6-promisify": "^6.0.0",
     "express": "2.x.x",
+    "gulp-sass": "^4.0.1",
+    "lodash": "^4.17.10",
     "mocha": "^5.2.0",
     "mongoose": "^5.2.0",
     "passport": ">= 0.0.0",
     "passport-strava-oauth2": ">= 0.1.1",
     "path": "^0.12.7",
     "strava-v3": "^1.14.0"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.24.6",
+    "gulp": "^3.9.1",
+    "webpack": "^4.16.5",
+    "webpack-cli": "^3.1.0"
   }
 }

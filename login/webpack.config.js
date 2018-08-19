@@ -5,5 +5,15 @@ module.exports = {
   output: {
     filename: 'main.js',
     path: path.resolve(__dirname, './src/dist')
+  },
+  module: {
+    rules: [
+       {
+           test: /\.(png|svg|jpg|gif)$/,
+         use: [
+           'file-loader'
+        ]
+       }
+    ]
   }
 };

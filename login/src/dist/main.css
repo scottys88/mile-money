@@ -1,3 +1,31 @@
-body {
-  font-size: 35px;
-  color: blue; }
+body.login {
+  background: url("./images/loginBg.jpg");
+  background-size: cover;
+  margin: 0;
+  overflow-y: hidden; }
+
+.loginPanel {
+  background-color: rgba(32, 32, 32, 0.836);
+  width: 33%;
+  height: 100vh;
+  display: flex;
+  padding: 50px; }
+  .loginPanel .innerContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center; }
+    .loginPanel .innerContent .iconRow {
+      display: flex;
+      justify-content: space-between; }
+      .loginPanel .innerContent .iconRow img {
+        padding: 15px; }
+    .loginPanel .innerContent .introText {
+      color: white;
+      text-align: center; }
+  .loginPanel .poweredByStrava {
+    width: 200px;
+    position: absolute;
+    bottom: 0;
+    left: 0; }

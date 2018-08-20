@@ -173,7 +173,7 @@ app.get('/', ensureAuthenticated, async (req, res, next) => {
 
       stravaActivities.forEach(activity => {
         if(activity.commute === true) {
-        let athlete = Athlete.update( {id: req.user.id },
+          let athlete = Athlete.update( {id: req.user.id, 'commutes.commuteId': { $ne: activity.id} },
         { $addToSet: 
           { commutes: { $each: [ {
               commuteId: activity.id,
@@ -333,7 +333,7 @@ app.get('/profile', ensureAuthenticated, async (req, res) => {
 
     stravaActivities.forEach(activity => {
       if(activity.commute === true) {
-      let athlete = Athlete.update( {id: req.user.id },
+      let athlete = Athlete.update( {id: req.user.id, 'commutes.$.commuteId': { $ne: activity.id} },
       { $addToSet: 
         { commutes: { $each: [ {
             commuteId: activity.id,

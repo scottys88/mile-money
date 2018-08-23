@@ -1,4 +1,5 @@
 @import "@material/drawer/mdc-drawer";
+@import "@material/top-app-bar/mdc-top-app-bar";
 
 body.login {
     // background: url('./images/loginBg.jpg');
@@ -8,7 +9,7 @@ body.login {
 }
 .loginPanel {
     background-color: rgba(32, 32, 32, 0.836);
-    width: 33%;
+    width: 50%;
     height: 100vh;
     
     display: flex;

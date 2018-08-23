@@ -24,6 +24,7 @@
     "webpack-dev-server": "^2.11.2"
   },
   "dependencies": {
-    "@material/drawer": "^0.38.0"
+    "@material/drawer": "^0.38.0",
+    "@material/top-app-bar": "^0.38.1"
   }
 }

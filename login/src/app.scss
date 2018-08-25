@@ -1,5 +1,28 @@
 @import "@material/drawer/mdc-drawer";
 @import "@material/top-app-bar/mdc-top-app-bar";
+@import "@material/list/mdc-list";
+@import "@material/ripple/mdc-ripple";
+.my-ripple {
+    @include mdc-ripple-surface;
+    @include mdc-ripple-radius-bounded;
+    @include mdc-states;
+}
+
+
+$mdc-theme-primary: #6200ee !default; // baseline purple, 500 tone
+$mdc-theme-on-primary: if(mdc-theme-contrast-tone($mdc-theme-primary) == "dark", #000, #fff) !default;
+$mdc-theme-accent: #018786 !default; // baseline teal, 600 tone
+$mdc-theme-secondary: $mdc-theme-accent !default;
+$mdc-theme-on-secondary: if(mdc-theme-contrast-tone($mdc-theme-secondary) == "dark", #000, #fff) !default;
+$mdc-theme-background: #fff !default; // White
+$mdc-theme-surface: #fff !default;
+$mdc-theme-on-surface: if(mdc-theme-contrast-tone($mdc-theme-surface) == "dark", #000, #fff) !default;
+
+
+body {
+    font-family: 'Lato', sans-serif;
+}
+
 
 body.login {
     // background: url('./images/loginBg.jpg');
@@ -9,7 +32,7 @@ body.login {
 }
 .loginPanel {
     background-color: rgba(32, 32, 32, 0.836);
-    width: 50%;
+    width: 25%;
     height: 100vh;
     
     display: flex;

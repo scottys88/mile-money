@@ -21,6 +21,7 @@ $mdc-theme-on-surface: if(mdc-theme-contrast-tone($mdc-theme-surface) == "dark",
 
 body {
     font-family: 'Lato', sans-serif;
+
 }
 
 
@@ -65,4 +66,8 @@ body.login {
         left: 0;
     }
 
+}
+
+.wrapper {
+    display: grid;
 }

@@ -139,26 +139,3 @@ console.log(athleteWishListItems);
 
 
 
-<% athleteWishListItems.forEach(item => { %>
-  <%   if(item.redeemed === true) { %>
-      <%    console.log(item.itemCost); %>
-      <%    totalRedeemed += item.itemCost; %>
-      <%    console.log(totalRedeemed); %>
-      <%   }; %>
-      <% }) %>
-
-      <% athleteCommutes.forEach(commute => { %>
-          <%  commuteCosts.forEach(cost => { %>
-              <%   if(commute.commuteCosts == cost.userCommute) { %>
-                  <%     console.log(`Match: ${cost.totalCost}`); %>
-                  <%     athleteAccounts.forEach(account => { %>
-                      <%       if(commute.account == account.accountName) { %>
-                          <%     account.accountBalance += cost.totalCost    %>
-                          <%       } %>
-                      <%     }) %>
-                  <%     console.log(`Add to the account: `) %>
-              <%   } else { %>
-          <%    console.log("no matches") %>
-      <%     } %>
-  <%  }); %>
-<% }); %>

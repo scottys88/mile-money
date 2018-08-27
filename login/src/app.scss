@@ -2,6 +2,7 @@
 @import "@material/top-app-bar/mdc-top-app-bar";
 @import "@material/list/mdc-list";
 @import "@material/ripple/mdc-ripple";
+
 .my-ripple {
     @include mdc-ripple-surface;
     @include mdc-ripple-radius-bounded;
@@ -21,9 +22,13 @@ $mdc-theme-on-surface: if(mdc-theme-contrast-tone($mdc-theme-surface) == "dark",
 
 body {
     font-family: 'Lato', sans-serif;
-
+    margin: 0;
+    
 }
 
+header.mdc-top-app-bar  {   
+        position: relative;  
+}
 
 body.login {
     // background: url('./images/loginBg.jpg');
@@ -70,4 +75,19 @@ body.login {
 
 .wrapper {
     display: grid;
+    grid-gap: 20px;
+    position: relative;
+    z-index: 4;
+    grid-template-areas: 
+        "left main right";
+    grid-template-columns: [left] 300px [main] 1fr [right] 300px;
+    .left {
+        grid-area: left;
+    }
+    .main {
+        grid-area: main;
+    }
+    .right {
+        grid-area: right;
+    }
 }

@@ -51,7 +51,27 @@
         
     <div class="wrapper">
       <div class="left">
-        <p>Left</p>
+          <div class="mdc-card athlete-card">
+              <div class="athlete-card-profile-image">
+                <img src="https://graph.facebook.com/656033073/picture?height=256&width=256">
+              </div>
+              <div class="card-inner athlete-card-inner">
+                <p class="athlete-card-inner--profile-name">Scott Schubert</p>
+                <p class="athlete-card-inner--profile-location">Adelaide, Australia</p>
+                <div class="athlete-card-inner-stats">
+                  <div class="icon-value-label athlete-card-inner-stats-commutes">
+                      <i class="icon material-icons mdc-list-item__graphic" aria-hidden="true">accessibility_new</i>
+                      <span class="value commutes-value">55</span>
+                      <span class="label commutes-label">Commutes</span>
+                  </div>
+                  <div class="icon-value-label athlete-card-inner-stats-commutes">
+                      <i class="icon material-icons mdc-list-item__graphic" aria-hidden="true">accessibility_new</i>
+                      <span class="value commutes-value">55</span>
+                      <span class="label commutes-label">Commutes</span>
+                  </div>
+                </div>
+              </div>
+          </div>
       </div>
       <div class="main">
         <p>Centre</p>
@@ -59,20 +79,37 @@
       <div class="right">
         <p>right</p>
       </div>
-      <div class="mdc-tab-bar" role="tablist">
+      <div class="mobile-tabs mdc-tab-bar" role="tablist">
           <div class="mdc-tab-scroller">
             <div class="mdc-tab-scroller__scroll-area">
               <div class="mdc-tab-scroller__scroll-content">
                 <button class="mdc-tab mdc-tab--active" role="tab" aria-selected="true" tabindex="0">
                   <div class="mdc-tab__content">
-                    <span class="mdc-tab__icon">heart</span>
-                    <span class="mdc-tab__text-label">Favorites</span>
+                    <span class="mdc-tab__text-label">Accounts</span>
                   </div>
                   <span class="mdc-tab-indicator mdc-tab-indicator--active">
                     <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
                   </span>
                   <div class="mdc-tab__ripple"></div>
                 </button>
+                <button class="mdc-tab mdc-tab--active" role="tab" aria-selected="true" tabindex="0">
+                    <div class="mdc-tab__content">
+                      <span class="mdc-tab__text-label">Wish List</span>
+                    </div>
+                    <span class="mdc-tab-indicator mdc-tab-indicator--active">
+                      <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                    </span>
+                    <div class="mdc-tab__ripple"></div>
+                </button>
+                <button class="mdc-tab mdc-tab--active" role="tab" aria-selected="true" tabindex="0">
+                    <div class="mdc-tab__content">
+                      <span class="mdc-tab__text-label">Commute Costs</span>
+                    </div>
+                    <span class="mdc-tab-indicator mdc-tab-indicator--active">
+                      <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                    </span>
+                    <div class="mdc-tab__ripple"></div>
+                  </button>
               </div>
             </div>
           </div>

@@ -12,6 +12,7 @@ $mdc-theme-on-secondary: #442b2d;
 @import "@material/tab-scroller/mdc-tab-scroller";
 @import "@material/tab-indicator/mdc-tab-indicator";
 @import "@material/tab/mdc-tab";
+@import "@material/card/mdc-card";
 
 .my-ripple {
     @include mdc-ripple-surface;
@@ -91,6 +92,9 @@ body.login {
     .right {
         grid-area: right;
     }
+    .mobile-tabs {
+        display: none;
+    }
     @media only screen and (max-width: 1199px){
         grid-template-columns: [left] 200px [main] 1fr [right] 200px;
     }
@@ -101,6 +105,63 @@ body.login {
         "left"
         "right";
         grid-template-columns: 1fr;
+        .mobile-tabs {
+            display: inline-block;
+        }
+        .left {
+            display: none;
+        }
+        .right {
+            display: none;
+        }
+    }
+    .athlete-card {
+        min-height: 300px;
+        max-width: 250px;
+        margin-top: 25%;
+        display: flex;
+        justify-items: center;
+        align-items: center;
+        .athlete-card-profile-image {
+            border-radius: 50%;
+            text-align: center;
+            display: inline-block;
+            img {
+                max-width: 50%;
+                margin-top: -20%;
+                border: 5px solid black;
+            }
+        }
+        .athlete-card-inner-stats {
+            display: grid;
+            grid-gap: 40px;
+            grid-template-columns: 1fr 1fr;
+            
+        }
+    }
+}
+
+.card-inner {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+   align-items: center;
+}
+
+.icon-value-label {
+    display: grid;
+    grid-template-areas: 
+        "icon value"
+        "label label";
+    grid-template-columns: 25px 25px;
+    .icon {
+        grid-area: icon;
+    }
+    .value {
+        grid-area: value;
+    }
+    .label {
+        grid-area: label;
     }
 }
 

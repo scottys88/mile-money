@@ -8,6 +8,10 @@ $mdc-theme-on-secondary: #442b2d;
 @import "@material/top-app-bar/mdc-top-app-bar";
 @import "@material/list/mdc-list";
 @import "@material/ripple/mdc-ripple";
+@import "@material/tab-bar/mdc-tab-bar";
+@import "@material/tab-scroller/mdc-tab-scroller";
+@import "@material/tab-indicator/mdc-tab-indicator";
+@import "@material/tab/mdc-tab";
 
 .my-ripple {
     @include mdc-ripple-surface;
@@ -87,4 +91,17 @@ body.login {
     .right {
         grid-area: right;
     }
+    @media only screen and (max-width: 1199px){
+        grid-template-columns: [left] 200px [main] 1fr [right] 200px;
+    }
+
+    @media only screen and (max-width: 767px){
+        grid-template-areas: 
+        "main"
+        "left"
+        "right";
+        grid-template-columns: 1fr;
+    }
 }
+
+

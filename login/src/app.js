@@ -12,4 +12,6 @@ document.querySelector('.menu').addEventListener('click', () => drawer.open = tr
 const surface = document.querySelectorAll('.my-surface');
 surface.forEach(item => new MDCRipple(item));
 
-console.log('yo');
+import {MDCTabBar} from '@material/tab-bar';
+
+const tabBar = new MDCTabBar(document.querySelector('.mdc-tab-bar'));

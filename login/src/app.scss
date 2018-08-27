@@ -136,8 +136,9 @@ body.login {
         }
         .athlete-card-inner-stats {
             display: grid;
-            grid-gap: 40px;
-            grid-template-columns: 1fr 1fr;   
+            grid-gap: 30px;
+            grid-template-columns: auto auto;  
+
         }
         .strava-link {
             font-size: 0.85em;
@@ -169,6 +170,7 @@ body.login {
     }
     .label {
         grid-area: label;
+        font-size: 0.8em;
     }
 }
 .icon-value-label-centre {
@@ -176,15 +178,60 @@ body.login {
 }
 
 .commute-cost-card {
-    min-height: 185px;
+    min-height: 150px;
     max-width: 250px;
+    margin-top: 20px;
     .commute-cost-card-inner {
     
     display: flex;
     justify-items: center;
     align-items: center;
     position: relative;
-    margin-top: 20px;
+    
     }
 }
 
+.main {
+    .main-balance {
+        .main-balance-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+}
+
+.mdc-icon-button {
+    border: none;
+    background: none;
+}
+
+.accounts-layout {
+    display: grid;
+    grid: auto-flow / 50% 1fr;
+    grid-gap: 20px;
+    .account-card {
+        min-height: 150px;
+        .account-card-inner {
+            display: grid;
+            grid-template-rows: 80px 80px;
+            grid-gap: 20px;
+            justify-content: center;
+            .account-card-inner-stats {
+                display: grid;
+                grid-gap: 30px;
+                grid-template-columns: auto auto;  
+            }
+        }
+    }
+}
+
+.card-new {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(161, 161, 161);
+    i {
+        font-size: 3em;
+    }
+}

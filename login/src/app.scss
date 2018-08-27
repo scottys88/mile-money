@@ -1,3 +1,9 @@
+$mdc-theme-primary: #fcb8ab;
+$mdc-theme-secondary: #feeae6;
+$mdc-theme-on-primary: #442b2d;
+$mdc-theme-on-secondary: #442b2d;
+
+
 @import "@material/drawer/mdc-drawer";
 @import "@material/top-app-bar/mdc-top-app-bar";
 @import "@material/list/mdc-list";
@@ -9,15 +15,6 @@
     @include mdc-states;
 }
 
-
-$mdc-theme-primary: #6200ee !default; // baseline purple, 500 tone
-$mdc-theme-on-primary: if(mdc-theme-contrast-tone($mdc-theme-primary) == "dark", #000, #fff) !default;
-$mdc-theme-accent: #018786 !default; // baseline teal, 600 tone
-$mdc-theme-secondary: $mdc-theme-accent !default;
-$mdc-theme-on-secondary: if(mdc-theme-contrast-tone($mdc-theme-secondary) == "dark", #000, #fff) !default;
-$mdc-theme-background: #fff !default; // White
-$mdc-theme-surface: #fff !default;
-$mdc-theme-on-surface: if(mdc-theme-contrast-tone($mdc-theme-surface) == "dark", #000, #fff) !default;
 
 
 body {

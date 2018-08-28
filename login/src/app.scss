@@ -14,6 +14,7 @@ $mdc-theme-on-secondary: #442b2d;
 @import "@material/tab-indicator/mdc-tab-indicator";
 @import "@material/tab/mdc-tab";
 @import "@material/card/mdc-card";
+@import "@material/chips/mdc-chips";
 
 .my-ripple {
     @include mdc-ripple-surface;
@@ -187,6 +188,7 @@ body.login {
     min-height: 150px;
     max-width: 250px;
     margin-top: 20px;
+    position: relative;
     .commute-cost-card-inner {
     
     display: flex;
@@ -218,11 +220,13 @@ body.login {
     grid-gap: 20px;
     .account-card {
         min-height: 150px;
+        position: relative;
         .account-card-inner {
             display: grid;
             grid-template-rows: 80px 80px;
             grid-gap: 20px;
             justify-content: center;
+            margin: 10px 0;
             .account-card-inner-stats {
                 display: grid;
                 grid-gap: 30px;
@@ -232,12 +236,52 @@ body.login {
     }
 }
 
+.wishlist-layout {
+    display: grid;
+    grid: auto-flow / 50% 1fr;
+    grid-gap: 20px;
+    
+    .wishlist-card {
+        min-height: 150px;
+        position: relative;
+        .wishlist-card-inner {
+            display: grid;
+            grid-template-rows: 80px 80px;
+            grid-gap: 20px;
+            justify-content: center;
+            margin: 10px 0;
+            .wishlist-card-inner-stats {
+                display: grid;
+                grid-gap: 30px;
+                grid-template-columns: auto auto;  
+            }
+        }
+    }
+}
+
+.add-new-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    min-height: 150px;
+}
+
 .card-new {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
+    height: 100%;
     background-color: rgb(161, 161, 161);
     i {
         font-size: 3em;
     }
+}
+
+.delete-item {
+    position: absolute;
+    right: 15px;
+    top: 5px;
 }

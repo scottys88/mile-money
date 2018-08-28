@@ -259,6 +259,49 @@ body.login {
     }
 }
 
+.commute-layout {
+    display: grid;
+    grid-gap: 20px;
+    .commute-card {
+        .commute-card-inner {
+            .commute-card-inner-visible-stats {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                position: relative;
+                .share-commute {
+                    position: absolute;
+                    left: 5px;
+                    bottom: 5px;
+                }
+                .expand-commute {
+                    i {
+                    position: absolute;
+                    right: 5px;
+                    bottom: 5px;
+                    }
+                }
+            }
+            .commute-card-inner-hidden-stats {
+                display: none;
+                opacity: 0;
+                position: relative;
+                top: -100%;
+                transition: all 1s;
+                &.expanded {
+                    display: inline-block;
+                    opacity: 1;
+                    top: 0;
+                    transition: all 1s;
+                    i {
+                        transform: rotate(180deg);
+                    }
+                }
+            }
+        }
+    }
+}
+
 .add-new-link {
     display: flex;
     justify-content: center;

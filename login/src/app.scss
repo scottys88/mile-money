@@ -1,7 +1,8 @@
-$mdc-theme-primary: #fcb8ab;
+$mdc-theme-primary: #797979;
 $mdc-theme-secondary: #feeae6;
 $mdc-theme-on-primary: #442b2d;
 $mdc-theme-on-secondary: #442b2d;
+
 
 
 @import "@material/drawer/mdc-drawer";
@@ -37,42 +38,47 @@ body.login {
     background-size: cover;
     margin: 0;
     overflow-y: hidden;
+    display: grid;
 }
-.loginPanel {
-    background-color: rgba(32, 32, 32, 0.836);
-    width: 25%;
-    height: 100vh;
-    
-    display: flex;
-    padding: 50px;
-    .innerContent {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        align-content: center;
+.login-wrapper {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    .loginPanel {
+        background-color: rgba(32, 32, 32, 0.836);
         
-        .iconRow {
+        height: 100vh;
+        
+        display: flex;
+        padding: 50px;
+        .innerContent {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+            
+            .iconRow {
+                display: flex;
+                justify-content: space-between;
 
-            img {
-                padding: 15px;
+                img {
+                    padding: 15px;
+                }
             }
+            .introText {
+                color: white;
+                text-align: center;
+            }
+
         }
-        .introText {
-            color: white;
-            text-align: center;
+        .poweredByStrava {
+            width: 200px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
         }
 
     }
-    .poweredByStrava {
-        width: 200px;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-    }
-
 }
 
 .wrapper {

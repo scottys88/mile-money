@@ -316,7 +316,6 @@ app.get('/', ensureAuthenticated, async (req, res) => {
   })
   console.log(mileMoneyBalance);
   console.log(`Total value redeemed is ${totalRedeemed}`);
-
    res.render('index', { user: req.user, athlete, totalRedeemed, mileMoneyBalance });
 });
 

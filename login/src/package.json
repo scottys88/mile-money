@@ -30,6 +30,7 @@
     "@material/layout-grid": "^0.34.0",
     "@material/list": "^0.38.1",
     "@material/ripple": "^0.38.1",
+    "@material/tab": "^0.39.0",
     "@material/tab-bar": "^0.38.1",
     "@material/textfield": "^0.39.0",
     "@material/top-app-bar": "^0.38.1",

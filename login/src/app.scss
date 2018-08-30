@@ -1,3 +1,4 @@
+.mdc-text-field:not(.mdc-text-field--disabled) {background-color: white !important;}
 $mdc-theme-primary: #797979;
 $mdc-theme-secondary: #feeae6;
 $mdc-theme-on-primary: #442b2d;
@@ -99,9 +100,12 @@ body.login {
     grid-template-areas: 
         "left main right";
     grid-template-columns: [left] 300px [main] 1fr [right] 300px;
+    @media only screen and (max-width: 1199px){
+        margin: 10px;
+        grid-gap: 10px;
+    }
     .left {
         grid-area: left;
-        justify-content: center;
         justify-items: center;
         display: flex;
         flex-direction: column;
@@ -119,10 +123,10 @@ body.login {
         display: none;
     }
     @media only screen and (max-width: 1199px){
-        grid-template-columns: [left] 200px [main] 1fr [right] 200px;
+        grid-template-columns: [left] 220px [main] 1fr [right] 220px;
     }
 
-    @media only screen and (max-width: 767px){
+    @media only screen and (max-width: 991px){
         grid-template-areas: 
         "main"
         "left"
@@ -147,6 +151,9 @@ body.login {
         justify-items: center;
         align-items: center;
         position: relative;
+        @media only screen and (max-width: 1199px){
+            max-width: 220px;
+        }
         .athlete-card-profile-image {
             border-radius: 50%;
             text-align: center;
@@ -206,6 +213,10 @@ body.login {
     min-width: 250px;
     margin-top: 20px;
     position: relative;
+    @media only screen and (max-width: 1199px){
+        max-width: 220px;
+        min-width: 220px;
+    }
     .commute-cost-card-inner {
     
     display: flex;
@@ -247,9 +258,18 @@ body.login {
     display: grid;
     grid: auto-flow / 50% 1fr;
     grid-gap: 20px;
+    @media only screen and (max-width: 1199px){
+        grid-gap: 10px;
+        
+    }
     .account-card {
         min-height: 150px;
         position: relative;
+        width: 300px;
+        height: 250px;
+        @media only screen and (max-width: 1199px){
+            width: auto;
+        }
         .account-card-inner {
             display: grid;
             grid-template-rows: 80px 80px;
@@ -269,10 +289,16 @@ body.login {
     display: grid;
     grid: auto-flow / 50% 1fr;
     grid-gap: 20px;
-    
+    @media only screen and (max-width: 1199px){
+        grid-gap: 10px;
+    }
     .wishlist-card {
-        min-height: 150px;
+        width: 300px;
+        min-height: 250px;
         position: relative;
+        @media only screen and (max-width: 1199px){
+            width: auto;
+        }
         .wishlist-card-inner {
             display: grid;
             grid-template-rows: 80px 80px;
@@ -296,7 +322,10 @@ body.login {
     justify-content: center;
 
     .commute-card {
-        min-width: 250px;
+        width: 300px;
+        @media only screen and (max-width: 1199px){
+            width: 220px;
+        }
         .commute-card-inner {
             .commute-card-inner-visible-stats {
                 display: flex;
@@ -334,6 +363,7 @@ body.login {
             }
         }
     }
+
 }
 
 .add-new-link {
@@ -343,6 +373,10 @@ body.login {
     width: 100%;
     height: 100%;
     min-height: 150px;
+    width: 300px;
+    @media only screen and (max-width: 1199px){
+        width: auto;
+    }
 }
 
 .card-new {
@@ -351,6 +385,7 @@ body.login {
     align-items: center;
     width: 100%;
     height: 100%;
+
     background-color: rgb(161, 161, 161);
     i {
         font-size: 3em;
@@ -364,7 +399,20 @@ body.login {
 }
 
 form {
+
     .mdc-text-field {
         width: 100%;
     }
+    .form-helper {
+        margin-bottom: 10px;
+    }
+}
+
+.right-tips-card {
+    width: 300px;
+    max-height: 250px;
+    display: flex;
+    align-content: center;
+    justify-items: center;
+    text-align: center;
 }

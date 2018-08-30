@@ -14,8 +14,12 @@
           <div class="mdc-top-app-bar__row">
             <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
               <a href="#" class="menu material-icons mdc-top-app-bar__navigation-icon">menu</a>
-              <span class="mdc-top-app-bar__title">Title</span>
+              <h1 class="mdc-top-app-bar__title">Mile Money</h1>
             </section>
+            <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end">
+                <a href="#" class="menu material-icons mdc-top-app-bar__navigation-icon"><i class="material-icons mdc-list-item__graphic" aria-hidden="true">account_circle</i></a>
+                <a href=""><p class="logout">Log out</p></a>
+              </section>
           </div>
         </header>
       <aside class="mdc-drawer mdc-drawer--temporary mdc-typography">
@@ -73,8 +77,8 @@
                 <span class="strava-link">View on Strava</span>
               </div>
           </div>
+          <h2>Commute Costs</h2>
           <div class="commute-costs-wrapper">
-            <h2>Commute Costs</h2>
             <div class="mdc-card commute-cost-card">
                 <a href="#" class="delete-item"><i class="material-icons">clear</i></a>
                 <div class="card-inner commute-cost-card-inner">
@@ -394,33 +398,36 @@
           <div class="mdc-tab-scroller">
             <div class="mdc-tab-scroller__scroll-area">
               <div class="mdc-tab-scroller__scroll-content">
-                <button class="mdc-tab mdc-tab--active" role="tab" aria-selected="true" tabindex="0">
-                  <div class="mdc-tab__content">
-                    <span class="mdc-tab__text-label">Accounts</span>
-                  </div>
-                  <span class="mdc-tab-indicator mdc-tab-indicator--active">
-                    <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
-                  </span>
-                  <div class="mdc-tab__ripple"></div>
-                </button>
-                <button class="mdc-tab mdc-tab--active" role="tab" aria-selected="true" tabindex="0">
+                <button class="mdc-tab main-mobile-tab mdc-tab--active" role="tab" aria-selected="true" tabindex="0">
                     <div class="mdc-tab__content">
                       <span class="mdc-tab__text-label">Wish List</span>
+                      <div class="wishlist-mobile-tab mobile-tab"></div>
                     </div>
                     <span class="mdc-tab-indicator mdc-tab-indicator--active">
                       <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
                     </span>
                     <div class="mdc-tab__ripple"></div>
                 </button>
-                <button class="mdc-tab mdc-tab--active" role="tab" aria-selected="true" tabindex="0">
-                    <div class="mdc-tab__content">
+                <button class="mdc-tab main-mobile-tab mdc-tab--active" role="tab" aria-selected="true" tabindex="0">
+                    <div class="mdc-tab__content ">
                       <span class="mdc-tab__text-label">Commute Costs</span>
+                      <div class="commuteCosts-mobile-tab mobile-tab"></div>
                     </div>
                     <span class="mdc-tab-indicator mdc-tab-indicator--active">
                       <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
                     </span>
                     <div class="mdc-tab__ripple"></div>
                   </button>
+                  <button class="mdc-tab main-mobile-tab mdc-tab--active" role="tab" aria-selected="true" tabindex="0">
+                      <div class="mdc-tab__content">
+                        <span class="mdc-tab__text-label">Commutes</span>
+                        <div class="commutes-mobile-tab mobile-tab"></div>
+                      </div>
+                      <span class="mdc-tab-indicator mdc-tab-indicator--active">
+                        <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                      </span>
+                      <div class="mdc-tab__ripple"></div>
+                    </button>
               </div>
             </div>
           </div>

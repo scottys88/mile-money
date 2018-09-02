@@ -425,7 +425,11 @@ form {
             justify-content: center;
         }
         .wishlist-layout {
-
+            grid: auto-flow / minmax(100px, 200px);
+            justify-content: center;
+            .wishlist-card {
+                min-width: 300px;
+            }
         }
         .commute-costs-layout {
             justify-content: center;
@@ -435,4 +439,21 @@ form {
         }
     }
     display: none;
+}
+
+
+.main-mobile-profile-image {
+    display: none;
+    @media only screen and (max-width: 991px){
+    display: flex;
+    justify-content: center;
+    background-image: url('https://images.fineartamerica.com/images-medium-large-5/philadelphia-black-and-white-cityscape-bill-cannon.jpg');
+    margin: -10px;
+    img {
+        max-width: 200px;
+        border: 5px solid black;
+        text-align: center;
+        max-height: 200px;
+    }
+    }
 }

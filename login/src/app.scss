@@ -416,3 +416,23 @@ form {
     justify-items: center;
     text-align: center;
 }
+
+.mobile-tab {
+    &.active-tab {
+        display: grid;
+        
+        .commute-layout {
+            justify-content: center;
+        }
+        .wishlist-layout {
+
+        }
+        .commute-costs-layout {
+            justify-content: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+    display: none;
+}

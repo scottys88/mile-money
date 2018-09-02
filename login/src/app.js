@@ -107,11 +107,11 @@ commuteValue.forEach(input => input.addEventListener('focus', clearField));
 commuteValue.forEach(input => input.addEventListener('change', calculateTotal));
 
 
-////////////////////////////////Moving content for mobile and tablet < 992px
+////////////////////////////////Moving tab content for mobile and tablet < 992px
 
 var mobileCommutesTab = document.querySelector('.commutes-mobile-tab');
-var desktopCommutesCol = document.querySelector('.right');
-var wishListDesktop = document.querySelector('.wishlist-layout');
+var desktopCommutesCol = document.querySelector('.commutes-wrapper');
+var wishListDesktop = document.querySelector('.wishlist-wrapper');
 var wishListMobileTab = document.querySelector('.wishlist-mobile-tab');
 var commuteCostsDesktop = document.querySelector('.commute-costs-wrapper');
 var commuteCostsMobileTab = document.querySelector('.commuteCosts-mobile-tab');
@@ -139,8 +139,8 @@ var logWidth = function () {
         while (mobileCommutesTab.childNodes.length > 0) {
             desktopCommutesCol.appendChild(mobileCommutesTab.childNodes[0]);
         }
-        while (mobileCommutesTab.childNodes.length > 0) {
-            desktopCommutesCol.appendChild(mobileCommutesTab.childNodes[0]);
+        while (wishListMobileTab.childNodes.length > 0) {
+            wishListDesktop.appendChild(wishListMobileTab.childNodes[0]);
         }
         while (commuteCostsMobileTab.childNodes.length > 0) {
             commuteCostsDesktop.appendChild(commuteCostsMobileTab.childNodes[0]);
@@ -159,21 +159,48 @@ window.addEventListener('resize', function () {
 }, false);
 
 
-//////////hiding and showing content for tabs on 
+//////////hiding and showing content for tabs on
 
 const tabs = document.querySelectorAll('.main-mobile-tab');
+var mobileCommutesTab = document.querySelector('.commutes-mobile-tab');
+var wishListMobileTab = document.querySelector('.wishlist-mobile-tab');
+var commuteCostsMobileTab = document.querySelector('.commuteCosts-mobile-tab');
 
-function activeTab(e) {
-    const tabContent = e.currentTarget.querySelector('.mobile-tab');
-    if(e.currentTarget.classList.contains('mdc-tab--active')){
-        console.log('active tab');
-        
-        tabContent.classList.add('active-tab');
-    }
-    else {
-        console.log('inactive tab');
-        tabContent.classList.remove('active-tab');
-    }
+
+console.log(tabs);
+
+function tabContent(){
+    tabs.forEach(tab => {
+        let tabTitleSpan = tab.querySelector('.mdc-tab__text-label');
+        if(tab.classList.contains('mdc-tab--active')){
+            let tabTitle = tabTitleSpan.textContent;
+
+            switch(tabTitle) {
+                case "Wish List":
+                    wishListMobileTab.classList.add('active-tab');
+                    commuteCostsMobileTab.classList.remove('active-tab');
+                    mobileCommutesTab.classList.remove('active-tab');
+                    break;
+                case "Commute Costs":
+                    console.log(commuteCostsMobileTab);
+                    commuteCostsMobileTab.classList.add('active-tab');
+                    wishListMobileTab.classList.remove('active-tab');
+                    mobileCommutesTab.classList.remove('active-tab');
+                    break;
+                case "Commutes":
+                    console.log(mobileCommutesTab);
+                    mobileCommutesTab.classList.add('active-tab');
+                    commuteCostsMobileTab.classList.remove('active-tab');
+                    wishListMobileTab.classList.remove('active-tab');
+                    break;
+                default:
+                    console.log(wishListMobileTab);
+            }
+        } else {
+            
+        }
+    });
 }
 
-tabs.forEach(tab => tab.addEventListener('click', activeTab));
+tabs.forEach(tab => tab.addEventListener('click', tabContent));
+

@@ -27,9 +27,48 @@ $mdc-theme-on-secondary: #442b2d;
     @include mdc-states;
 }
 
-h1,h2 {
+a {
+    text-decoration: none;
+}
+.mdc-chip {
+    background-color: #ffc600;
+    border: 2px solid black;
+    font-weight: 600;
+    color: black;
+    &.redeemed {
+        background-color: #00FF00;
+    }
+}
+
+
+h1,h2,h3,h4 {
     text-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
     text-align: center;
+    z-index: 2;
+    display: inline-block;
+    align-self: center;
+}
+p {
+    z-index: 2;
+}
+
+.yellowBg {
+    position: relative;
+}
+.yellowBg::after {
+    display: block;
+    content: '';
+    background: #ffc600;
+    height: 10px;
+    width: 100%;
+    position: absolute;
+    bottom: 13px;
+    z-index: -1;
+    transition: all 0.2s;
+    height: 30px;
+    -webkit-transform: rotate(1deg);
+    transform: rotate(1deg);
+    bottom: 0;
 }
 
 body {
@@ -108,16 +147,16 @@ body.login {
     .left {
         grid-area: left;
         justify-items: center;
-        display: flex;
-        flex-direction: column;
         align-items: center;
-        
+        text-align: center;
     }
     .main {
         grid-area: main;
+        text-align: center;
     }
     .right {
         grid-area: right;
+        text-align: center;
         
     }
     .mobile-tabs {
@@ -210,7 +249,10 @@ body.login {
 
 .commute-costs-layout {
     display: grid;
-    grid-gap: 20px;
+    grid-gap: 40px;
+    &:first-child {
+        margin-top: 20px;
+    }
 .commute-cost-card {
     min-height: 150px;
     width: 300px;
@@ -225,7 +267,17 @@ body.login {
     justify-items: center;
     align-items: center;
     position: relative;
-    
+    .icon-wrapper {
+        border: 5px solid black;
+        background-color: #ffc600;
+        margin-top: -25px;
+        i {
+            padding: 10px;
+        }
+    }
+    }
+    .delete-item {
+        z-index: 2;
     }
 }
 }
@@ -254,7 +306,7 @@ body.login {
     .main-mobile-profile-image {
         display: flex;
         justify-content: center;
-        margin-bottom: -15px;
+        margin-bottom: -20px;
         img {
             max-width: 150px;
             border: 5px solid black;
@@ -331,11 +383,13 @@ body.login {
 
 .commute-layout {
     display: grid;
-    grid-gap: 20px;
+    grid-gap: 40px;
     align-items: center;
     align-content: center;
     justify-content: center;
-
+    &:first-child {
+        margin-top: 20px;
+    }
     .commute-card {
         width: 300px;
         @media only screen and (max-width: 1199px){
@@ -347,6 +401,9 @@ body.login {
                 flex-direction: column;
                 align-items: center;
                 position: relative;
+                .commute-card-inner-visible-stats--date {
+                    padding-top: 10px;
+                }
                 .share-commute {
                     position: absolute;
                     left: 5px;
@@ -357,6 +414,14 @@ body.login {
                     position: absolute;
                     right: 5px;
                     bottom: 5px;
+                    }
+                }
+                .icon-wrapper {
+                    border: 5px solid black;
+                    background-color: #ffc600;
+                    margin-top: -25px;
+                    i {
+                        padding: 10px;
                     }
                 }
             }

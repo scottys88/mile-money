@@ -51,6 +51,8 @@ const icons = document.querySelectorAll('.mdc-text-field-icon');
 icons.forEach(icon => new MDCTextFieldIcon(icon));
 }
 
+
+
 //Form Field Icons
 
 
@@ -204,3 +206,27 @@ function tabContent(){
 
 tabs.forEach(tab => tab.addEventListener('click', tabContent));
 
+//////////Calculate number of commutes for wishlist item
+
+const wishListCards = document.querySelectorAll('.wishlist-card');
+const commuteCosts = Array.from(document.querySelectorAll('.commute-card .commute-card-inner-visible-stats--mile-money'));
+const dollarValues = commuteCosts.map(x => parseFloat(x.textContent.substr(1)).toFixed(2));
+const lastFiveCommutes = dollarValues.slice(0, 4);
+const sumOfLastFiveCommutes = lastFiveCommutes.reduce(function (accumulator, currentValue) {
+    return accumulator + + currentValue;
+  }, 0);
+
+
+const averageOfLastFiveCommutes = sumOfLastFiveCommutes / lastFiveCommutes.length;
+
+wishListCards.forEach(card => {
+    let itemValue = card.querySelector('.wishlist-value').textContent;
+    console.log(itemValue);
+    let requiredCommutesField = card.querySelector('.commutes-required');
+    const commutesRequired = parseInt(itemValue / averageOfLastFiveCommutes);
+    
+    requiredCommutesField.innerText = commutesRequired;
+    console.log(commutesRequired);
+});
+
+console.log(wishListCards);

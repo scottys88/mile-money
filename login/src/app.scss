@@ -145,6 +145,7 @@ body.login {
             position: absolute;
             bottom: 0;
             left: 0;
+
         }
 
     }
@@ -234,6 +235,7 @@ body.login {
             font-size: 0.85em;
             position: absolute;
             bottom:0;
+            color: #FC4C02;
         }
     }
 }
@@ -309,6 +311,15 @@ body.login {
             display: flex;
             flex-direction: column;
             align-items: center;
+            .main-card-inner-stats {
+                display: grid;
+                justify-content: center;
+            }
+            .main-chip {
+                background-color: rgb(218, 218, 218);
+                font-weight: 200;
+                border: 1px solid black;
+            }
         }
         .redeemed-items-list {
             display: none;
@@ -316,10 +327,24 @@ body.login {
             position: relative;
             transform: translateY(-100%);
             &.expanded {
-                display: inline-block;
+                display: block;
                 opacity: 1;
                 z-index: 5;
                 transform: translateY(0%);
+                .nothing-redeemed {
+                    font-weight: 600;
+                }
+                ul {
+                    padding-left: 0;
+                }
+                ul li {
+                    font-family: 'Courier New', Courier, monospace;
+                    list-style: none;
+                    text-align: center;
+                }
+                ul li:before {
+                    content: '-';
+                }
             }
         }
     }

@@ -72,13 +72,22 @@ commuteExpand.forEach(commute => commute.addEventListener('click', expandCommute
 }
 //Expand and collapse the total Mile Money
 
+const mainCard = document.querySelector('.main-balance');
+const redeemedList = mainCard.querySelectorAll('.redeemed-items-list ul li');
 const redeemedExpand = document.querySelector('.expand-redeemed');
+
 
 if(redeemedExpand){
 function expandRedeemed(e) {
     const expandButton = e.currentTarget;
-    const expandableArea = expandButton.nextElementSibling;
+    const expandableArea = mainCard.querySelector('.redeemed-items-list');
     expandableArea.classList.toggle('expanded');
+    if(redeemedList.length >= 1) {
+
+        }
+        else {
+            expandableArea.innerHTML = "<p class='nothing-redeemed'>You have nothing redeemed! Add a Wish List item and start saving to your goal!</p>"
+        }
     }
 
 redeemedExpand.addEventListener('click', expandRedeemed);
@@ -229,4 +238,30 @@ wishListCards.forEach(card => {
     console.log(commutesRequired);
 });
 
-console.log(wishListCards);
+//Display a different commute icon basded on commute type
+
+const commutes = document.querySelectorAll('.commute-card');
+
+commutes.forEach(commute => {
+    let commuteIcon = commute.querySelector('.icon-wrapper .material-icons').innerHTML;
+    let commuteType = commute.querySelector('.commute-type').innerText;
+    console.log(commuteIcon);
+    console.log(commuteType);
+    switch(commuteType) {
+        case 'Run':
+            commuteIcon = "directions_run";
+            console.log(commuteIcon);
+            break;
+        case "Walk":
+            commuteIcon = "directions_walk";
+            console.log(commuteIcon);
+            break;
+        case "Ride":
+            commuteIcon = "directions_bike";
+            console.log(commuteIcon);
+            break;
+        default:
+            commuteIcon = "directions_walk";
+    }
+
+} )

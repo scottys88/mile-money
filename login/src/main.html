@@ -155,19 +155,26 @@
                 <p class="main-balance-inner-location">Adelaide, Australia</p>
                 <div class="main-balance-inner-stats">
                 <p>You total Mile Money balance is:</p>
-                <h2 class="yellowBg"><span>$</span>371.25</h2>
-                <div class="icon-value-label athlete-card-inner-stats-commutes">
-                    <i class="icon material-icons mdc-list-item__graphic" aria-hidden="true">accessibility_new</i>
-                    <span class="value commutes-value">55</span>
-                    <span class="label commutes-label">Commutes</span>
-                </div>
+                <h2 class="yellowBg"><span>$</span>371.25</h2><br>
+                <!-- <div class="mdc-chip main-chip">
+                    <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">accessibility_new</i>
+                    <div class="mdc-chip__text">55 Commutes</div>
+                  </div>
+                <div class="mdc-chip main-chip">
+                    <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">attach_money</i>
+                    <div class="mdc-chip__text">731.25 total earnt Mile Money</div>
+                  </div> -->
                 </div>
                 <div class="redeemed-items">
                   <p>Your total redeemed Mile Money is:</p>
-                  <h2>$360.00</h2>
-                  <div class="expand-redeemed"><i class="material-icons">keyboard_arrow_down</i></div>
+                  <h3>$360.00<span class="expand-redeemed"><i class="material-icons">keyboard_arrow_down</i></span></h3>
+                  
                   <div class="redeemed-items-list">
                     <ul>
+                      <li>$360.00, Bose QC35</li>
+                      <li>$360.00, Bose QC35</li>
+                      <li>$360.00, Bose QC35</li>
+                      <li>$360.00, Bose QC35</li>
                       <li>$360.00, Bose QC35</li>
                     </ul>
                   </div>
@@ -321,7 +328,7 @@
                             <li class="mdc-list-item">
                                 <span class="mdc-list-item__text">
                                   <span class="mdc-list-item__primary-text">Commute type</span>
-                                  <span class="mdc-list-item__secondary-text">Run</span>
+                                  <span class="mdc-list-item__secondary-text commute-type">Run</span>
                                 </span>
                               </li>
                               <li class="mdc-list-item">
@@ -354,7 +361,7 @@
               <div class="mdc-card commute-card">
                   <div class="commute-card-inner">
                     <div class="commute-card-inner-visible-stats">
-                      <div class="icon-wrapper"><i class="material-icons">directions_bike</i></div>
+                      <div class="icon-wrapper"><i class="material-icons">directions_run</i></div>
                       <span class="commute-card-inner-visible-stats--date">
                         Monday, 20 July 2018
                       </span>
@@ -386,7 +393,137 @@
                             <li class="mdc-list-item">
                                 <span class="mdc-list-item__text">
                                   <span class="mdc-list-item__primary-text">Commute type</span>
-                                  <span class="mdc-list-item__secondary-text">Run</span>
+                                  <span class="mdc-list-item__secondary-text commute-type">Run</span>
+                                </span>
+                              </li>
+                              <li class="mdc-list-item">
+                                <span class="mdc-list-item__text">
+                                  <span class="mdc-list-item__primary-text">Commute distance</span>
+                                  <span class="mdc-list-item__secondary-text">7.15km</span>
+                                </span>
+                              </li>
+                              <li class="mdc-list-item">
+                                <span class="mdc-list-item__text">
+                                  <span class="mdc-list-item__primary-text">Commute Elapsed Time</span>
+                                  <span class="mdc-list-item__secondary-text">36 minutes</span>
+                                </span>
+                              </li>
+                              <li class="mdc-list-item">
+                                  <span class="mdc-list-item__text">
+                                    <span class="mdc-list-item__primary-text">Commute Moving Time</span>
+                                    <span class="mdc-list-item__secondary-text">33 Minutes</span>
+                                  </span>
+                                </li>
+                          </ul>
+                    </div>
+                    <div class="mdc-card__actions">
+                        <div class="mdc-card__action-icons">
+                          <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon" title="Edit">edit</button>
+                        </div>
+                    </div>
+                  </div>
+              </div>
+              <div class="mdc-card commute-card">
+                  <div class="commute-card-inner">
+                    <div class="commute-card-inner-visible-stats">
+                      <div class="icon-wrapper"><i class="material-icons">directions_run</i></div>
+                      <span class="commute-card-inner-visible-stats--date">
+                        Monday, 20 July 2018
+                      </span>
+                      <!-- <i class="material-icons share-commute">share</i> -->
+                      <h4>Mile Money</h4>
+                      <div class="commute-card-inner-visible-stats--mile-money">$3.25</div>
+                      <div class="expand-commute"><i class="material-icons">keyboard_arrow_down</i></div>
+                    </div>
+                    <div class="commute-card-inner-hidden-stats">
+                        <ul class="mdc-list mdc-list--two-line" aria-orientation="vertical">
+                            <li class="mdc-list-item">
+                              <span class="mdc-list-item__text">
+                                <span class="mdc-list-item__primary-text">Mile Money Account</span>
+                                <span class="mdc-list-item__secondary-text">Main</span>
+                              </span>
+                            </li>
+                            <li class="mdc-list-item">
+                              <span class="mdc-list-item__text">
+                                <span class="mdc-list-item__primary-text">Commute Cost Type</span>
+                                <span class="mdc-list-item__secondary-text">Train to work costs</span>
+                              </span>
+                            </li>
+                            <li class="mdc-list-item">
+                              <span class="mdc-list-item__text">
+                                <span class="mdc-list-item__primary-text">Commute name</span>
+                                <span class="mdc-list-item__secondary-text">Evening Run</span>
+                              </span>
+                            </li>
+                            <li class="mdc-list-item">
+                                <span class="mdc-list-item__text">
+                                  <span class="mdc-list-item__primary-text">Commute type</span>
+                                  <span class="mdc-list-item__secondary-text commute-type">Run</span>
+                                </span>
+                              </li>
+                              <li class="mdc-list-item">
+                                <span class="mdc-list-item__text">
+                                  <span class="mdc-list-item__primary-text">Commute distance</span>
+                                  <span class="mdc-list-item__secondary-text">7.15km</span>
+                                </span>
+                              </li>
+                              <li class="mdc-list-item">
+                                <span class="mdc-list-item__text">
+                                  <span class="mdc-list-item__primary-text">Commute Elapsed Time</span>
+                                  <span class="mdc-list-item__secondary-text">36 minutes</span>
+                                </span>
+                              </li>
+                              <li class="mdc-list-item">
+                                  <span class="mdc-list-item__text">
+                                    <span class="mdc-list-item__primary-text">Commute Moving Time</span>
+                                    <span class="mdc-list-item__secondary-text">33 Minutes</span>
+                                  </span>
+                                </li>
+                          </ul>
+                    </div>
+                    <div class="mdc-card__actions">
+                        <div class="mdc-card__action-icons">
+                          <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon" title="Edit">edit</button>
+                        </div>
+                    </div>
+                  </div>
+              </div>
+              <div class="mdc-card commute-card">
+                  <div class="commute-card-inner">
+                    <div class="commute-card-inner-visible-stats">
+                      <div class="icon-wrapper"><i class="material-icons">directions_run</i></div>
+                      <span class="commute-card-inner-visible-stats--date">
+                        Monday, 20 July 2018
+                      </span>
+                      <!-- <i class="material-icons share-commute">share</i> -->
+                      <h4>Mile Money</h4>
+                      <div class="commute-card-inner-visible-stats--mile-money">$4.55</div>
+                      <div class="expand-commute"><i class="material-icons">keyboard_arrow_down</i></div>
+                    </div>
+                    <div class="commute-card-inner-hidden-stats">
+                        <ul class="mdc-list mdc-list--two-line" aria-orientation="vertical">
+                            <li class="mdc-list-item">
+                              <span class="mdc-list-item__text">
+                                <span class="mdc-list-item__primary-text">Mile Money Account</span>
+                                <span class="mdc-list-item__secondary-text">Main</span>
+                              </span>
+                            </li>
+                            <li class="mdc-list-item">
+                              <span class="mdc-list-item__text">
+                                <span class="mdc-list-item__primary-text">Commute Cost Type</span>
+                                <span class="mdc-list-item__secondary-text">Train to work costs</span>
+                              </span>
+                            </li>
+                            <li class="mdc-list-item">
+                              <span class="mdc-list-item__text">
+                                <span class="mdc-list-item__primary-text">Commute name</span>
+                                <span class="mdc-list-item__secondary-text">Evening Run</span>
+                              </span>
+                            </li>
+                            <li class="mdc-list-item">
+                                <span class="mdc-list-item__text">
+                                  <span class="mdc-list-item__primary-text">Commute type</span>
+                                  <span class="mdc-list-item__secondary-text commute-type">Run</span>
                                 </span>
                               </li>
                               <li class="mdc-list-item">

@@ -149,13 +149,13 @@
                         </div>
                 </div>
             <div class="main">
-                <h2>Add a Wish List item</h2>
+                <h2 class="yellowBg">Add a Wish List item</h2>
                 <form method="POST" class="commute-cost-form"> 
                     <!--Wishlist item name-->
                     <div class="mdc-text-field mdc-text-field--with-trailing-icon">
-                            <input type="text" id="userCommute" class="mdc-text-field__input"
+                            <input type="text" id="itemName" name="itemName" class="mdc-text-field__input"
                                 aria-controls="userform-helper-text"
-                                aria-describedby="userform-helper-text">
+                                aria-describedby="userform-helper-text" required autofocus>
                             <label for="userCommute" class="mdc-floating-label">Wish List item name</label>
                             <i class="material-icons mdc-text-field__icon MDCTextFieldIconFoundation" tabindex="0" role="button">shopping_cart</i>
                         <div class="mdc-line-ripple"></div>
@@ -165,9 +165,9 @@
                     </p>
                     <!--Wishlist item cost-->
                     <div class="mdc-text-field mdc-text-field--with-trailing-icon">
-                            <input type="text" id="fuel" class="mdc-text-field__input commute-value"
+                            <input type="number" id="itemCost" name="itemCost" class="mdc-text-field__input commute-value"
                                 aria-controls="fuel-helper-text"
-                                aria-describedby="fuel-helper-text">
+                                aria-describedby="fuel-helper-text" required step="0.01" min="0" max="50000">
                             <label for="fuel" class="mdc-floating-label">Wish List item cost</label>
                             <i class="material-icons mdc-text-field__icon MDCTextFieldIconFoundation" tabindex="0" role="button">attach_money</i>
                         <div class="mdc-line-ripple"></div>
@@ -177,9 +177,9 @@
                     </p>
                     <!--Wishlist item URL-->
                     <div class="mdc-text-field mdc-text-field--with-trailing-icon">
-                            <input type="text" id="bus" class="mdc-text-field__input commute-value"
+                            <input type="url" id="itemURL" name="itemURL" class="mdc-text-field__input commute-value"
                                 aria-controls="bus-helper-text"
-                                aria-describedby="bus-helper-text">
+                                aria-describedby="bus-helper-text" minlength="10" maxlength="150" >
                             <label for="bus" class="mdc-floating-label">Wish List item url</label>
                             <i class="material-icons mdc-text-field__icon MDCTextFieldIconFoundation" tabindex="0" role="button">computer</i>
                         <div class="mdc-line-ripple"></div>
@@ -203,9 +203,9 @@
                         </div>
                         </div> -->
                     <!--Submit button-->
-                    <button type="submit" class="mdc-chip commute-cost-chip">
-                            <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">shopping_cart</i>
-                            <div class="mdc-chip__text">Save Wish List item</div>
+                    <button class="mdc-button mdc-button--outlined form-submit" type="submit">
+                            <i class="material-icons mdc-button__icon" aria-hidden="true">shopping_cart</i>
+                            Save Wish List item
                     </button>
                 </form>
                 

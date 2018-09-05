@@ -2,6 +2,11 @@ import {MDCTemporaryDrawer} from '@material/drawer';
 import {MDCTopAppBar} from '@material/top-app-bar/index';
 import {MDCRipple} from '@material/ripple';
 
+//Button ripple
+if(document.querySelector('.mdc-button')){
+const buttonRipple = new MDCRipple(document.querySelector('.mdc-button'));
+};
+
 // Instantiation
 const topAppBarElement = document.querySelector('.mdc-top-app-bar');
 const topAppBar = new MDCTopAppBar(topAppBarElement);
@@ -15,14 +20,16 @@ surface.forEach(item => new MDCRipple(item));
 //Mobile tabs
 
 import {MDCTabBar} from '@material/tab-bar';
+import {MDCTab} from '@material/tab';
 
 if(document.querySelector('.mdc-tab-bar')){
 const tabBar = new MDCTabBar(document.querySelector('.mdc-tab-bar'));
-};
 
-import {MDCTab} from '@material/tab';
+
+
 
 const tab = new MDCTab(document.querySelector('.mdc-tab'));
+};
 
 //Chips
 
@@ -73,11 +80,12 @@ commuteExpand.forEach(commute => commute.addEventListener('click', expandCommute
 //Expand and collapse the total Mile Money
 
 const mainCard = document.querySelector('.main-balance');
-const redeemedList = mainCard.querySelectorAll('.redeemed-items-list ul li');
+
 const redeemedExpand = document.querySelector('.expand-redeemed');
 
 
 if(redeemedExpand){
+const redeemedList = mainCard.querySelectorAll('.redeemed-items-list ul li');
 function expandRedeemed(e) {
     const expandButton = e.currentTarget;
     const expandableArea = mainCard.querySelector('.redeemed-items-list');
@@ -100,12 +108,12 @@ const commuteTotal = document.querySelector('.commute-total');
 console.log(commuteValue);
 
 function calculateTotal() {
-    let total = 0;
+    let total = Number(0);
     commuteValue.forEach(field => {
-        total += parseInt(field.value);
+        total += (parseInt(field.value) || 0);
         console.log(field.value);
     });
-    commuteTotal.value = total;
+    commuteTotal.value = parseFloat(total);
 }
 
 function clearField(e) {
@@ -115,8 +123,8 @@ function clearField(e) {
 }
 
 commuteValue.forEach(input => input.addEventListener('focus', clearField));
-commuteValue.forEach(input => input.addEventListener('change', calculateTotal));
-
+commuteValue.forEach(input => input.addEventListener('keyup', calculateTotal));
+commuteValue.forEach(input => input.addEventListener('input', calculateTotal));
 
 ////////////////////////////////Moving tab content for mobile and tablet < 992px
 
@@ -156,12 +164,13 @@ var logWidth = function () {
         while (commuteCostsMobileTab.childNodes.length > 0) {
             commuteCostsDesktop.appendChild(commuteCostsMobileTab.childNodes[0]);
         }
-	}
-}
-
-// Set our initial width and log it
+    }
+    // Set our initial width and log it
 setViewportWidth();
 logWidth();
+    }
+
+
 
 // On resize events, recalculate and log
 window.addEventListener('resize', function () {
@@ -243,25 +252,40 @@ wishListCards.forEach(card => {
 const commutes = document.querySelectorAll('.commute-card');
 
 commutes.forEach(commute => {
-    let commuteIcon = commute.querySelector('.icon-wrapper .material-icons').innerHTML;
+    let commuteIcon = commute.querySelector('.icon-wrapper .material-icons');
     let commuteType = commute.querySelector('.commute-type').innerText;
     console.log(commuteIcon);
     console.log(commuteType);
     switch(commuteType) {
         case 'Run':
-            commuteIcon = "directions_run";
-            console.log(commuteIcon);
+            commuteIcon.innerHTML = "directions_run";
             break;
         case "Walk":
-            commuteIcon = "directions_walk";
-            console.log(commuteIcon);
+            commuteIcon.innerHTML = "directions_walk";
             break;
         case "Ride":
-            commuteIcon = "directions_bike";
-            console.log(commuteIcon);
+            commuteIcon.innerHTML = "directions_bike";
+            break;
+        case "Swim":
+            commuteIcon.innerHTML = "pool";
+            break;
+        case "Hike":
+            commuteIcon.innerHTML = "nature";
             break;
         default:
-            commuteIcon = "directions_walk";
+            commuteIcon.innerHTML = "directions_walk";
     }
 
 } )
+
+//Add Mile Money UTM to each Wishlist Link
+
+wishListCards.forEach(item => {
+    let itemURL = item.querySelector('.wishlist-card-link-wrapper a');
+    let utmTag = "/?utm_source=mile%20money&utm_medium=wish%20list%20item";
+    const finalURL = itemURL.setAttribute('href', itemURL + utmTag);
+    itemURL = finalURL;
+    console.log(itemURL);
+})
+
+

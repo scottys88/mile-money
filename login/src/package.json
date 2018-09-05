@@ -24,6 +24,7 @@
     "webpack-dev-server": "^2.11.2"
   },
   "dependencies": {
+    "@material/button": "^0.39.1",
     "@material/card": "^0.38.1",
     "@material/chips": "^0.39.0",
     "@material/drawer": "^0.38.0",

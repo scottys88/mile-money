@@ -105,13 +105,13 @@ redeemedExpand.addEventListener('click', expandRedeemed);
 
 const commuteValue = document.querySelectorAll('.commute-value');
 const commuteTotal = document.querySelector('.commute-total');
-console.log(commuteValue);
+
 
 function calculateTotal() {
     let total = Number(0);
     commuteValue.forEach(field => {
         total += (parseInt(field.value) || 0);
-        console.log(field.value);
+
     });
     commuteTotal.value = parseFloat(total);
 }
@@ -187,7 +187,7 @@ var wishListMobileTab = document.querySelector('.wishlist-mobile-tab');
 var commuteCostsMobileTab = document.querySelector('.commuteCosts-mobile-tab');
 
 
-console.log(tabs);
+
 
 function tabContent(){
     tabs.forEach(tab => {
@@ -202,19 +202,19 @@ function tabContent(){
                     mobileCommutesTab.classList.remove('active-tab');
                     break;
                 case "Commute Costs":
-                    console.log(commuteCostsMobileTab);
+                 
                     commuteCostsMobileTab.classList.add('active-tab');
                     wishListMobileTab.classList.remove('active-tab');
                     mobileCommutesTab.classList.remove('active-tab');
                     break;
                 case "Commutes":
-                    console.log(mobileCommutesTab);
+                 
                     mobileCommutesTab.classList.add('active-tab');
                     commuteCostsMobileTab.classList.remove('active-tab');
                     wishListMobileTab.classList.remove('active-tab');
                     break;
                 default:
-                    console.log(wishListMobileTab);
+                    
             }
         } else {
             
@@ -239,12 +239,10 @@ const averageOfLastFiveCommutes = sumOfLastFiveCommutes / lastFiveCommutes.lengt
 
 wishListCards.forEach(card => {
     let itemValue = card.querySelector('.wishlist-value').textContent;
-    console.log(itemValue);
     let requiredCommutesField = card.querySelector('.commutes-required');
     const commutesRequired = parseInt(itemValue / averageOfLastFiveCommutes);
     
     requiredCommutesField.innerText = commutesRequired;
-    console.log(commutesRequired);
 });
 
 //Display a different commute icon basded on commute type
@@ -254,8 +252,8 @@ const commutes = document.querySelectorAll('.commute-card');
 commutes.forEach(commute => {
     let commuteIcon = commute.querySelector('.icon-wrapper .material-icons');
     let commuteType = commute.querySelector('.commute-type').innerText;
-    console.log(commuteIcon);
-    console.log(commuteType);
+
+
     switch(commuteType) {
         case 'Run':
             commuteIcon.innerHTML = "directions_run";
@@ -282,10 +280,25 @@ commutes.forEach(commute => {
 
 wishListCards.forEach(item => {
     let itemURL = item.querySelector('.wishlist-card-link-wrapper a');
-    let utmTag = "/?utm_source=mile%20money&utm_medium=wish%20list%20item";
-    const finalURL = itemURL.setAttribute('href', itemURL + utmTag);
+    let itemValue = item.querySelector('.wishlist-value').textContent;
+    let utmTag = "?utm_source=mile%20money&utm_medium=wish%20list%20item&utm_campaign=mile%20money%20io&utm_content=";
+    const finalURL = itemURL.setAttribute('href', itemURL + utmTag + itemValue);
     itemURL = finalURL;
-    console.log(itemURL);
+
+})
+
+
+//Add redeem value to the redeem button on each card
+
+
+wishListCards.forEach(item => {
+    if(!item.classList.contains('.redeemed-wishlist-card')){
+        let itemValue = item.querySelector('.wishlist-value').textContent;
+        let chipRedeemField = item.querySelector('.redeem-chip-redeem-value');
+        if(chipRedeemField) {
+            chipRedeemField.textContent = itemValue;
+        }
+    }
 })
 
 

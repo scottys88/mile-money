@@ -81,7 +81,7 @@ p {
 .yellowBg {
     position: relative;
 }
-.yellowBg::after {
+ion-icon::after, .yellowBg::after {
     display: block;
     content: '';
     background: #ffc600;
@@ -586,3 +586,29 @@ form {
     position: absolute;
 }
 
+
+.content {
+    .main-content {
+        background: white;
+        .main-content-card {
+            position: relative;
+            padding: 20px;
+            @media only screen and (max-width: 991px){
+
+            }
+            a {
+                color: black;
+                font-weight: 600;
+            }
+
+        }
+    }
+    .athlete-card-inner-social-icons {
+        ion-icon {
+            color: black;
+            font-size: 30px;
+            padding: 5px;
+        }
+        
+    }
+}

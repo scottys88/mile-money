@@ -2,26 +2,39 @@
 	<h2>Welcome! Please log in.</h2>
 <% } else { %>
 	<h2>Hello, <%= user.displayName %>.</h2>
-	<p>
-		
-		<%- include('./partials/welcomeBanner'); -%>
-	</p>
-	<p>
-		
-		<%- include('./partials/accountsBanner'); -%>
-	</p>
-	<p>
+<div class="wrapper">
+	<div class="left">
 		<%- include('./partials/commuteCosts'); -%>
-	</p>
-
-	<p>
+	</div>
+	<div class="main">
+		<%- include('./partials/welcomeBanner'); -%>
+		<%- include('./partials/accountsBanner'); -%>
 		<%- include('./partials/wishList'); -%>
+	</div>	
+	<div class="right">
+		<%- include('./partials/commutesList'); -%>
+	</div>
+	<div class="mobile-tabs mdc-tab-bar" role="tablist">
+		<%- include('./partials/mobileTabs'); -%>
+	</div>
+		
+	</p>
+	<p>
+		
+		
+	</p>
+	<p>
+		
 	</p>
 
 	<p>
-		<%- include('./partials/commutesList'); -%>
+		
 	</p>
-	
+
+	<p>
+		
+	</p>
+</div>
 <% } %>
 
 

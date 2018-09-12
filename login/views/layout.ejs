@@ -1,25 +1,61 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel='stylesheet' href='/css/main.css'>
-		<title>Passport-Strava Example</title>
-	</head>
-	<body>
-		<% if (!user) { %>
-			<p>
-			<a href="/">Home</a> | 
-			<a href="/login">Log In</a>
-			</p>
-		<% } else { %>
-			<p>
-			<a href="/">Home</a> | 
-			<a href="/profile">Profile</a> | 
-			<a href="/accounts">Accounts</a> | 
-			<a href="/wishlist">Wish list</a> | 
-			<a href="/commute-costs">Commute Costs</a> |
-			<a href="/logout">Log Out</a>
-			</p>
-		<% } %>
+    <link rel='stylesheet' href='bundle.css'>
+    <script src="bundle.js" async></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,900" rel="stylesheet">
+		<title>Mile Money</title>
+  </head>
+  
+
+  <body class="login" style="background-image: url('images/loginBg.jpg')">
+    <aside class="mdc-drawer mdc-drawer--temporary mdc-typography">
+        <nav class="mdc-drawer__drawer">
+      
+          <div class="mdc-drawer__toolbar-spacer"></div>
+      
+          <nav class="mdc-drawer__content mdc-list">
+            <a class="mdc-list-item mdc-list-item--activated mdc-ripple-surface--primary my-surface" href="/profile">
+              <i class="material-icons mdc-list-item__graphic" aria-hidden="true">account_circle</i>Account
+			</a>
+            <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="/commute-costs">
+              <i class="material-icons mdc-list-item__graphic" aria-hidden="true">commute</i>Commute Costs
+            </a>
+            <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="/accounts">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">account_balance_wallet</i>Accounts
+            </a>
+            <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="/wishlist">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">shopping_cart</i>Wishlist
+            </a>
+            <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="/faqs">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">contact_support</i>FAQ's
+            </a>
+            <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="/stats">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">multiline_chart</i>Your stats
+            </a>
+            <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="/about">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">face</i>About and Contact
+            </a>
+          </nav>
+        </nav>
+      </aside>
+      <header class="mdc-top-app-bar">
+          <div class="mdc-top-app-bar__row">
+            <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+              <a href="#" class="menu material-icons mdc-top-app-bar__navigation-icon">menu</a>
+              <h1 class="mdc-top-app-bar__title">Mile Money</h1>
+            </section>
+            <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end">
+                <img class="top-app-bar--strava" src="images/poweredByStrava.svg">
+                <a href="/" class="menu material-icons mdc-top-app-bar__navigation-icon"><i class="account-button material-icons mdc-list-item__graphic" aria-hidden="true">account_circle</i></a>
+                <a href="/logout"><p class="logout">Log out</p></a>
+            </section>
+          </div>
+		</header>
 		<%- body %>
+
+      
 	</body>
 </html>
+

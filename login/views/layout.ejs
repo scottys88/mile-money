@@ -8,8 +8,12 @@
 		<title>Mile Money</title>
   </head>
   
-
+  <% if(!user) { %>
   <body class="login" style="background-image: url('images/loginBg.jpg')">
+  }%>
+  <% } else { %>
+	<body>
+   <% } %>
     <aside class="mdc-drawer mdc-drawer--temporary mdc-typography">
         <nav class="mdc-drawer__drawer">
       

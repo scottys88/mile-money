@@ -1,0 +1,53 @@
+
+<% if(athlete) { %>
+    <%= athlete.commutes.length %>
+        <p>Your total earnt Mile Money is:  <%= mileMoneyBalance  %></p>
+        <p>Total redeemed Mile Money: <%= totalRedeemed %></p>
+        <p>Your total Mile Money balance is: 
+        <%= mileMoneyBalance - totalRedeemed %></p>
+    
+
+<% } %>
+
+<div class="main-mobile-profile-image">
+        <img src="https://graph.facebook.com/656033073/picture?height=256&width=256">
+    </div>
+    <div class="mdc-card main-balance">
+        <div class="main-balance-inner">
+          <h1 class="yellowBg"><span class="main-balance-inner--name"><%= user.displayName %></span></h1>
+          <p class="main-balance-inner-location"><%= athlete.city %>, <%= athlete.country %></p>
+          <div class="main-balance-inner-stats">
+          <p>You total Mile Money balance is:</p>
+          <h2 class="yellowBg"><span>$</span><%= mileMoneyBalance - totalRedeemed %></h2><br>
+          <div class="mdc-chip main-chip">
+              <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">accessibility_new</i>
+              <div class="mdc-chip__text"><%= athlete.commutes.length %> Commutes</div>
+            </div>
+          <div class="mdc-chip main-chip">
+              <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">attach_money</i>
+              <div class="mdc-chip__text"> <%= mileMoneyBalance  %> total earnt Mile Money</div>
+            </div>
+          </div>
+          <div class="redeemed-items">
+            <p>Your total redeemed Mile Money is:</p>
+            <h3>$<%= totalRedeemed %><span class="expand-redeemed"><i class="material-icons">keyboard_arrow_down</i></span></h3>
+            
+            <div class="redeemed-items-list">
+              <ul>
+                <% if(athlete && athlete.wishList) { %>
+                    <% const wishListItems = athlete.wishList %>
+                    <% wishListItems.forEach(item => { %>
+                    <div>
+                        <li>$<%= item.itemCost %>, <%= item.itemName %></li>
+                    <% }) %>
+                <% } %>
+
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mdc-card__action-icons">
+            <button class="mdc-icon-button material-icons mdc-card__action mdc-card__action--icon mdc-ripple-upgraded mdc-ripple-upgraded--unbounded" title="share">share</button>
+          </div>
+    </div>

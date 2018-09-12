@@ -5,9 +5,39 @@
 <% let totalRedeemed = 0; %>
 <% var commutesInAccount; %> 
 
+<% if(athlete) { %>
+<div class="accounts-wrapper">
+        <h3 class="yellowBg">Your Mile Money accounts</h3>
+        <div class="accounts-layout">
+            <div class="mdc-card account-card">
+                <div class="card-inner account-card-inner">
+                  <div class="account-card-inner--account-name">
+                    <i class="material-icons mdc-list-item__graphic" aria-hidden="true">account_balance_wallet</i>
+                    <h4 class="account-card-inner--account-name">Main</h4>
+                  </div>
+                  <div class="account-card-inner-stats">
+                    <div class="icon-value-label">
+                        <i class="icon material-icons mdc-list-item__graphic" aria-hidden="true">accessibility_new</i>
+                        <span class="value commutes-value"><%= athlete.commutes.length %></span>
+                        <span class="label commutes-label">Commutes</span>
+                    </div>
+                    <div class="icon-value-label">
+                        <i class="icon material-icons mdc-list-item__graphic" aria-hidden="true">accessibility_new</i>
+                        <span class="value commutes-value"><span>$</span><%= mileMoneyBalance - totalRedeemed %></span>
+                        <span class="label commutes-label">Mile Money</span>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <a class="add-new-link" href="#">
+            <div class="mdc-card account-card card-new">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">library_add</i>
+            </div>
+            </a>
+        </div>
+      </div>
 
-
-
+      <% } %>
 
   
     
@@ -15,13 +45,13 @@
   
 
 
-<% if(athlete) { %>
+<!-- <% if(athlete) { %>
     <h3>Accounts</h3>
     <p>Account: Main</p>
     <% var commutesInAccount = athlete.commutes.length %> 
     <p>Commutes in account: <%= commutesInAccount %></p>
     <p>Mile Money in this account: <%= mileMoneyBalance %></p>
-<% } %>
+<% } %> -->
 
 
 

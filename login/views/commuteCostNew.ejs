@@ -1,18 +1,108 @@
+<div class="wrapper">
+        <div class="left">
+            <%- include('./partials/subPageLeftAccount'); -%>
+        </div>
+        <div class="main">
+                <h2 class="yellowBg">Enter a new Commute Cost</h2>
+                <form method="POST" class="commute-cost-form"> 
+                    <!--commute cost name-->
+                    <div class="mdc-text-field mdc-text-field--with-trailing-icon">
+                            <input type="text" name="userCommute" id="userCommute" class="mdc-text-field__input"
+                                aria-controls="userform-helper-text"
+                                aria-describedby="userform-helper-text" autofocus required>
+                            <label for="userCommute" class="mdc-floating-label" >Commute Cost Name</label>
+                            <i class="material-icons mdc-text-field__icon MDCTextFieldIconFoundation" tabindex="0" role="button">commute</i>
+                        <div class="mdc-line-ripple"></div>
+                    </div>
+                    <p class="form-helper mdc-text-field-helper-text mdc-text-field-helper-text--persistent" aria-hidden="true">
+                    The name of your commute e.g. Monday Run
+                    </p>
+                    <!--Fuel used per trip-->
+                    <div class="mdc-text-field mdc-text-field--with-trailing-icon">
+                            <input type="number" step=".01" name="fuel" id="fuel" class="mdc-text-field__input commute-value"
+                                aria-controls="fuel-helper-text"
+                                aria-describedby="fuel-helper-text">
+                            <label for="fuel" class="mdc-floating-label">Fuel costs per trip</label>
+                            <i class="material-icons mdc-text-field__icon MDCTextFieldIconFoundation" tabindex="0" role="button">local_gas_station</i>
+                        <div class="mdc-line-ripple"></div>
+                    </div>
+                    <p class="form-helper mdc-text-field-helper-text mdc-text-field-helper-text--persistent" aria-hidden="true">
+                    Approximate cost of fuel used per trip
+                    </p>
+                    <!--Bus costs per trip-->
+                    <div class="mdc-text-field mdc-text-field--with-trailing-icon">
+                            <input type="number" step=".01" name="bus" id="bus" class="mdc-text-field__input commute-value"
+                                aria-controls="bus-helper-text"
+                                aria-describedby="bus-helper-text">
+                            <label for="bus" class="mdc-floating-label">Bus costs per trip</label>
+                            <i class="material-icons mdc-text-field__icon MDCTextFieldIconFoundation" tabindex="0" role="button">directions_bus</i>
+                        <div class="mdc-line-ripple"></div>
+                    </div>
+                    <p class="form-helper mdc-text-field-helper-text mdc-text-field-helper-text--persistent" aria-hidden="true">
+                    This could be fare or ticket costs for example.
+                    </p>
+                    <!--Parking costs per trip-->
+                    <div class="mdc-text-field mdc-text-field--with-trailing-icon">
+                            <input type="number" step=".01" name="parking" id="parking" class="mdc-text-field__input commute-value"
+                                aria-controls="parking-helper-text"
+                                aria-describedby="parking-helper-text">
+                            <label for="parking" class="mdc-floating-label">Parking Costs</label>
+                            <i class="material-icons mdc-text-field__icon MDCTextFieldIconFoundation" tabindex="0" role="button">local_parking</i>
+                        <div class="mdc-line-ripple"></div>
+                    </div>
+                    <p class="form-helper mdc-text-field-helper-text mdc-text-field-helper-text--persistent" aria-hidden="true">
+                    For example, full day parking/ 2 (for each commute)
+                    </p>
+                    <!--Train costs per trip-->
+                    <div class="mdc-text-field mdc-text-field--with-trailing-icon">
+                            <input type="number" step=".01" name="train" id="train" class="mdc-text-field__input commute-value"
+                                aria-controls="train-helper-text"
+                                aria-describedby="train-helper-text">
+                            <label for="train" class="mdc-floating-label">Train Costs</label>
+                            <i class="material-icons mdc-text-field__icon MDCTextFieldIconFoundation" tabindex="0" role="button">train</i>
+                        <div class="mdc-line-ripple"></div>
+                    </div>
+                    <p class="form-helper mdc-text-field-helper-text mdc-text-field-helper-text--persistent" aria-hidden="true">
+                    Approximate costs of tickets etc.
+                    </p>
+                    <!--Other costs-->
+                    <div class="mdc-text-field mdc-text-field--with-trailing-icon">
+                            <input type="number" step=".01" name="other" id="other" class="mdc-text-field__input commute-value"
+                                aria-controls="other-helper-text"
+                                aria-describedby="other-helper-text">
+                            <label for="other" class="mdc-floating-label">Other costs</label>
+                        <div class="mdc-line-ripple"></div>
+                    </div>
+                    <p class="form-helper mdc-text-field-helper-text mdc-text-field-helper-text--persistent" aria-hidden="true">
+                    Anything else you can think of!
+                    </p>
+                    <!--Grand Total Get Yo' Mile Money-->
+                    <div class="mdc-text-field--disabled mdc-text-field mdc-text-field--with-leading-icon">
+                            <i class="material-icons mdc-text-field__icon" tabindex="0" role="button">attach_money</i>
+                            <input type="number" name="totalCost" id="totalCost" class="mdc-text-field__input commute-total"
+                                aria-controls="totalCost-helper-text"
+                                aria-describedby="totalCost-helper-text" readonly>
+                            <label for="totalCost" class="mdc-floating-label"></label>
+                        <div class="mdc-line-ripple"></div>
+                    </div>
+                    <p class="form-helper mdc-text-field-helper-text mdc-text-field-helper-text--persistent" aria-hidden="true">
+                    The total cost for this commute type!
+                    </p>
+                    <button class="mdc-button mdc-button--outlined form-submit" type="submit">
+                            <i class="material-icons mdc-button__icon" aria-hidden="true">commute</i>
+                            Save Commute Cost
+                    </button>
+                </form>
+        </div>	
+        <div class="right">
+            <div class="commute-layout">
+                <h2>Commute Cost Tips</h2>
+                    <div class="mdc-card right-tips-card">
+                            <h3>Mulitple commute costs</h3>
+                            <p>Use multiple commute costs for your different methods of commuting. Then update your commutes to get an accurate idea of your Mile Money</p>
+                    </div>
+                </div>
+        </div>
+</div>
 
-<form action="/commute-costs" method="POST" class="commute-form">
-<label for="userCommute">Commute name</label>
-<input type="text" name="userCommute">
-<label for="fuel">Fuel</label>
-<input type="text" name="fuel">
-<label for="bus">Bus</label>
-<input type="text" name="bus">
-<label for="parking">Parking</label>
-<input type="text" name="parking">
-<label for="train">Train</label>
-<input type="text" name="train">
-<label for="other">Other</label>
-<input type="text" name="other">
-<label for="totalCost">Total Cost</label>
-<input type="text" name="totalCost">
-<input type="submit" value="Save" class="button">
-</form>
+

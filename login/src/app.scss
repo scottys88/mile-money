@@ -1,4 +1,4 @@
-.mdc-text-field:not(.mdc-text-field--disabled) {background-color: white !important;}
+.mdc-text-field:not(.mdc-text-field--disabled), .mdc-select {background-color: white !important;}
 $mdc-theme-primary: #000;
 $mdc-theme-secondary: #feeae6;
 $mdc-theme-on-primary: #ffc600;
@@ -21,6 +21,7 @@ $mdc-button: #ffc600;
 @import "@material/textfield/icon/mdc-text-field-icon";
 @import "@material/floating-label/mdc-floating-label";
 @import "@material/button/mdc-button";
+@import "@material/select/mdc-select";
 
 
 
@@ -532,7 +533,7 @@ body.login {
 
 form {
 
-    .mdc-text-field {
+    .mdc-text-field, .mdc-select {
         width: 75%;
     }
     .form-helper {

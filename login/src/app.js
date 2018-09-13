@@ -58,6 +58,12 @@ const icons = document.querySelectorAll('.mdc-text-field-icon');
 icons.forEach(icon => new MDCTextFieldIcon(icon));
 }
 
+//Select box option
+
+import {MDCSelect} from '@material/select';
+
+const select = new MDCSelect(document.querySelector('.mdc-select'));
+
 
 
 //Form Field Icons

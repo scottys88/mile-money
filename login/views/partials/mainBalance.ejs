@@ -1,5 +1,5 @@
 <div class="main-mobile-profile-image">
-        <img src="https://graph.facebook.com/656033073/picture?height=256&width=256">
+        <img src="<%= user.photos[0].value %>">
     </div>
     <div class="mdc-card main-balance">
         <div class="main-balance-inner">
@@ -26,8 +26,9 @@
                 <% if(athlete && athlete.wishList) { %>
                     <% const wishListItems = athlete.wishList %>
                     <% wishListItems.forEach(item => { %>
-                    <div>
+                      <% if(item.redeemed === true) { %>
                         <li>$<%= item.itemCost %>, <%= item.itemName %></li>
+                      <% } %>
                     <% }) %>
                 <% } %>
 

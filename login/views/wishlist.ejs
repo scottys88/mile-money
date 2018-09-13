@@ -1,3 +1,82 @@
+<div class="wrapper">
+<div class="left">
+        <%- include('./partials/subPageLeftAccount'); -%>        
+</div>
+    <div class="main">
+        <h2 class="yellowBg">Add a Wish List item</h2>
+        <form method="POST" class="commute-cost-form"> 
+            <!--Wishlist item name-->
+            <div class="mdc-text-field mdc-text-field--with-trailing-icon">
+                    <input type="text" id="itemName" name="itemName" class="mdc-text-field__input"
+                        aria-controls="userform-helper-text"
+                        aria-describedby="userform-helper-text" required autofocus>
+                    <label for="userCommute" class="mdc-floating-label">Wish List item name</label>
+                    <i class="material-icons mdc-text-field__icon MDCTextFieldIconFoundation" tabindex="0" role="button">shopping_cart</i>
+                <div class="mdc-line-ripple"></div>
+            </div>
+            <p class="form-helper mdc-text-field-helper-text mdc-text-field-helper-text--persistent" aria-hidden="true">
+            The goal or item you're saving Mile Money towards
+            </p>
+            <!--Wishlist item cost-->
+            <div class="mdc-text-field mdc-text-field--with-trailing-icon">
+                    <input type="number" id="itemCost" name="itemCost" class="mdc-text-field__input commute-value"
+                        aria-controls="fuel-helper-text"
+                        aria-describedby="fuel-helper-text" required step="0.01" min="0" max="50000">
+                    <label for="fuel" class="mdc-floating-label">Wish List item cost</label>
+                    <i class="material-icons mdc-text-field__icon MDCTextFieldIconFoundation" tabindex="0" role="button">attach_money</i>
+                <div class="mdc-line-ripple"></div>
+            </div>
+            <p class="form-helper mdc-text-field-helper-text mdc-text-field-helper-text--persistent" aria-hidden="true">
+            The cost of your goal or item.
+            </p>
+            <!--Wishlist item URL-->
+            <div class="mdc-text-field mdc-text-field--with-trailing-icon">
+                    <input type="url" id="itemURL" name="itemURL" class="mdc-text-field__input commute-value"
+                        aria-controls="bus-helper-text"
+                        aria-describedby="bus-helper-text" minlength="10" maxlength="150" >
+                    <label for="bus" class="mdc-floating-label">Wish List item url</label>
+                    <i class="material-icons mdc-text-field__icon MDCTextFieldIconFoundation" tabindex="0" role="button">computer</i>
+                <div class="mdc-line-ripple"></div>
+            </div>
+            <p class="form-helper mdc-text-field-helper-text mdc-text-field-helper-text--persistent" aria-hidden="true">
+            Enter the url of your item so you can redeem your Mile Money when you reach your goal.
+            </p>
+            <!--Wishlist item tags-->
+            <!-- <div class="mdc-chip-set">
+                <div class="mdc-chip" tabindex="0">
+                  <div class="mdc-chip__text">Holiday</div>
+                </div>
+                <div class="mdc-chip" tabindex="0">
+                    <div class="mdc-chip__text">Electronics</div>
+                </div>
+                <div class="mdc-chip" tabindex="0">
+                      <div class="mdc-chip__text">Bills</div>
+                </div>
+                <div class="mdc-chip" tabindex="0">
+                    <div class="mdc-chip__text">Clothing</div>
+                </div>
+                </div> -->
+            <!--Submit button-->
+            <button class="mdc-button mdc-button--outlined form-submit" type="submit">
+                    <i class="material-icons mdc-button__icon" aria-hidden="true">shopping_cart</i>
+                    Save Wish List item
+            </button>
+        </form>
+        
+    </div>
+    <div class="right">
+        <div class="commute-layout">
+            <h2>Wish List tips</h2>
+            <div class="mdc-card right-tips-card">
+                    <h3>What are you saving for?</h3>
+                    <p>Enter ANYTHING you like in the Wishlist. Whatever you're saving for, once you hit your goal, be sure to share your goal with your friends!</p>
+            </div>
+            <div class="mdc-card right-tips-card">
+                <h3>Reward yourself!</h3>
+                <p>Commuting on foot or by bike can be tiring. Reward yourself by redeeming your Mile Money when you reach your goals!</p>
+        </div>
+        </div>
+
 
 <form action="/wishlist" method="POST" class="wish-list-form">
 
@@ -22,3 +101,4 @@
 <input type="submit" value="Save" class="button">
 
 </form>
+</div>

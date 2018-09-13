@@ -1,12 +1,244 @@
-<!doctype html>
-<html>
-  <head>
-      <link rel='stylesheet' href='main.css'>
-    <title>Mile Money - Commute</title>
-  </head>
-  <body>
-    <script src="main.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel='stylesheet' href='bundle.css'>
+    <script src="bundle.js" async></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,900" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Mile Money - Edit Commute</title>
+</head>
+<body>
+        <header class="mdc-top-app-bar">
+                <div class="mdc-top-app-bar__row">
+                  <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+                    <a href="#" class="menu material-icons mdc-top-app-bar__navigation-icon">menu</a>
+                    <h1 class="mdc-top-app-bar__title">Mile Money - Commute</h1>
+                  </section>
+                  <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end">
+                        <img class="top-app-bar--strava" src="images/poweredByStrava.svg">
+                        <a href="#" class="menu material-icons mdc-top-app-bar__navigation-icon"><i class="account-button material-icons mdc-list-item__graphic" aria-hidden="true">account_circle</i></a>
+                        <a href=""><p class="logout">Log out</p></a>
+                    </section>
+                </div>
+              </header>
+            <aside class="mdc-drawer mdc-drawer--temporary mdc-typography">
+                <nav class="mdc-drawer__drawer">
+              
+                  <div class="mdc-drawer__toolbar-spacer"></div>
+              
+                  <nav class="mdc-drawer__content mdc-list">
+                    <a class="mdc-list-item mdc-list-item--activated mdc-ripple-surface--primary my-surface" href="#">
+                      <i class="material-icons mdc-list-item__graphic" aria-hidden="true">account_circle</i>Account
+                    </a>
+                    <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="#">
+                      <i class="material-icons mdc-list-item__graphic" aria-hidden="true">commute</i>Commute Costs
+                    </a>
+                    <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="#">
+                        <i class="material-icons mdc-list-item__graphic" aria-hidden="true">account_balance_wallet</i>Accounts
+                    </a>
+                    <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="#">
+                        <i class="material-icons mdc-list-item__graphic" aria-hidden="true">shopping_cart</i>Wishlist
+                    </a>
+                    <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="#">
+                        <i class="material-icons mdc-list-item__graphic" aria-hidden="true">contact_support</i>FAQ's
+                    </a>
+                    <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="#">
+                        <i class="material-icons mdc-list-item__graphic" aria-hidden="true">multiline_chart</i>Your stats
+                    </a>
+                    <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="#">
+                        <i class="material-icons mdc-list-item__graphic" aria-hidden="true">face</i>About and Contact
+                    </a>
+                  </nav>
+                </nav>
+              </aside>
+              
+          <div class="wrapper">
+            <div class="left">
+                <div class="mdc-card athlete-card">
+                        <div class="athlete-card-profile-image">
+                            <img src="https://graph.facebook.com/656033073/picture?height=256&width=256">
+                        </div>
+                        <div class="card-inner athlete-card-inner">
+                            <h2 class="athlete-card-inner--profile-name">Scott Schubert</h2>
+                            <p class="athlete-card-inner--profile-location">Adelaide, Australia</p>
+                            <div class="athlete-card-inner-stats">
+                            <div class="icon-value-label athlete-card-inner-stats-commutes">
+                                <i class="icon material-icons mdc-list-item__graphic" aria-hidden="true">accessibility_new</i>
+                                <span class="value commutes-value">55</span>
+                                <span class="label commutes-label">Commutes</span>
+                            </div>
+                            <div class="icon-value-label athlete-card-inner-stats-commutes">
+                                <i class="icon material-icons mdc-list-item__graphic" aria-hidden="true">accessibility_new</i>
+                                <span class="value commutes-value"><span>$</span>371.25</span>
+                                <span class="label commutes-label">Mile Money</span>
+                            </div>
+                            </div>
+                            <span class="strava-link">View on Strava</span>
+                        </div>
+                    </div>
+                    <h2 class="yellowBg">Commute Costs</h2>
+                    <div class="commute-costs-wrapper">
+                        <div class="commute-costs-layout">
+                            <div class="mdc-card commute-cost-card">
+                                <a href="#" class="delete-item"><i class="material-icons">clear</i></a>
+                                <div class="card-inner commute-cost-card-inner">
+                                  <div class="icon-wrapper"><i class="material-icons">commute</i></div>
+                                  <h4>Train to work costs</h4>
+                                  <div class="icon-value-label icon-value-label-centre">
+                                      <i class="commute-cost-icon icon material-icons mdc-list-item__graphic" aria-hidden="true">commute</i>
+                                      <span class="value commutes-value"><span>$</span>3.25</span>
+                                      <span class="label commutes-label">Per trip</span>
+                                  </div>
+                                </div>
+                                <a href="#">
+                                    <div class="mdc-card__actions">
+                                      <div class="mdc-card__action-icons">
+                                        <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon" title="Edit">edit</button>
+                                      </div>
+                                    </div>
+                                  </a>
+                              </div>
+                              <div class="mdc-card commute-cost-card">
+                                <a href="#" class="delete-item"><i class="material-icons">clear</i></a>
+                                <div class="card-inner commute-cost-card-inner">
+                                  <div class="icon-wrapper"><i class="material-icons">commute</i></div>
+                                  <h4>Train to work costs</h4>
+                                  <div class="icon-value-label icon-value-label-centre">
+                                      <i class="commute-cost-icon icon material-icons mdc-list-item__graphic" aria-hidden="true">commute</i>
+                                      <span class="value commutes-value"><span>$</span>3.25</span>
+                                      <span class="label commutes-label">Per trip</span>
+                                  </div>
+                                </div>
+                                <a href="#">
+                                    <div class="mdc-card__actions">
+                                      <div class="mdc-card__action-icons">
+                                        <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon" title="Edit">edit</button>
+                                      </div>
+                                    </div>
+                                  </a>
+                              </div>
+                              <div class="mdc-card commute-cost-card">
+                                  <a href="#" class="delete-item"><i class="material-icons">clear</i></a>
+                                  <div class="card-inner commute-cost-card-inner">
+                                    <div class="icon-wrapper"><i class="material-icons">commute</i></div>
+                                    <h4>Train to work costs</h4>
+                                    <div class="icon-value-label icon-value-label-centre">
+                                        <i class="commute-cost-icon icon material-icons mdc-list-item__graphic" aria-hidden="true">commute</i>
+                                        <span class="value commutes-value"><span>$</span>3.25</span>
+                                        <span class="label commutes-label">Per trip</span>
+                                    </div>
+                                  </div>
+                                  <a href="#">
+                                    <div class="mdc-card__actions">
+                                      <div class="mdc-card__action-icons">
+                                        <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon" title="Edit">edit</button>
+                                      </div>
+                                    </div>
+                                  </a>
+                                </div>
+                              <a href="#">
+                                  <div class="mdc-chip commute-cost-chip">
+                                  <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">commute</i>
+                                  <div class="mdc-chip__text">New commute cost</div>
+                                </div>
+                                </a>
+                          </div>
+                        </div>
+            </div>
+            <div class="main">
+                <h2 class="yellowBg">Edit your commute</h2>
+                <form action="/commute/edit/<%= commute.commuteId %>" method="POST" class="commute-cost-form"> 
+                    <!--commute date-->
+                    <div class="mdc-text-field mdc-text-field--with-trailing-icon">
+                            <input type="text"name="commuteDate" readonly id="userCommute" class="mdc-text-field__input"
+                                aria-controls="userform-helper-text"
+                                aria-describedby="userform-helper-text" autofocus required>
+                            <label for="userCommute" class="mdc-floating-label" >Commute Date</label>
+                            <i class="material-icons mdc-text-field__icon MDCTextFieldIconFoundation" tabindex="0" role="button">commute</i>
+                        <div class="mdc-line-ripple"></div>
+                    </div>
+                    <p class="form-helper mdc-text-field-helper-text mdc-text-field-helper-text--persistent" aria-hidden="true">
+                    Your commute date
+                    </p>
+                    <!--commute cost used-->
+                    <div class="mdc-select">
+                        <select name=commuteCosts class="mdc-select__native-control">
+                          <option value="" disabled selected></option>
+                          <option value="grains">
+                            Bread, Cereal, Rice, and Pasta
+                          </option>
+                          <option value="vegetables">
+                            Vegetables
+                          </option>
+                          <option value="fruit">
+                            Fruit
+                          </option>
+                        </select>
+                        <label class="mdc-floating-label">Commute Cost used</label>
+                        <div class="mdc-line-ripple"></div>
+                      </div>
+                    </p>
+                    <!--commute name-->
+                    <div class="mdc-text-field mdc-text-field--with-trailing-icon">
+                            <input type="number" name="commuteName" value="<%= commute.commuteName %>" readonly id="commuteName" class="mdc-text-field__input commute-value"
+                                aria-controls="bus-helper-text"
+                                aria-describedby="bus-helper-text">
+                            <label for="bus" class="mdc-floating-label">Commute name</label>
+                            <i class="material-icons mdc-text-field__icon MDCTextFieldIconFoundation" tabindex="0" role="button">directions_bus</i>
+                        <div class="mdc-line-ripple"></div>
+                    </div>
+                    <p class="form-helper mdc-text-field-helper-text mdc-text-field-helper-text--persistent" aria-hidden="true">
+                    The name of your commute. This is set within Strava.
+                    </p>
+                    <!--commute type-->
+                    <div class="mdc-text-field mdc-text-field--with-trailing-icon">
+                            <input type="number"  name="commuteType" value="<%= commute.commuteType %>" readonly id="parking" class="mdc-text-field__input commute-value"
+                                aria-controls="parking-helper-text"
+                                aria-describedby="parking-helper-text">
+                            <label for="parking" class="mdc-floating-label">Commute Type</label>
+                            <i class="material-icons mdc-text-field__icon MDCTextFieldIconFoundation" tabindex="0" role="button">local_parking</i>
+                        <div class="mdc-line-ripple"></div>
+                    </div>
+                    <p class="form-helper mdc-text-field-helper-text mdc-text-field-helper-text--persistent" aria-hidden="true">
+                    Run, ride, walk, cycle, swim... this is set within Strava
+                    </p>
+                    <!--commute distance-->
+                    <div class="mdc-text-field mdc-text-field--with-trailing-icon">
+                            <input type="number" name="distance" value="<%= commute.distance %>" readonly id="train" class="mdc-text-field__input commute-value"
+                                aria-controls="train-helper-text"
+                                aria-describedby="train-helper-text">
+                            <label for="train" class="mdc-floating-label">Commute Distance</label>
+                            <i class="material-icons mdc-text-field__icon MDCTextFieldIconFoundation" tabindex="0" role="button">train</i>
+                        <div class="mdc-line-ripple"></div>
+                    </div>
+                    <p class="form-helper mdc-text-field-helper-text mdc-text-field-helper-text--persistent" aria-hidden="true">
+                    How far you commuted.
+                    </p>
+                    
+                    <button class="mdc-button mdc-button--outlined form-submit" type="submit">
+                            <i class="material-icons mdc-button__icon" aria-hidden="true">commute</i>
+                            Update your commute
+                    </button>
+                </form>
+                
+            </div>
+            <div class="right">
+                <div class="commute-layout">
+                    <h2>Commute Tips</h2>
+                    <div class="mdc-card right-tips-card">
+                            <h3>Your Strava Data</h3>
+                            <p>
+                              The Mile Money team will be making some enhancements in the future. 
+                              For the time being the only data that you can edit within Mile Money
+                              is the cost associated with your commute.
+                            </p>
+                    </div>
+                </div>
+            </div>
+            
     
-    <p>Commute form</p>
-  </body>
+</body>
 </html>

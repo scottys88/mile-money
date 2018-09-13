@@ -1,4 +1,90 @@
-
+<div class="wrapper">
+    <div class="left">
+        <%- include('./partials/subPageLeftAccount'); -%>
+    </div>
+    <div class="main">
+        <h2 class="yellowBg">Edit your commute</h2>
+        <form action="/commute/edit/<%= commute.commuteId %>" method="POST" class="commute-cost-form"> 
+            <!--commute date-->
+            <div class="mdc-text-field mdc-text-field--with-trailing-icon">
+                    <input  value="<%= commute.commuteDate %>" type="text"name="commuteDate" readonly id="userCommute" class="mdc-text-field__input"
+                        aria-controls="userform-helper-text"
+                        aria-describedby="userform-helper-text" autofocus required>
+                    <label for="userCommute" class="mdc-floating-label" >Commute Date</label>
+                    <i class="material-icons mdc-text-field__icon MDCTextFieldIconFoundation" tabindex="0" role="button">commute</i>
+                <div class="mdc-line-ripple"></div>
+            </div>
+            <p class="form-helper mdc-text-field-helper-text mdc-text-field-helper-text--persistent" aria-hidden="true">
+            Your commute date
+            </p>
+            <!--commute cost used-->
+            <div class="mdc-select">
+                <select name=commuteCosts class="mdc-select__native-control">
+                    <% person.commuteCosts.forEach(cost => { %>
+                      <option  value="<%= cost.userCommute %>"> <%= cost.userCommute %></option>
+                    <% }) %>
+                </select>
+                <label class="mdc-floating-label">Commute Cost used</label>
+                <div class="mdc-line-ripple"></div>
+              </div>
+            </p>
+            <!--commute name-->
+            <div class="mdc-text-field mdc-text-field--with-trailing-icon">
+                    <input type="text" name="commuteName" value="<%= commute.commuteName %>" readonly id="commuteName" class="mdc-text-field__input commute-value"
+                        aria-controls="bus-helper-text"
+                        aria-describedby="bus-helper-text">
+                    <label for="bus" class="mdc-floating-label">Commute name</label>
+                    <i class="material-icons mdc-text-field__icon MDCTextFieldIconFoundation" tabindex="0" role="button">directions_bus</i>
+                <div class="mdc-line-ripple"></div>
+            </div>
+            <p class="form-helper mdc-text-field-helper-text mdc-text-field-helper-text--persistent" aria-hidden="true">
+            The name of your commute. This is set within Strava.
+            </p>
+            <!--commute type-->
+            <div class="mdc-text-field mdc-text-field--with-trailing-icon">
+                    <input type="text"  name="commuteType" value="<%= commute.commuteType %>" readonly id="parking" class="mdc-text-field__input commute-value"
+                        aria-controls="parking-helper-text"
+                        aria-describedby="parking-helper-text">
+                    <label for="parking" class="mdc-floating-label">Commute Type</label>
+                    <i class="material-icons mdc-text-field__icon MDCTextFieldIconFoundation" tabindex="0" role="button">local_parking</i>
+                <div class="mdc-line-ripple"></div>
+            </div>
+            <p class="form-helper mdc-text-field-helper-text mdc-text-field-helper-text--persistent" aria-hidden="true">
+            Run, ride, walk, cycle, swim... this is set within Strava
+            </p>
+            <!--commute distance-->
+            <div class="mdc-text-field mdc-text-field--with-trailing-icon">
+                    <input type="number" name="distance" value="<%= commute.distance %>" readonly id="train" class="mdc-text-field__input commute-value"
+                        aria-controls="train-helper-text"
+                        aria-describedby="train-helper-text">
+                    <label for="train" class="mdc-floating-label">Commute Distance</label>
+                    <i class="material-icons mdc-text-field__icon MDCTextFieldIconFoundation" tabindex="0" role="button">train</i>
+                <div class="mdc-line-ripple"></div>
+            </div>
+            <p class="form-helper mdc-text-field-helper-text mdc-text-field-helper-text--persistent" aria-hidden="true">
+            How far you commuted.
+            </p>
+            
+            <button class="mdc-button mdc-button--outlined form-submit" type="submit">
+                    <i class="material-icons mdc-button__icon" aria-hidden="true">commute</i>
+                    Update your commute
+            </button>
+        </form>
+        
+    </div>
+    <div class="right">
+        <div class="commute-layout">
+            <h2>Commute Tips</h2>
+            <div class="mdc-card right-tips-card">
+                    <h3>Your Strava Data</h3>
+                    <p>
+                      The Mile Money team will be making some enhancements in the future. 
+                      For the time being the only data that you can edit within Mile Money
+                      is the cost associated with your commute.
+                    </p>
+            </div>
+        </div>
+    </div>
 
 <form action="/commute/edit/<%= commute.commuteId %>" method="POST" class="commute-form">
     <label for="commuteDate">Commute date</label>

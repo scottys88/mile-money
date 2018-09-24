@@ -78,27 +78,3 @@
         </div>
 
 
-<form action="/wishlist" method="POST" class="wish-list-form">
-
-<label for="itemName">Goal Name</label>
-    <input type="text" name="itemName">
-
-<label for="itemCost">Goal Cost</label>
-    <input type="text" name="itemCost">
-
-<label for="itemURL">Item web address</label>
-    <input type="text" name="itemURL">
-
-<p>Tags</p>
-
-<% var tags= ['Holiday', 'Electronics', 'Something'] %>
-<ul class="tags">
-    <% tags.forEach(tag => { %>
-    <li><%= tag %></li>
-    <% }); %>
-</ul>
-
-<input type="submit" value="Save" class="button">
-
-</form>
-</div>

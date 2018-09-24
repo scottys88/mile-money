@@ -252,6 +252,8 @@ app.get('/', ensureAuthenticated, async (req, res) => {
 
   var array = [];
   
+  
+
   athleteCommutes.forEach(commute => {
     commuteCosts.forEach(cost => {
       if(commute.commuteCosts == cost.userCommute){
@@ -261,51 +263,14 @@ app.get('/', ensureAuthenticated, async (req, res) => {
       }
     });
   });
+
+  athleteCommutes.sort(function compare(a, b) {
+    var dateA = new Date(a.commuteDate);
+    var dateB = new Date(b.commuteDate);
+    return dateB - dateA;
+  });
   
-  
-
-//   if(commuteCosts.length >= 1) {
-//   athleteAccounts.forEach(account => {
-//     commuteCosts.forEach(cost => {
-//       athleteCommutes.forEach(commute => {
-//         if((commute.commuteCosts) == cost.userCommute && (commute.account == account.accountName)) {
-          
-//           array.push([account.accountName, cost.totalCost]);
-          
-//         }
-//       })
-//     })
-//   });
-
-  
-//   function onlyUnique(value, index, self) { 
-//     return self.indexOf(value) === index;
-//   }
-//   var uniqueAccounts = array.map(x => x[0]).filter( onlyUnique );
-//   console.log(uniqueAccounts);
-
-
-// //To calculate the total account value for each unique account https://stackoverflow.com/questions/40055589/how-to-find-sum-of-duplicate-values-in-an-array-using-javascript
-//   var sum = {},accountValues;
-// for (var i=0,c;c=array[i];++i) {
-//     if ( undefined === sum[c[0]] ) {        
-//        sum[c[0]] = c;
-//     }
-//     else {
-//         sum[c[0]][1] += c[1];
-//     }
-// }
-
-
-// accountValues = Object.keys(sum).map(function(val) { return sum[val]});
-// console.log((JSON.stringify(accountValues)));
-
-// var balance = array.map(x => x[1]);
-
-// const reducer = (accumulator, currentValue) => accumulator + currentValue;
-// var mileMoneyBalance = balance.reduce(reducer);
-
-//   };
+  console.log(athleteCommutes);
   
   
   athleteWishListItems.forEach(item => {
@@ -316,7 +281,7 @@ app.get('/', ensureAuthenticated, async (req, res) => {
   })
   console.log(mileMoneyBalance);
   console.log(`Total value redeemed is ${totalRedeemed}`);
-   res.render('index', { user: req.user, athlete, totalRedeemed, mileMoneyBalance });
+   res.render('index', { user: req.user, athlete, totalRedeemed, athleteCommutes, mileMoneyBalance });
 });
 
 

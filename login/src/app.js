@@ -62,8 +62,9 @@ icons.forEach(icon => new MDCTextFieldIcon(icon));
 
 import {MDCSelect} from '@material/select';
 
+if(document.querySelector('.mdc-select')){
 const select = new MDCSelect(document.querySelector('.mdc-select'));
-
+};
 
 
 //Form Field Icons

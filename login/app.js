@@ -386,8 +386,9 @@ app.post('/commute-costs', async (req, res) => {
   res.render('commuteCostNew', { user: req.user});
 });
 
-app.get('/commute/edit/:id', ensureAuthenticated, async (req, res) => {
-  const athlete = await Athlete.find({ 'commutes.commuteId': req.params.id  }, { 'commutes.$': 1 });
+app.get('/commute-edit', ensureAuthenticated, async (req, res) => {
+  console.log(req.query.id);
+  const athlete = await Athlete.find({ 'commutes.commuteId': req.query.id  }, { 'commutes.$': 1 });
   const person = await Athlete.findOne({ 'id': req.user.id  });
   console.log(person.commuteCosts[0]);
   const commute = athlete[0].commutes[0];
@@ -409,8 +410,8 @@ app.post('/commute/edit/:id', async (req, res) => {
 });
 
 
-app.get('/commute-costs/edit/:id', ensureAuthenticated, async (req, res) => {
-  const athlete = await Athlete.find({ 'commuteCosts._id': req.params.id  }, { 'commuteCosts.$': 1 });
+app.get('/commute-costs-edit', ensureAuthenticated, async (req, res) => {
+  const athlete = await Athlete.find({ 'commuteCosts._id': req.query.id  }, { 'commuteCosts.$': 1 });
   const commuteCostEdit = athlete[0].commuteCosts[0];
   console.log(commuteCostEdit);
   res.render('commuteCostEdit', { user: req.user, commuteCostEdit });
@@ -461,8 +462,9 @@ app.post('/wishlist', async (req, res) => {
 });
 
 
-app.get('/wishlist/:id', ensureAuthenticated, async (req, res) => {
-  const athlete = await Athlete.find({ 'wishList._id': req.params.id  }, { 'wishList.$': 1 });
+app.get('/wishlist-edit', ensureAuthenticated, async (req, res) => {
+  console.log(req.body);
+  const athlete = await Athlete.find({ 'wishList._id': req.query.id  }, { 'wishList.$': 1 });
   const wishListItem = athlete[0].wishList[0];
   console.log(wishListItem);
   res.render('wishlistEdit', { user: req.user, wishListItem });

@@ -4,7 +4,7 @@
             <% if(athlete && athlete.commuteCosts) { %>
                 <% athlete.commuteCosts.forEach(cost => { %>
             <div class="mdc-card commute-cost-card">
-                <a href="#" class="delete-item"><i class="material-icons">clear</i></a>
+                <a href=<%= `/commute-costs-delete?id=${ cost._id }` %> class="delete-item"><i class="material-icons">clear</i></a>
                 <div class="card-inner commute-cost-card-inner">
                   <div class="icon-wrapper"><i class="material-icons">commute</i></div>
                   <h4><%= cost.userCommute %></h4>
@@ -23,6 +23,7 @@
                   </a>
               </div>
               <% }) } %>
+                
                 <a href="/commute-costs"><div class="mdc-chip commute-cost-chip">
                     <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">commute</i>
                     <div class="mdc-chip__text">New commute cost</div>

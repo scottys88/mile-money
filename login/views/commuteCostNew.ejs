@@ -1,3 +1,5 @@
+
+
 <div class="wrapper">
         <div class="left">
             <%- include('./partials/subPageLeftAccount'); -%>
@@ -7,16 +9,28 @@
                 <form method="POST" class="commute-cost-form"> 
                     <!--commute cost name-->
                     <div class="mdc-text-field mdc-text-field--with-trailing-icon">
+                            <% if(athlete.commuteCosts.length == 0) { %>
+                                <input type="text" name="userCommute" id="userCommute" class="mdc-text-field__input"
+                                aria-controls="userform-helper-text"
+                                aria-describedby="userform-helper-text" value="Main commute cost" readonly required>  
+                            <% console.log('no commute costs') } else { %>
                             <input type="text" name="userCommute" id="userCommute" class="mdc-text-field__input"
                                 aria-controls="userform-helper-text"
                                 aria-describedby="userform-helper-text" autofocus required>
+                            <%  console.log('commute cost exists')} %>
                             <label for="userCommute" class="mdc-floating-label" >Commute Cost Name</label>
                             <i class="material-icons mdc-text-field__icon MDCTextFieldIconFoundation" tabindex="0" role="button">commute</i>
                         <div class="mdc-line-ripple"></div>
                     </div>
+                    <% if(athlete.commuteCosts.length == 0) { %>
+                    <p class="form-helper mdc-text-field-helper-text mdc-text-field-helper-text--persistent" aria-hidden="true">
+                    Your first commute cost must be called 'Main Commute Cost'.
+                    </p>
+                    <% console.log('no commute costs') } else { %>
                     <p class="form-helper mdc-text-field-helper-text mdc-text-field-helper-text--persistent" aria-hidden="true">
                     The name of your commute e.g. Monday Run
                     </p>
+                    <%  console.log('commute cost exists')} %>
                     <!--Fuel used per trip-->
                     <div class="mdc-text-field mdc-text-field--with-trailing-icon">
                             <input type="number" step=".01" name="fuel" id="fuel" class="mdc-text-field__input commute-value"

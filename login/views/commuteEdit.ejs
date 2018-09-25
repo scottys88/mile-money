@@ -4,7 +4,7 @@
     </div>
     <div class="main">
         <h2 class="yellowBg">Edit your commute</h2>
-        <form action="/commute/edit/<%= commute.commuteId %>" method="POST" class="commute-cost-form"> 
+        <form action="/commute-edit?id=<%= commute.commuteId %>" method="POST" class="commute-cost-form"> 
             <!--commute date-->
             <div class="mdc-text-field mdc-text-field--with-trailing-icon">
                     <input  value="<%= commute.commuteDate %>" type="text"name="commuteDate" readonly id="userCommute" class="mdc-text-field__input"

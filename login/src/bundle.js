@@ -7458,6 +7458,19 @@ wishListCards.forEach(item => {
     }
 });
 
+//Clear the flashes on screen
+
+const flashClearButton = document.querySelector('.flash-msg-clear');
+const flashPanel = document.querySelector('.flash-msg');
+
+function removeFlash() {
+    flashPanel.style.display = "none";
+};
+
+setTimeout(removeFlash, 15000);
+
+flashClearButton.addEventListener('click', removeFlash);
+
 /***/ }),
 /* 69 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {

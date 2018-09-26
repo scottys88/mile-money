@@ -3757,6 +3757,16 @@ a.mdc-list-item {
   .mdc-select--disabled.mdc-select--outlined .mdc-notched-outline__path {
     stroke: rgba(0, 0, 0, 0.16); }
 
+.flash-msg {
+  padding: 10px;
+  background-color: #00FF00;
+  position: relative; }
+  .flash-msg .flash-msg-clear {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    cursor: pointer; }
+
 .my-ripple {
   --mdc-ripple-fg-size: 0;
   --mdc-ripple-left: 0;

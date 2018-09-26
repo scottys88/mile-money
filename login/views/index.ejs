@@ -6,6 +6,9 @@
 		<%- include('./partials/commuteCosts'); -%>
 	</div>
 	<div class="main">
+			<% if (messages.length > 0){ %>
+                <p class="mdc-card flash-msg"><%= messages %><i class="material-icons flash-msg-clear">clear</i></p>
+            <% } %>
 		<%- include('./partials/mainBalance'); -%>
 		<%- include('./partials/accountsBanner'); -%>
 		<%- include('./partials/wishList'); -%>
@@ -16,23 +19,6 @@
 	<div class="mobile-tabs mdc-tab-bar" role="tablist">
 		<%- include('./partials/mobileTabs'); -%>
 	</div>
-		
-	</p>
-	<p>
-		
-		
-	</p>
-	<p>
-		
-	</p>
-
-	<p>
-		
-	</p>
-
-	<p>
-		
-	</p>
 </div>
 <% } %>
 

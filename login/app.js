@@ -1,4 +1,5 @@
-var express = require('express')
+var flash = require('connect-flash')
+  , express = require('express')
   , passport = require('passport')
   , util = require('util')
   , StravaStrategy = require('passport-strava-oauth2').Strategy
@@ -78,14 +79,16 @@ app.configure(function() {
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
   app.use(express.logger());
-  app.use(express.cookieParser());
+  
+  app.use(express.cookieParser('secretString'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.session({ secret: 'keyboard cat' }));
   // Initialize Passport!  Also use passport.session() middleware, to support
   // persistent login sessions (recommended).
   app.use(passport.initialize());
-  app.use(passport.session());
+  app.use(passport.session({cookie: { maxAge: 60000 }}));
+  app.use(flash());
   app.use(app.router);
   app.use(express.static(path.join(__dirname + '/src')));
 });
@@ -281,7 +284,7 @@ app.get('/', ensureAuthenticated, async (req, res) => {
   })
   console.log(mileMoneyBalance);
   console.log(`Total value redeemed is ${totalRedeemed}`);
-   res.render('index', { user: req.user, athlete, totalRedeemed, athleteCommutes, mileMoneyBalance });
+   res.render('index', { messages: req.flash('info'), user: req.user, athlete, totalRedeemed, athleteCommutes, mileMoneyBalance });
 });
 
 
@@ -326,7 +329,7 @@ app.get('/login', function(req, res){
 
 app.get('/commute-costs', ensureAuthenticated, async (req, res) => {
   let athlete = await Athlete.findOne( {id: req.user.id});
-
+  
   res.render('commuteCostNew', { user: req.user, athlete});
 });
 
@@ -340,6 +343,7 @@ app.get('/commute-costs-delete', ensureAuthenticated, async (req, res) => {
       } 
     }
   });
+  req.flash('info', 'Commute cost deleted.');
   res.redirect('/');
 });
 
@@ -364,6 +368,7 @@ app.post('/commute-costs', ensureAuthenticated, async (req, res) => {
     }
 
   }).exec();
+  req.flash('info', 'New commute cost created.')
   res.redirect('/');
 });
 
@@ -386,7 +391,7 @@ app.post('/commute-edit', ensureAuthenticated, async (req, res) => {
       }
     });
 
-
+  req.flash('info', 'Your commute has been updated');
   res.redirect('/');
 });
 
@@ -414,7 +419,7 @@ app.post('/commute-costs/edit/:id', ensureAuthenticated, async (req, res) => {
       }
     });
     console.log(commuteCost);
-
+    req.flash('info', 'Commute cost updated.');
   res.redirect('/');
 });
 
@@ -439,7 +444,8 @@ app.post('/wishlist', async (req, res) => {
     }
 
   }).exec();
-  res.render('wishlist', { user: req.user});
+  req.flash('info', 'Wishlist item created');
+  res.redirect('/');
 });
 
 
@@ -464,7 +470,7 @@ app.post('/wishlist/:id', ensureAuthenticated, async (req, res) => {
       }
     });
   console.log(wishList);
-
+  req.flash('info', 'Wishlist item updated.');
   res.redirect('/');
 });
 
@@ -480,7 +486,7 @@ app.get('/wishlist/delete/:id', ensureAuthenticated, async (req, res) => {
         } 
       }
     });
-
+    req.flash('info', 'Wishlist item deleted.');
   res.redirect('/');
 });
 
@@ -494,7 +500,7 @@ app.get('/wishlist/redeem/:id', ensureAuthenticated, async (req, res) => {
         "wishList.$.redeemed": true 
       }
     });
-
+    req.flash('info', 'Wishlist item redeemed! Great work!');
   res.redirect('/');
 });
 

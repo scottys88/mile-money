@@ -309,3 +309,15 @@ wishListCards.forEach(item => {
 })
 
 
+//Clear the flashes on screen
+
+const flashClearButton = document.querySelector('.flash-msg-clear');
+const flashPanel = document.querySelector('.flash-msg');
+
+function removeFlash(){
+    flashPanel.style.display = "none";
+};
+
+setTimeout(removeFlash, 15000);
+
+flashClearButton.addEventListener('click', removeFlash);

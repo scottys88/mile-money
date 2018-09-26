@@ -23,7 +23,17 @@ $mdc-button: #ffc600;
 @import "@material/button/mdc-button";
 @import "@material/select/mdc-select";
 
-
+.flash-msg {
+    padding: 10px;
+    background-color: #00FF00;
+    position: relative;
+    .flash-msg-clear {
+        position: absolute;
+        right: 5px;
+        top: 5px;
+        cursor: pointer;
+    }
+}
 
 .my-ripple {
     @include mdc-ripple-surface;

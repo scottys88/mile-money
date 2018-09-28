@@ -283,6 +283,7 @@ app.get('/', ensureAuthenticated, async (req, res) => {
     };
   })
   console.log(mileMoneyBalance);
+  console.log(req.user.token);
   console.log(`Total value redeemed is ${totalRedeemed}`);
    res.render('index', { messages: req.flash('info'), user: req.user, athlete, totalRedeemed, athleteCommutes, mileMoneyBalance });
 });
@@ -322,10 +323,49 @@ app.get('/profile', ensureAuthenticated, async (req, res) => {
   res.render('profile', { user: req.user});
 });
 
+app.get('/webhooks', (req, res) => {
+  let referrerURL =  req.originalUrl;
+  console.log(referrerURL);
+  let queryParams = referrerURL.split('&');
+  
+  let hubChallenge = queryParams[0].split('?');
+  let hub = hubChallenge[1].split('=');
+  hub = hub[1];
 
-app.get('/login', function(req, res){
-  res.render('login', { user: req.user});
+  let finalResponse = {
+    "hub.challenge" : hub
+  }
+  finalResponse = JSON.stringify(finalResponse);
+
+  console.log(typeof(finalResponse));
+  
+  console.log(finalResponse);
+    app.get('https://api.strava.com/api/v3/push_subscriptions?client_id=22264&client_secret=f31774d980e2f6e97403b8fd404deecff420201a&callback_url=http://5b4f0342.ngrok.io&verify_token=STRAVA', (req, res) => {
+      res.send(finalResponse);
+    })
+  res.status(200).send({"hub.challenge": hub});
 });
+
+app.post('/webhooks', (req, res) => {
+  console.log(req.body);
+  if(req.body.aspect_type === "create"){
+    let athleteID = req.body.owner_id;
+    Athlete.findOne({'id': athleteID}).then(function(athlete){
+      console.log(athlete);
+    })
+  }
+  res.status(200);
+});
+
+
+app.get('/login', function(req, res, next){
+  
+  res.render('login', {user: req.user});
+});
+
+
+
+
 
 app.get('/commute-costs', ensureAuthenticated, async (req, res) => {
   let athlete = await Athlete.findOne( {id: req.user.id});
@@ -526,6 +566,49 @@ app.post('/accounts', async (req, res) => {
   res.render('accounts', { user: req.user});
 });
 
+var request = require("request");
+
+var options = { method: 'POST',
+  url: 'https://api.strava.com/api/v3/push_subscriptions',
+  qs: 
+   { client_id: '22264',
+     client_secret: 'f31774d980e2f6e97403b8fd404deecff420201a',
+     callback_url: 'http://5b4f0342.ngrok.io/webhooks',
+     verify_token: 'STRAVA' },
+  headers: 
+   { 'Postman-Token': '816d7fdf-57f4-4ffa-885f-61fedfe989b7',
+     'Cache-Control': 'no-cache',
+     'content-type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' },
+  formData: 
+   { client_id: '22264',
+     client_secret: 'f31774d980e2f6e97403b8fd404deecff420201a',
+     callback_url: 'http://5b4f0342.ngrok.io/webhooks',
+     verify_token: 'STRAVA' } };
+
+request(options, function (error, response, body) {
+  if (error) throw new Error(error);
+
+  console.log(body);
+});
+
+
+
+
+
+app.get('http://5b4f0342.ngrok.io/profile', (req, res) => {
+  console.log(req.params[hub.challenge]);
+  res.status(200).send({"hub.challenge":"${hubChallenge}"});
+})
+ 
+
+// app.post('https://api.strava.com/api/v3/push_subscriptions?client_id=22264&client_secret=f31774d980e2f6e97403b8fd404deecff420201a&callback_url=http://5b4f0342.ngrok.io&verify_token=STRAVA', (req, res) => {
+//   if(err) {
+//     return console.error('post failed:', err);
+//   }
+//   let hubChallenge = res.query.hub.challenge;
+//   console.log(hubChallenge);
+//   res.render('http://5b4f0342.ngrok.io', {hubChallenge})
+// })
 
 
 

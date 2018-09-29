@@ -115,6 +115,9 @@ const athleteSchema = new Schema({
     accounts: {
         accountName: "Main",
         type: String
+    },
+    notifications: {
+        type: Boolean,
     }
 });
 

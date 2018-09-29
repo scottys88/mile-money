@@ -10,6 +10,7 @@ var flash = require('connect-flash')
   , mocha = require('mocha');
 const Athlete = require('./models/athlete');
 const Shoe = require('./models/athlete');
+// var defaultClient = StravaApiV3.ApiClient.instance;
 
 mongoose.Promise = global.Promise;
 
@@ -165,10 +166,13 @@ app.get('/', ensureAuthenticated, async (req, res, next) => {
 
 });
 
+//access token: a481290c9c01de67dbef70f0fb0b1207591c75cb
+
 app.get('/', ensureAuthenticated, async (req, res, next) => {
     StravaApiV3.athlete.get({'access_token':req.user.token},function(err,payload,limits) {
       //do something with your payload, track rate limits
     });
+
     StravaApiV3.athlete.listActivities({'access_token':req.user.token,
           'resource_state':3},function(err,payload,limits) {
         //do something with your payload, track rate limits
@@ -323,6 +327,7 @@ app.get('/profile', ensureAuthenticated, async (req, res) => {
   res.render('profile', { user: req.user});
 });
 
+//This route acts as the get request for the webooks. It will return the important hub.challenge code back to validate subscription
 app.get('/webhooks', (req, res) => {
   let referrerURL =  req.originalUrl;
   console.log(referrerURL);
@@ -346,15 +351,50 @@ app.get('/webhooks', (req, res) => {
   res.status(200).send({"hub.challenge": hub});
 });
 
-app.post('/webhooks', (req, res) => {
+app.post('/webhooks', (req, res, next) => {
   console.log(req.body);
   if(req.body.aspect_type === "create"){
     let athleteID = req.body.owner_id;
     Athlete.findOne({'id': athleteID}).then(function(athlete){
-      console.log(athlete);
+      
     })
   }
-  res.status(200);
+  next();
+});
+
+//save new activity if commute from webhooks
+app.post('/webhooks', (req, res, next) => {
+
+  StravaApiV3.activities.get({
+    'access_token':process.env.STRAVA_ACCESS_TOKEN, 
+    id: req.body.object_id}, function(err, payload, limits){
+      activity = payload;
+
+      if (activity.aspect_type = 'create') {
+        if(activity.commute === true) {
+          let athlete = Athlete.update( {id: req.body.owner_id, 'commutes.commuteId': { $ne: activity.id} },
+          { $addToSet: 
+            { commutes: { $each: [ {
+                commuteId: activity.id,
+                start_latlng: activity.start_latlng,
+                end_latlng: activity.end_latlng,
+                isCommute: activity.commute, 
+                commuteType: activity.type,
+                commuteName: activity.name,
+                commuteDate: activity.start_date,
+                startDateLocal: activity.start_date_local,
+                distance: activity.distance,
+                movingTime: activity.moving_time,
+                elapsedTime: activity.elapsed_time
+          }] } } 
+          },{upsert: true}).exec(); 
+          console.log('actvity saved');
+        };
+      };
+    });
+     
+
+  res.status(200).send();
 });
 
 

@@ -367,10 +367,12 @@ app.post('/webhooks', (req, res, next) => {
 
   StravaApiV3.activities.get({
     'access_token':process.env.STRAVA_ACCESS_TOKEN, 
+    //req.body here is the object returned from the webhooks
     id: req.body.object_id}, function(err, payload, limits){
+      //payload here is the actual activity id
       activity = payload;
 
-      if (activity.aspect_type = 'create') {
+      if (req.body.aspect_type === 'create') {
         if(activity.commute === true) {
           let athlete = Athlete.update( {id: req.body.owner_id, 'commutes.commuteId': { $ne: activity.id} },
           { $addToSet: 
@@ -390,12 +392,31 @@ app.post('/webhooks', (req, res, next) => {
           },{upsert: true}).exec(); 
           console.log('actvity saved');
         };
+      } else {
+        next();
       };
     });
-     
-
-  res.status(200).send();
 });
+
+//delete commute from database triggered from webhooks
+app.post('/webhooks', async (req, res, next) => {
+     
+     if (req.body.aspect_type === 'delete') {
+       console.log(req.body.object_id + ' delete');
+      let athlete = await Athlete.update( { 'commutes.commuteId': req.body.object_id}, 
+      {
+        $pull: {
+          commutes: {
+            commuteId: req.body.object_id
+          } 
+        }
+      });
+      console.log('activity deleted');
+    };
+    
+    res.status(200).send();
+  })
+
 
 
 app.get('/login', function(req, res, next){

@@ -391,6 +391,7 @@ app.post('/webhooks', (req, res, next) => {
           }] } } 
           },{upsert: true}).exec(); 
           console.log('actvity saved');
+          res.status(200).send();
         };
       } else {
         next();
@@ -412,10 +413,70 @@ app.post('/webhooks', async (req, res, next) => {
         }
       });
       console.log('activity deleted');
-    };
-    
-    res.status(200).send();
-  })
+      res.status(200).send();
+    } else {
+      next();
+    }
+  });
+
+//update commute from database triggered from webhooks
+app.post('/webhooks', async (req, res, next) => {
+     
+  if (req.body.aspect_type === 'update') {
+   console.log('update request')
+   StravaApiV3.activities.get({
+    'access_token':process.env.STRAVA_ACCESS_TOKEN, 
+    //req.body here is the object returned from the webhooks 
+    id: req.body.object_id}, function(err, payload, limits){
+      //payload here is the actual activity id
+      var activity = payload;
+      console.log(activity.name);
+    })};
+
+        if(activity.commute === true) {
+          let athlete = await Athlete.update( {'commutes.commuteId': activity.id },
+          { 
+            $set: {
+                'commutes.$.commuteName': activity.name
+          } 
+        })
+        console.log('actvity updated');
+        res.status(200).send();
+      } else {
+        next();
+}});
+
+//delete commute from database triggered from webhooks only if updated activity is NOT A COMMUTE
+app.post('/webhooks', async (req, res, next) => {
+  StravaApiV3.activities.get({
+    'access_token':process.env.STRAVA_ACCESS_TOKEN, 
+    //req.body here is the object returned from the webhooks 
+    id: req.body.object_id}, function(err, payload, limits){
+      //payload here is the actual activity id
+      var activity = payload;
+      console.log(activity.name);
+    });
+     
+  if (req.body.aspect_type === 'update' && activity.commute === false) {
+    console.log(req.body.object_id + ' delete');
+   let athlete = await Athlete.update( { 'commutes.commuteId': req.body.object_id}, 
+   {
+     $pull: {
+       commutes: {
+         commuteId: req.body.object_id
+       } 
+     }
+   });
+   console.log('activity deleted because no longer a commute');
+   res.status(200).send();
+ } else {
+    console.log('could not update!');
+ }
+});
+ 
+   
+  
+
 
 
 

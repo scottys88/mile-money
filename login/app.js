@@ -10,6 +10,10 @@ var flash = require('connect-flash')
   , mocha = require('mocha');
 const Athlete = require('./models/athlete');
 const Shoe = require('./models/athlete');
+const mail = require('./mail');
+
+
+
 // var defaultClient = StravaApiV3.ApiClient.instance;
 
 mongoose.Promise = global.Promise;
@@ -293,37 +297,19 @@ app.get('/', ensureAuthenticated, async (req, res) => {
 });
 
 
+app.get('/notification', async(req, res) => {
+  await mail.send({
+ 
+      from: 'Mile Money <noreply@milemoney.io>',
+      to: 'someguy@example.com',
+      subject: "You've almost reached a Mile Money goal!",
+      html: '<p>Hey</p>'
+ 
+  });
+  res.status(200).send({'notification' : 'notification page'});
+})
 
 app.get('/profile', ensureAuthenticated, async (req, res) => {
-  StravaApiV3.athlete.get({'access_token':req.user.token},function(err,payload,limits) {
-    //do something with your payload, track rate limits
-  });
-  StravaApiV3.athlete.listActivities({'access_token':req.user.token,
-        'resource_state':3},function(err,payload,limits) {
-      //do something with your payload, track rate limits
-      stravaActivities = payload;
-
-    stravaActivities.forEach(activity => {
-      if(activity.commute === true) {
-      let athlete = Athlete.update( {id: req.user.id, 'commutes.$.commuteId': { $ne: activity.id} },
-      { $addToSet: 
-        { commutes: { $each: [ {
-            commuteId: activity.id,
-            start_latlng: activity.start_latlng,
-            end_latlng: activity.end_latlng,
-            isCommute: activity.commute, 
-            commuteType: activity.type,
-            commuteName: activity.name,
-            commuteDate: activity.start_date,
-            startDateLocal: activity.start_date_local,
-            distance: activity.distance,
-            movingTime: activity.moving_time,
-            elapsedTime: activity.elapsed_time
-      }] } } 
-      },{upsert: true}).exec(); 
-    }
-  });
-});
   res.render('profile', { user: req.user});
 });
 

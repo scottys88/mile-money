@@ -98,7 +98,7 @@ app.configure(function() {
   app.use(express.static(path.join(__dirname + '/src')));
 });
 
-
+//Finds and updates an athlete if one is not found in the db
 app.get('/', ensureAuthenticated, async (req, res, next) => {
   if(req.user) {
   
@@ -111,6 +111,7 @@ app.get('/', ensureAuthenticated, async (req, res, next) => {
     state: req.user._json.state,
     country: req.user._json.country,
     gender: req.user._json.sex,
+    email: req.user._json.email,
     shoes: [],
     bikes: []
   }, { upsert: true} ).exec();
@@ -122,7 +123,7 @@ app.get('/', ensureAuthenticated, async (req, res, next) => {
   }}
 );
 
-
+//Adds new shoes to the athlete. If shoe already exists then updates it
 app.get('/', ensureAuthenticated, async (req, res, next) => {
 
 const stravaShoes = req.user._json.shoes;
@@ -148,7 +149,7 @@ if(req.user) {
 });
 
 
-
+//Adds new bikes ot the db if bike already exists then updates it
 app.get('/', ensureAuthenticated, async (req, res, next) => {
 
     if(req.user) {
@@ -170,7 +171,7 @@ app.get('/', ensureAuthenticated, async (req, res, next) => {
 
 });
 
-//access token: a481290c9c01de67dbef70f0fb0b1207591c75cb
+
 
 app.get('/', ensureAuthenticated, async (req, res, next) => {
     StravaApiV3.athlete.get({'access_token':req.user.token},function(err,payload,limits) {

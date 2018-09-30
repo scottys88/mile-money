@@ -118,7 +118,9 @@ const athleteSchema = new Schema({
     },
     notifications: {
         type: Boolean,
-    }
+        default: false
+    },
+    email: String
 });
 
 

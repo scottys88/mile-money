@@ -270,6 +270,9 @@ app.get('/', ensureAuthenticated, async (req, res) => {
 
   var array = [];
   
+  await Athlete.find( {id: req.user.id, 'commuteCosts.userCommute': 'Main commute cost'}).then(function(cost){
+    console.log(cost);
+  })
   
 
   athleteCommutes.forEach(commute => {
@@ -301,7 +304,7 @@ app.get('/', ensureAuthenticated, async (req, res) => {
 });
 
 //scheduled task to run only Friday at 3:30PM
-var j = schedule.scheduleJob({hour: 18, minute: 55, dayOfWeek: 1}, async function(){
+var j = schedule.scheduleJob({hour: 19, minute: 02, dayOfWeek: 1}, async function(){
   const athletes = await Athlete.find({'settings.notifications': true});
   console.log(athletes);
   athletes.forEach(athlete => {
@@ -409,7 +412,17 @@ app.post('/webhooks', (req, res, next) => {
           }] } } 
           },{upsert: true}).exec(); 
           console.log('actvity saved');
-          res.status(200).send();
+          Athlete.findOne( {id: req.body.owner_id, 'commuteCosts.userCommute' : 'Main commute cost'}, function(cost){
+            console.log(cost);
+          })
+          StravaApiV3.activities.update({access_token: process.env.STRAVA_ACCESS_TOKEN, id: req.body.object_id, name: '#MileMoney Commute'},function(err,payload,limits){
+            if(!err) {
+              console.log(payload)
+            }
+            else {
+              console.log(err);
+            }
+          })
         };
       } else {
         next();
@@ -463,6 +476,22 @@ app.post('/webhooks', async (req, res, next) => {
       } else {
         next();
 }});
+
+app.put('/commute-update', async(req, res) => {
+
+  StravaApiV3.activities.update({access_token: process.env.STRAVA_ACCESS_TOKEN, id: req.body.object_id, name: '#MileMoney Commute'},function(err,payload,limits){
+    if(!err) {
+      console.log(payload)
+    }
+    else {
+      console.log(err);
+    }
+  })
+  next();
+
+})
+
+
 
 //delete commute from database triggered from webhooks only if updated activity is NOT A COMMUTE
 app.post('/webhooks', async (req, res, next) => {
@@ -629,7 +658,7 @@ app.post('/wishlist', async (req, res) => {
 });
 
 app.put('/commute-update', async(req, res) => {
-  StravaApiV3.activities.update({access_token: process.env.STRAVA_ACCESS_TOKEN, id: 1876816106, name: 'Mile Money Commute'},function(err,payload,limits){
+  StravaApiV3.activities.update({access_token: process.env.STRAVA_ACCESS_TOKEN, id: 1877156498, name: '#MileMoney Commute'},function(err,payload,limits){
     if(!err) {
       console.log(payload)
     }
@@ -747,25 +776,6 @@ request(options, function (error, response, body) {
 
   console.log(body);
 });
-
-
-
-
-
-app.get('http://5b4f0342.ngrok.io/profile', (req, res) => {
-  console.log(req.params[hub.challenge]);
-  res.status(200).send({"hub.challenge":"${hubChallenge}"});
-})
- 
-
-// app.post('https://api.strava.com/api/v3/push_subscriptions?client_id=22264&client_secret=f31774d980e2f6e97403b8fd404deecff420201a&callback_url=http://5b4f0342.ngrok.io&verify_token=STRAVA', (req, res) => {
-//   if(err) {
-//     return console.error('post failed:', err);
-//   }
-//   let hubChallenge = res.query.hub.challenge;
-//   console.log(hubChallenge);
-//   res.render('http://5b4f0342.ngrok.io', {hubChallenge})
-// })
 
 
 

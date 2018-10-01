@@ -3,6 +3,7 @@ const nodemailer = require('nodemailer');
 const ejs = require('ejs');
 const juice = require('juice');
 const htmlToText = require('html-to-text');
+const emailTemplate = require('./views/email.ejs');
 
 require('dotenv').config({ path: 'process.env' });
 
@@ -15,8 +16,12 @@ const transport = nodemailer.createTransport({
     }
 });
 
+
+
 exports.send =  async (options) => {
+   
     transport.sendMail(options, (error, info) => {
+
         if (error) {
             return console.log(error);
         }

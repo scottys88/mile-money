@@ -82,6 +82,17 @@ const wishListSchema = new Schema({
     redeemed: Boolean
 });
 
+const athleteSettingsSchema = new Schema({
+    notifications: {
+        type: Boolean,
+        default: false
+    },
+    autoUpdateCommutes: {
+        type: Boolean,
+        default: false
+    }
+})
+
 // const accountSchema = new Schema({
 //     accountName: {
 //         type: String,
@@ -116,10 +127,7 @@ const athleteSchema = new Schema({
         accountName: "Main",
         type: String
     },
-    notifications: {
-        type: Boolean,
-        default: false
-    },
+    settings: [athleteSettingsSchema],
     email: String
 });
 

@@ -7,12 +7,13 @@ var flash = require('connect-flash')
   , mongoose = require('mongoose')
   , promisify = require('es6-promisify')
   , path = require('path')
+  , ejs = require('ejs')
   , schedule = require('node-schedule')
   , mocha = require('mocha');
 const Athlete = require('./models/athlete');
 const Shoe = require('./models/athlete');
 const mail = require('./mail');
-const scheduledEmail = require('./handlers/scheduleEmail'); 
+const scheduledEmail = require('./views/email.ejs'); 
 
 
 
@@ -300,8 +301,8 @@ app.get('/', ensureAuthenticated, async (req, res) => {
 });
 
 //scheduled task to run only Friday at 3:30PM
-var j = schedule.scheduleJob({hour: 11, minute: 25, dayOfWeek: 1}, async function(){
-  const athletes = await Athlete.find({notifications: true});
+var j = schedule.scheduleJob({hour: 18, minute: 55, dayOfWeek: 1}, async function(){
+  const athletes = await Athlete.find({'settings.notifications': true});
   console.log(athletes);
   athletes.forEach(athlete => {
     const athleteCommutes = athlete.commutes;
@@ -311,8 +312,6 @@ var j = schedule.scheduleJob({hour: 11, minute: 25, dayOfWeek: 1}, async functio
       commuteCosts.forEach(cost => {
         if(commute.commuteCosts == cost.userCommute){
           mileMoneyBalance += cost.totalCost;
-          console.log(cost.totalCost);
-          console.log(mileMoneyBalance);
           }
       });
     });
@@ -322,20 +321,22 @@ var j = schedule.scheduleJob({hour: 11, minute: 25, dayOfWeek: 1}, async functio
       to: athlete.email,
       subject: "You've almost reached a Mile Money goal!",
       html: `Your Mile Money Balance is currently:  ${mileMoneyBalance}`
-  
+
   });
+  
   })
 
 });
 
-app.get('/notification', async(req, res) => {
-  await mail.send({
+
+//test route for the mail transport
+app.get('/notification', async(req, res) => { 
+  mail.send({
  
       from: 'Mile Money <noreply@milemoney.io>',
       to: 'someguy@example.com',
       subject: "You've almost reached a Mile Money goal!",
-      html: '<p>Hey</p>'
- 
+      html: '<p>Test email works yahoo!</p>'
   });
   res.status(200).send({'notification' : 'notification page'});
 })
@@ -627,6 +628,18 @@ app.post('/wishlist', async (req, res) => {
   res.redirect('/');
 });
 
+app.put('/commute-update', async(req, res) => {
+  StravaApiV3.activities.update({access_token: process.env.STRAVA_ACCESS_TOKEN, id: 1876816106, name: 'Mile Money Commute'},function(err,payload,limits){
+    if(!err) {
+      console.log(payload)
+    }
+    else {
+      console.log(err);
+    }
+  })
+
+
+})
 
 app.get('/wishlist-edit', ensureAuthenticated, async (req, res) => {
   console.log(req.body);
@@ -705,6 +718,11 @@ app.post('/accounts', async (req, res) => {
   res.render('accounts', { user: req.user});
 });
 
+app.get('/token-verification', async (req, res) => {
+  res.status(200).send({'working fine': 'working fine'});
+});
+
+
 var request = require("request");
 
 var options = { method: 'POST',
@@ -757,7 +775,7 @@ app.get('http://5b4f0342.ngrok.io/profile', (req, res) => {
 //   redirecting the user to strava.com.  After authorization, Strava
 //   will redirect the user back to this application at /auth/strava/callback
 app.get('/auth/strava',
-  passport.authenticate('strava', { scope: ['public'] }),
+  passport.authenticate('strava', { scope: ['write'] }),
   function(req, res){
     // The request will be redirected to Strava for authentication, so this
     // function will not be called.

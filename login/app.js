@@ -7,10 +7,14 @@ var flash = require('connect-flash')
   , mongoose = require('mongoose')
   , promisify = require('es6-promisify')
   , path = require('path')
+  , schedule = require('node-schedule')
   , mocha = require('mocha');
 const Athlete = require('./models/athlete');
 const Shoe = require('./models/athlete');
 const mail = require('./mail');
+const scheduledEmail = require('./handlers/scheduleEmail'); 
+
+
 
 
 
@@ -172,7 +176,7 @@ app.get('/', ensureAuthenticated, async (req, res, next) => {
 });
 
 
-
+//This middleware will collect the strava athletes activities
 app.get('/', ensureAuthenticated, async (req, res, next) => {
     StravaApiV3.athlete.get({'access_token':req.user.token},function(err,payload,limits) {
       //do something with your payload, track rate limits
@@ -210,6 +214,7 @@ app.get('/', ensureAuthenticated, async (req, res, next) => {
 
 });
 
+//This middleware will do something, I think it is about aggregating number of commutes for an account...
 app.get('/', ensureAuthenticated, async (req, res, next) => {
 
   let athlete = await Athlete.aggregate([ { $match: { id: req.user.id } }, 
@@ -281,10 +286,7 @@ app.get('/', ensureAuthenticated, async (req, res) => {
     var dateB = new Date(b.commuteDate);
     return dateB - dateA;
   });
-  
 
-  
-  
   athleteWishListItems.forEach(item => {
     if(item.redeemed === true) {
       console.log(item.itemCost);
@@ -297,6 +299,34 @@ app.get('/', ensureAuthenticated, async (req, res) => {
    res.render('index', { messages: req.flash('info'), user: req.user, athlete, totalRedeemed, athleteCommutes, mileMoneyBalance });
 });
 
+//scheduled task to run only Friday at 3:30PM
+var j = schedule.scheduleJob({hour: 11, minute: 25, dayOfWeek: 1}, async function(){
+  const athletes = await Athlete.find({notifications: true});
+  console.log(athletes);
+  athletes.forEach(athlete => {
+    const athleteCommutes = athlete.commutes;
+    const commuteCosts = athlete.commuteCosts;
+    let mileMoneyBalance = 0;
+    athleteCommutes.forEach(commute => {
+      commuteCosts.forEach(cost => {
+        if(commute.commuteCosts == cost.userCommute){
+          mileMoneyBalance += cost.totalCost;
+          console.log(cost.totalCost);
+          console.log(mileMoneyBalance);
+          }
+      });
+    });
+    mail.send({
+ 
+      from: 'Mile Money <noreply@milemoney.io>',
+      to: athlete.email,
+      subject: "You've almost reached a Mile Money goal!",
+      html: `Your Mile Money Balance is currently:  ${mileMoneyBalance}`
+  
+  });
+  })
+
+});
 
 app.get('/notification', async(req, res) => {
   await mail.send({

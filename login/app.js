@@ -270,10 +270,6 @@ app.get('/', ensureAuthenticated, async (req, res) => {
 
   var array = [];
   
-  await Athlete.find( {id: req.user.id, 'commuteCosts.userCommute': 'Main commute cost'}).then(function(cost){
-    console.log(cost);
-  })
-  
 
   athleteCommutes.forEach(commute => {
     commuteCosts.forEach(cost => {
@@ -388,7 +384,7 @@ app.post('/webhooks', (req, res, next) => {
 
   StravaApiV3.activities.get({
     'access_token':process.env.STRAVA_ACCESS_TOKEN, 
-    //req.body here is the object returned from the webhooks
+    //req.body here is the object returned from the webhooks it is used to query the database
     id: req.body.object_id}, function(err, payload, limits){
       //payload here is the actual activity id
       activity = payload;
@@ -412,17 +408,29 @@ app.post('/webhooks', (req, res, next) => {
           }] } } 
           },{upsert: true}).exec(); 
           console.log('actvity saved');
-          Athlete.findOne( {id: req.body.owner_id, 'commuteCosts.userCommute' : 'Main commute cost'}, function(cost){
-            console.log(cost);
-          })
-          StravaApiV3.activities.update({access_token: process.env.STRAVA_ACCESS_TOKEN, id: req.body.object_id, name: '#MileMoney Commute'},function(err,payload,limits){
-            if(!err) {
-              console.log(payload)
-            }
-            else {
-              console.log(err);
-            }
-          })
+          
+          let commuteValue = Athlete.findOne( {id: req.body.owner_id, 'commuteCosts.userCommute': 'Main commute cost' }, function(err, cost){
+          let userCommuteCosts = cost.commuteCosts;
+          let totalCost = 0;
+            userCommuteCosts.forEach(item => {
+              if(item.userCommute === "Main commute cost"){
+                totalCost = item.totalCost;
+                console.log(totalCost);
+                return totalCost;
+              }
+            })
+              StravaApiV3.activities.update({access_token: process.env.STRAVA_ACCESS_TOKEN, id: req.body.object_id, name: `#MileMoney.io $${totalCost} saved with this commute`},function(err,payload,limits){
+              if(!err) {
+                console.log(payload)
+              }
+              else {
+                console.log(err);
+              }
+            })
+          
+          });
+          
+
         };
       } else {
         next();
@@ -434,7 +442,7 @@ app.post('/webhooks', (req, res, next) => {
 app.post('/webhooks', async (req, res, next) => {
      
      if (req.body.aspect_type === 'delete') {
-       console.log(req.body.object_id + ' delete');
+
       let athlete = await Athlete.update( { 'commutes.commuteId': req.body.object_id}, 
       {
         $pull: {
@@ -454,14 +462,14 @@ app.post('/webhooks', async (req, res, next) => {
 app.post('/webhooks', async (req, res, next) => {
      
   if (req.body.aspect_type === 'update') {
-   console.log('update request')
+
    StravaApiV3.activities.get({
     'access_token':process.env.STRAVA_ACCESS_TOKEN, 
     //req.body here is the object returned from the webhooks 
     id: req.body.object_id}, function(err, payload, limits){
       //payload here is the actual activity id
       var activity = payload;
-      console.log(activity.name);
+
     })};
 
         if(activity.commute === true) {
@@ -477,21 +485,6 @@ app.post('/webhooks', async (req, res, next) => {
         next();
 }});
 
-app.put('/commute-update', async(req, res) => {
-
-  StravaApiV3.activities.update({access_token: process.env.STRAVA_ACCESS_TOKEN, id: req.body.object_id, name: '#MileMoney Commute'},function(err,payload,limits){
-    if(!err) {
-      console.log(payload)
-    }
-    else {
-      console.log(err);
-    }
-  })
-  next();
-
-})
-
-
 
 //delete commute from database triggered from webhooks only if updated activity is NOT A COMMUTE
 app.post('/webhooks', async (req, res, next) => {
@@ -501,7 +494,7 @@ app.post('/webhooks', async (req, res, next) => {
     id: req.body.object_id}, function(err, payload, limits){
       //payload here is the actual activity id
       var activity = payload;
-      console.log(activity.name);
+
     });
      
   if (req.body.aspect_type === 'update' && activity.commute === false) {

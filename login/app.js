@@ -13,7 +13,7 @@ var flash = require('connect-flash')
 const Athlete = require('./models/athlete');
 const Shoe = require('./models/athlete');
 const mail = require('./mail');
-const scheduledEmail = require('./views/email.ejs'); 
+
 
 
 
@@ -300,26 +300,39 @@ app.get('/', ensureAuthenticated, async (req, res) => {
 });
 
 //scheduled task to run only Friday at 3:30PM
-var j = schedule.scheduleJob({hour: 19, minute: 02, dayOfWeek: 1}, async function(){
+var j = schedule.scheduleJob({hour: 21, minute: 33, dayOfWeek: 2}, async function(){
   const athletes = await Athlete.find({'settings.notifications': true});
-  console.log(athletes);
+  
   athletes.forEach(athlete => {
+    const athleteWishListItems = athlete.wishList;
     const athleteCommutes = athlete.commutes;
     const commuteCosts = athlete.commuteCosts;
     let mileMoneyBalance = 0;
+    let totalSaved = 0;
+    let totalRedeemed = 0;
+    athleteWishListItems.forEach(item => {
+      if(item.redeemed === true) {
+        console.log(item.itemCost);
+        totalRedeemed += item.itemCost;
+      };
+    })
     athleteCommutes.forEach(commute => {
       commuteCosts.forEach(cost => {
         if(commute.commuteCosts == cost.userCommute){
-          mileMoneyBalance += cost.totalCost;
+          totalSaved += cost.totalCost;
           }
       });
     });
+    mileMoneyBalance = totalSaved - totalRedeemed;
+
+
     mail.send({
  
       from: 'Mile Money <noreply@milemoney.io>',
       to: athlete.email,
       subject: "You've almost reached a Mile Money goal!",
-      html: `Your Mile Money Balance is currently:  ${mileMoneyBalance}`
+      html: `<p>Your Mile Money Balance is currently: <strong> $${mileMoneyBalance}</strong>.<p>
+             <p>You're lifetime Mile Money earnt is: $${totalSaved}. You have redeemed $${totalRedeemed} Mile Money.</p>`
 
   });
   
@@ -362,7 +375,7 @@ app.get('/webhooks', (req, res) => {
   console.log(typeof(finalResponse));
   
   console.log(finalResponse);
-    app.get('https://api.strava.com/api/v3/push_subscriptions?client_id=22264&client_secret=f31774d980e2f6e97403b8fd404deecff420201a&callback_url=http://5b4f0342.ngrok.io&verify_token=STRAVA', (req, res) => {
+    app.get('https://api.strava.com/api/v3/push_subscriptions?client_id=22264&client_secret=f31774d980e2f6e97403b8fd404deecff420201a&callback_url=http://8a0f50cc.ngrok.io&verify_token=STRAVA', (req, res) => {
       res.send(finalResponse);
     })
   res.status(200).send({"hub.challenge": hub});
@@ -752,7 +765,7 @@ var options = { method: 'POST',
   qs: 
    { client_id: '22264',
      client_secret: 'f31774d980e2f6e97403b8fd404deecff420201a',
-     callback_url: 'http://5b4f0342.ngrok.io/webhooks',
+     callback_url: 'http://8a0f50cc.ngrok.io/webhooks',
      verify_token: 'STRAVA' },
   headers: 
    { 'Postman-Token': '816d7fdf-57f4-4ffa-885f-61fedfe989b7',
@@ -761,7 +774,7 @@ var options = { method: 'POST',
   formData: 
    { client_id: '22264',
      client_secret: 'f31774d980e2f6e97403b8fd404deecff420201a',
-     callback_url: 'http://5b4f0342.ngrok.io/webhooks',
+     callback_url: 'http://8a0f50cc.ngrok.io/webhooks',
      verify_token: 'STRAVA' } };
 
 request(options, function (error, response, body) {

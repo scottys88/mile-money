@@ -7464,9 +7464,10 @@ const flashClearButton = document.querySelector('.flash-msg-clear');
 const flashPanel = document.querySelector('.flash-msg');
 
 function removeFlash() {
+    //removes the panel on click
     flashPanel.style.display = "none";
 };
-
+//removes the panel after 15 seconds
 setTimeout(removeFlash, 15000);
 
 flashClearButton.addEventListener('click', removeFlash);

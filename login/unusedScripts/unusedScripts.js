@@ -139,3 +139,29 @@ console.log(athleteWishListItems);
 
 
 
+////////Very important strava webhooks callback!!
+
+app.get('/login', function(req, res, next){
+  
+  let referrerURL = req.headers.referer;
+  let queryParams = referrerURL.split('&');
+  
+  let hubChallenge = queryParams[0].split('?');
+  let hub = hubChallenge[1].split('=');
+  hub = hub[1];
+
+  let finalResponse = {
+    "hub.challenge" : hub
+  }
+  finalResponse = JSON.stringify(finalResponse);
+
+  console.log(typeof(finalResponse));
+  if(finalResponse) {
+  console.log(finalResponse);
+    app.get('https://api.strava.com/api/v3/push_subscriptions?client_id=22264&client_secret=f31774d980e2f6e97403b8fd404deecff420201a&callback_url=http://5b4f0342.ngrok.io&verify_token=STRAVA', (req, res) => {
+      res.send(finalResponse);
+    })
+  }
+  console.log(hub);
+  res.status(200).send({finalResponse, "hub.challenge": hub, user: req.user });
+});

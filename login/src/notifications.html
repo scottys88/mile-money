@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+        <head>
+                <link rel='stylesheet' href='bundle.css'>
+                <script src="bundle.js" async></script>
+                <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+                <script src="https://unpkg.com/ionicons@4.4.2/dist/ionicons.js"></script>
+                <link href="https://fonts.googleapis.com/css?family=Lato:300,400,900" rel="stylesheet">
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <meta http-equiv="X-UA-Compatible" content="ie=edge">
+                <title>Mile Money - Notifications</title>
+            </head>
+<body>
+        <header class="mdc-top-app-bar">
+                <div class="mdc-top-app-bar__row">
+                  <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+                    <a href="#" class="menu material-icons mdc-top-app-bar__navigation-icon">menu</a>
+                    <h1 class="mdc-top-app-bar__title">Mile Money</h1>
+                  </section>
+                  <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end">
+                      <img class="top-app-bar--strava" src="images/poweredByStrava.svg">
+                      <a href="#" class="menu material-icons mdc-top-app-bar__navigation-icon"><i class="account-button material-icons mdc-list-item__graphic" aria-hidden="true">account_circle</i></a>
+                      <a href=""><p class="logout">Log out</p></a>
+                    </section>
+                </div>
+              </header>
+            <aside class="mdc-drawer mdc-drawer--temporary mdc-typography">
+                <nav class="mdc-drawer__drawer">
+              
+                  <div class="mdc-drawer__toolbar-spacer"></div>
+              
+                  <nav class="mdc-drawer__content mdc-list">
+                    <a class="mdc-list-item mdc-list-item--activated mdc-ripple-surface--primary my-surface" href="#">
+                      <i class="material-icons mdc-list-item__graphic" aria-hidden="true">account_circle</i>Account
+                    </a>
+                    <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="#">
+                      <i class="material-icons mdc-list-item__graphic" aria-hidden="true">commute</i>Commute Costs
+                    </a>
+                    <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="#">
+                        <i class="material-icons mdc-list-item__graphic" aria-hidden="true">account_balance_wallet</i>Accounts
+                    </a>
+                    <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="#">
+                        <i class="material-icons mdc-list-item__graphic" aria-hidden="true">shopping_cart</i>Wishlist
+                    </a>
+                    <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="#">
+                        <i class="material-icons mdc-list-item__graphic" aria-hidden="true">contact_support</i>FAQ's
+                    </a>
+                    <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="#">
+                        <i class="material-icons mdc-list-item__graphic" aria-hidden="true">multiline_chart</i>Your stats
+                    </a>
+                      <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="#">
+                          <i class="material-icons mdc-list-item__graphic" aria-hidden="true">face</i>About and Contact
+                      </a>
+                    <div class="mdc-drawer__toolbar-spacer"></div>
+                    <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="#">
+                        <i class="material-icons mdc-list-item__graphic" aria-hidden="true">face</i>About and Contact
+                    </a>
+                  </nav>
+                  
+                </nav>
+              </aside>
+              <div class="bg-image"></div>
+    <div class="wrapper content">
+        <div class="left">
+                <div class="mdc-card athlete-card">
+                        <div class="athlete-card-profile-image">
+                            <img alt="mile money developer" src="https://graph.facebook.com/656033073/picture?height=256&width=256">
+                        </div>
+                        <div class="card-inner athlete-card-inner">
+                            <h2 class="athlete-card-inner--profile-name">Scott Schubert</h2>
+                            <p class="athlete-card-inner--profile-location">Adelaide, Australia</p>
+                            <div class="athlete-card-inner-stats">
+                                <div class="athlete-card-inner-social-icons">
+                                        <a href="https://twitter.com/MileMoneyApp"><ion-icon name="logo-twitter"></ion-icon></a>
+                                        <a href="https://www.instagram.com/milemoneyapp/"><ion-icon name="logo-instagram"></ion-icon></a>
+                                        <a href="https://www.facebook.com/milemoney"><ion-icon name="logo-facebook"></ion-icon></a>
+                                </div>
+                            </div>
+                            <span class="strava-link">View on Strava</span>
+                        </div>
+                    </div>
+        </div>
+        
+        <div class="main main-content">
+            
+            <div class="mdc-card main-content-card">
+                <h2 class="yellowBg">Save your notification preferences</h2>
+                <form action="/commute/edit/<%= commute.commuteId %>" method="POST" class="notifications-form"> 
+                    <div class="switch-label-container">   
+                    <div class="mdc-switch">
+                        <div class="mdc-switch__track"></div>
+                        <div class="mdc-switch__thumb-underlay">
+                            <div class="mdc-switch__thumb">
+                                <input type="checkbox" id="basic-switch" class="mdc-switch__native-control" role="switch" >
+                            </div>
+                        </div>
+                    </div>     
+                    <label for="basic-switch"><strong>off/on</strong>- Email notifications with your current Mile Money Balance</label>
+                    </div>
+                    <div class="switch-label-container">   
+                    <div class="mdc-switch">
+                            <div class="mdc-switch__track"></div>
+                            <div class="mdc-switch__thumb-underlay">
+                                <div class="mdc-switch__thumb">
+                                    <input type="checkbox" id="basic-switch" class="mdc-switch__native-control" role="switch" >
+                                </div>
+                            </div>
+                        </div>
+                        <label for="basic-switch"><strong>off/on</strong> - Update your commute names in Strava to include <br> #MileMoney.ioand the amount saved.<br> e.g. #MileMoney.io $5.50</label>
+                        
+                    </div>
+                    <div class="switch-label-container">    
+                        <div class="mdc-switch">
+                            <div class="mdc-switch__track"></div>
+                            <div class="mdc-switch__thumb-underlay">
+                                <div class="mdc-switch__thumb">
+                                    <input type="checkbox" id="basic-switch" class="mdc-switch__native-control" role="switch" >
+                                </div>
+                            </div>
+                        </div>
+                        <label for="basic-switch"><strong>off/on</strong>Receive marketing and special offers</label>
+                    </div>
+                    <button class="mdc-button mdc-button--outlined form-submit" type="submit">
+                            <i class="material-icons mdc-button__icon" aria-hidden="true">notifications</i>
+                            Save notification preferences
+                    </button>
+                </form>
+            </div>
+
+        </div>
+        <div class="right"></div>
+    </div>
+    
+</body>
+</html>

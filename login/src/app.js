@@ -15,7 +15,9 @@ const drawer = new MDCTemporaryDrawer(document.querySelector('.mdc-drawer--tempo
 document.querySelector('.menu').addEventListener('click', () => drawer.open = true);
 
 const surface = document.querySelectorAll('.my-surface');
+if(surface){
 surface.forEach(item => new MDCRipple(item));
+};
 
 //Mobile tabs
 
@@ -34,8 +36,9 @@ const tab = new MDCTab(document.querySelector('.mdc-tab'));
 //Chips
 
 import {MDCChipSet} from '@material/chips';
-
+if(document.querySelector('.mdc-chip')){
 const chipSet = new MDCChipSet(document.querySelector('.mdc-chip'));
+};
 
 //Form Fields
 
@@ -314,6 +317,7 @@ wishListCards.forEach(item => {
 const flashClearButton = document.querySelector('.flash-msg-clear');
 const flashPanel = document.querySelector('.flash-msg');
 
+if(flashPanel){
 function removeFlash(){
     //removes the panel on click
     flashPanel.style.display = "none";
@@ -322,3 +326,29 @@ function removeFlash(){
 setTimeout(removeFlash, 15000);
 
 flashClearButton.addEventListener('click', removeFlash);
+};
+
+
+//Switches for the notifications opt in and opt out
+import {MDCSwitch} from '@material/switch';
+
+
+let notificationSwitches = Array.from(document.querySelectorAll('.mdc-switch'));
+notificationSwitches.forEach(a => { a =  new MDCSwitch(a)});
+
+
+function toggleNotificationSwitch(e){
+    //get the checkbox within the mdc switch div
+    const checkBox = e.currentTarget.querySelector('[type="checkbox"]');
+ 
+    if(e.currentTarget.classList.contains('mdc-switch--checked')) {
+        checkBox.setAttribute('checked','false');
+    }
+    else {
+        checkBox.setAttribute('checked','true');
+    }
+    return;
+   
+}
+
+notificationSwitches.forEach(toggle => toggle.addEventListener('click', toggleNotificationSwitch));

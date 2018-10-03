@@ -1,6 +1,6 @@
 .mdc-text-field:not(.mdc-text-field--disabled), .mdc-select {background-color: white !important;}
 $mdc-theme-primary: #000;
-$mdc-theme-secondary: #feeae6;
+$mdc-theme-secondary: #ffc600;
 $mdc-theme-on-primary: #ffc600;
 $mdc-theme-on-secondary: #442b2d;
 $mdc-button: #ffc600;
@@ -22,6 +22,7 @@ $mdc-button: #ffc600;
 @import "@material/floating-label/mdc-floating-label";
 @import "@material/button/mdc-button";
 @import "@material/select/mdc-select";
+@import "@material/switch/mdc-switch";
 
 .flash-msg {
     padding: 10px;
@@ -621,5 +622,27 @@ form {
             padding: 5px;
         }
         
+    }
+}
+
+.notifications-form {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    .switch-label-container {
+        padding: 20px 0;
+        display: flex; 
+        justify-content: flex-start;
+        .mdc-switch {
+            display: inline-block;
+            
+        }
+        label[for="basic-switch"]{
+            text-align: left;
+            padding-left: 15px;
+        }
+        button {
+            width: 300px;
+        }
     }
 }

@@ -601,7 +601,7 @@ form {
 
 .content {
     .main-content {
-        background: white;
+        // background: white;
         .main-content-card {
             position: relative;
             padding: 20px;
@@ -638,7 +638,7 @@ form {
             display: inline-block;
             
         }
-        label[for="basic-switch"]{
+        label.basic-switch {
             text-align: left;
             padding-left: 15px;
         }

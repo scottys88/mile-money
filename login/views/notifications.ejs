@@ -1,0 +1,67 @@
+<div class="wrapper content">
+        <div class="left">
+            <%- include('./partials/subPageLeftAccount'); -%>
+        </div>
+        <div class="main main-content">
+                <div class="mdc-card main-content-card">
+                        <h2 class="yellowBg">Save your notification preferences</h2>
+                        <form action="/notifications" method="POST" class="notifications-form"> 
+                            <div class="switch-label-container">   
+                            <div class="mdc-switch">
+                                <div class="mdc-switch__track"></div>
+                                <div class="mdc-switch__thumb-underlay">
+                                    <div class="mdc-switch__thumb">
+                                        <input type="checkbox" id="emailNotifications" name="emailNotifications" class="mdc-switch__native-control" role="switch" >
+                                    </div>
+                                </div>
+                            </div>     
+                            <label class="basic-switch" for="emailNotifications"><strong> off/on</strong> - Email notifications</label>
+                            </div>
+                            <p>Email notifications will be weekly. The content will be your total Mile Money balance and the amount you've redeemed.</p>
+                            <div class="switch-label-container">   
+                            <div class="mdc-switch">
+                                    <div class="mdc-switch__track"></div>
+                                    <div class="mdc-switch__thumb-underlay">
+                                        <div class="mdc-switch__thumb">
+                                            <input type="checkbox" id="autoUpdateCommutes" name="autoUpdateCommutes" class="mdc-switch__native-control" role="switch" >
+                                        </div>
+                                    </div>
+                                </div>
+                                <label class="basic-switch" for="autoUpdateCommutes"><strong> off/on</strong> - Update your Strava activity names</label>
+                               
+                            </div>
+                            <p>Your commutes will be automatically tagged with #MileMoney.io and the amount you saved. For example: #MileMoney.io $7 saved with this commute.</p>
+                            <div class="switch-label-container">    
+                                <div class="mdc-switch">
+                                    <div class="mdc-switch__track"></div>
+                                    <div class="mdc-switch__thumb-underlay">
+                                        <div class="mdc-switch__thumb">
+                                            <input type="checkbox" id="emailMarketing" name="emailMarketing" class="mdc-switch__native-control" role="switch" >
+                                        </div>
+                                    </div>
+                                </div>
+                                <label class="basic-switch" for="emailMarketing"><strong> off/on</strong> - Receive email updates and marketing from Mile Money</label>
+                            </div>
+                            <p>I will be making further developments to Mile Money, opt in here to get emails about updates and offers.</p>
+                            <button class="mdc-button mdc-button--outlined form-submit" type="submit">
+                                    <i class="material-icons mdc-button__icon" aria-hidden="true">notifications</i>
+                                    Save notification preferences
+                            </button>
+                        </form>
+                    </div>
+        </div>	
+        <div class="right">
+            <div class="commute-layout">
+                <h2>Notifications</h2>
+                    <div class="mdc-card right-tips-card">
+                            <h3>Update your Strava activities</h3>
+                            <p>
+                                This is a handy feature if you don't want to be logging into Mile Money to see what you're saving.
+                            </p>
+                            <p>
+                                In addition to the email notifications you keep up-to-date with how you're Mile Money is tracking.
+                            </p>
+                    </div>
+                </div>
+        </div>
+</div>

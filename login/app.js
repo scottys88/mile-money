@@ -301,7 +301,7 @@ app.get('/', ensureAuthenticated, async (req, res) => {
 
 //scheduled task to run only Friday at 3:30PM
 var j = schedule.scheduleJob({hour: 21, minute: 33, dayOfWeek: 2}, async function(){
-  const athletes = await Athlete.find({'settings.notifications': true});
+  const athletes = await Athlete.find({'settings.emailNotifications': true});
   
   athletes.forEach(athlete => {
     const athleteWishListItems = athlete.wishList;
@@ -354,6 +354,7 @@ app.get('/notification', async(req, res) => {
 })
 
 app.get('/profile', ensureAuthenticated, async (req, res) => {
+  
   res.render('profile', { user: req.user});
 });
 
@@ -527,8 +528,36 @@ app.post('/webhooks', async (req, res, next) => {
  }
 });
  
-   
+app.get('/notifications', ensureAuthenticated, async function(req, res, next){
+    let athlete = await Athlete.findOne({'id': req.user.id});
+
+  res.render('notifications', {user: req.user, athlete});
+});
   
+app.post('/notifications', ensureAuthenticated, async function(req, res, next){
+ 
+    if(req.body.autoUpdateCommutes = "on"){
+      req.body.autoUpdateCommutes = true;
+    }
+    if (req.body.emailNotifications = "on") {
+      req.body.emailNotifications = true;
+    }
+    if (req.body.emailMarketing = "on") {
+      req.body.emailMarketing = true;
+    }
+
+
+    Athlete.updateOne({ "id": req.user.id },
+                              { $set: {
+                                  "settings.emailNotifications": req.body.emailNotifications,
+                                  "settings.autoUpdateCommutes": req.body.autoUpdateCommutes,
+                                  "settings.emailMarketing": req.body.emailMarketing,
+
+                              }}).exec();
+      console.log(req.body);
+res.render('notifications', {user: req.user});
+});
+
 
 
 

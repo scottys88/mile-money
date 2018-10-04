@@ -83,11 +83,15 @@ const wishListSchema = new Schema({
 });
 
 const athleteSettingsSchema = new Schema({
-    notifications: {
+    emailNotifications: {
         type: Boolean,
         default: false
     },
     autoUpdateCommutes: {
+        type: Boolean,
+        default: false
+    },
+    emailMarketing: {
         type: Boolean,
         default: false
     }

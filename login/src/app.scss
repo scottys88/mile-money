@@ -629,6 +629,7 @@ form {
     display: flex;
     flex-direction: column;
     align-self: center;
+    text-align: left;
     .switch-label-container {
         padding: 20px 0;
         display: flex; 
@@ -641,8 +642,10 @@ form {
             text-align: left;
             padding-left: 15px;
         }
-        button {
-            width: 300px;
-        }
+    }
+    button {
+        min-width: 250px;
+        max-width: 350px;
+        align-self: center;
     }
 }

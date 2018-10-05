@@ -536,15 +536,32 @@ app.get('/notifications', ensureAuthenticated, async function(req, res, next){
   
 app.post('/notifications', ensureAuthenticated, async function(req, res, next){
  
-    if(req.body.autoUpdateCommutes = "on"){
-      req.body.autoUpdateCommutes = true;
-    }
-    if (req.body.emailNotifications = "on") {
-      req.body.emailNotifications = true;
-    }
-    if (req.body.emailMarketing = "on") {
-      req.body.emailMarketing = true;
-    }
+   console.log(req.body.emailNotifications);
+   console.log(req.body.autoUpdateCommutes);
+   console.log(req.body.emailMarketing);
+   
+   if(req.body.emailNotifications === 'on'){
+    req.body.emailNotifications = true;
+   }
+   if(req.body.emailNotifications === undefined){
+    req.body.emailNotifications = false;
+   }
+   if(req.body.autoUpdateCommutes === 'on'){
+    req.body.autoUpdateCommutes = true;
+   }
+   if(req.body.autoUpdateCommutes === undefined){
+    req.body.autoUpdateCommutes = false;
+   }
+   if(req.body.emailMarketing === 'on'){
+    req.body.emailMarketing = true;
+   }
+   if(req.body.emailMarketing === undefined){
+    req.body.emailMarketing = false;
+   }
+
+
+
+   console.log(req.body.emailMarketing);
 
 
     Athlete.updateOne({ "id": req.user.id },
@@ -554,7 +571,7 @@ app.post('/notifications', ensureAuthenticated, async function(req, res, next){
                                   "settings.emailMarketing": req.body.emailMarketing,
 
                               }}).exec();
-      console.log(req.body);
+      
 res.render('notifications', {user: req.user});
 });
 

@@ -533,13 +533,12 @@ app.get('/notifications', ensureAuthenticated, async function(req, res, next){
 
   res.render('notifications', {user: req.user, athlete});
 });
-  
+
+
+//Posts the notification preferences to the database. Converts the Material Design switch 'on' resonse to boolean before saving  
 app.post('/notifications', ensureAuthenticated, async function(req, res, next){
  
-   console.log(req.body.emailNotifications);
-   console.log(req.body.autoUpdateCommutes);
-   console.log(req.body.emailMarketing);
-   
+   //Convert the 'on' response from Google into true/false
    if(req.body.emailNotifications === 'on'){
     req.body.emailNotifications = true;
    }
@@ -559,20 +558,14 @@ app.post('/notifications', ensureAuthenticated, async function(req, res, next){
     req.body.emailMarketing = false;
    }
 
-
-
-   console.log(req.body.emailMarketing);
-
-
     Athlete.updateOne({ "id": req.user.id },
                               { $set: {
                                   "settings.emailNotifications": req.body.emailNotifications,
                                   "settings.autoUpdateCommutes": req.body.autoUpdateCommutes,
                                   "settings.emailMarketing": req.body.emailMarketing,
-
                               }}).exec();
       
-res.render('notifications', {user: req.user});
+res.redirect('/notifications');
 });
 
 

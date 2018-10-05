@@ -131,7 +131,7 @@ const athleteSchema = new Schema({
         accountName: "Main",
         type: String
     },
-    settings: [athleteSettingsSchema],
+    settings: athleteSettingsSchema,
     email: String
 });
 

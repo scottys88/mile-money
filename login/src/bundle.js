@@ -8168,19 +8168,21 @@ notificationSwitches.forEach(a => {
     a = new __WEBPACK_IMPORTED_MODULE_11__material_switch__["a" /* MDCSwitch */](a);
 });
 
-function toggleNotificationSwitch(e) {
-    //get the checkbox within the mdc switch div
-    const checkBox = e.currentTarget.querySelector('[type="checkbox"]');
+// function toggleNotificationSwitch(e){
+//     //get the checkbox within the mdc switch div
+//     const checkBox = e.currentTarget.querySelector('[type="checkbox"]');
 
-    if (e.currentTarget.classList.contains('mdc-switch--checked')) {
-        checkBox.setAttribute('checked', 'false');
-    } else {
-        checkBox.setAttribute('checked', 'true');
-    }
-    return;
-}
+//     if(e.currentTarget.classList.contains('mdc-switch--checked')) {
+//         checkBox.setAttribute('checked','false');
+//     }
+//     else {
+//         checkBox.setAttribute('checked','true');
+//     }
+//     return;
 
-notificationSwitches.forEach(toggle => toggle.addEventListener('click', toggleNotificationSwitch));
+// }
+
+// notificationSwitches.forEach(toggle => toggle.addEventListener('click', toggleNotificationSwitch));
 
 /***/ }),
 /* 74 */

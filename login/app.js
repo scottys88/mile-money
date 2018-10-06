@@ -530,8 +530,37 @@ app.post('/webhooks', async (req, res, next) => {
  
 app.get('/notifications', ensureAuthenticated, async function(req, res, next){
     let athlete = await Athlete.findOne({'id': req.user.id});
+    const commuteCosts = athlete.commuteCosts;
+    const athleteCommutes = athlete.commutes;
+    const athleteWishListItems = athlete.wishList;
+    // const athleteAccounts = athlete.accounts[0];
+    let totalRedeemed = 0;
+    let mileMoneyBalance = 0;
+  
 
-  res.render('notifications', {user: req.user, athlete});
+  athleteCommutes.forEach(commute => {
+    commuteCosts.forEach(cost => {
+      if(commute.commuteCosts == cost.userCommute){
+      mileMoneyBalance += cost.totalCost;
+      console.log(cost.totalCost);
+      console.log(mileMoneyBalance);
+      }
+    });
+  });
+
+  athleteCommutes.sort(function compare(a, b) {
+    var dateA = new Date(a.commuteDate);
+    var dateB = new Date(b.commuteDate);
+    return dateB - dateA;
+  });
+
+  athleteWishListItems.forEach(item => {
+    if(item.redeemed === true) {
+      console.log(item.itemCost);
+      totalRedeemed += item.itemCost;
+    };
+  })
+  res.render('notifications', {user: req.user, athlete, mileMoneyBalance, totalRedeemed});
 });
 
 
@@ -583,8 +612,38 @@ app.get('/login', function(req, res, next){
 
 app.get('/commute-costs', ensureAuthenticated, async (req, res) => {
   let athlete = await Athlete.findOne( {id: req.user.id});
+  const commuteCosts = athlete.commuteCosts;
+    const athleteCommutes = athlete.commutes;
+    const athleteWishListItems = athlete.wishList;
+    // const athleteAccounts = athlete.accounts[0];
+    let totalRedeemed = 0;
+    let mileMoneyBalance = 0;
   
-  res.render('commuteCostNew', { user: req.user, athlete});
+
+  athleteCommutes.forEach(commute => {
+    commuteCosts.forEach(cost => {
+      if(commute.commuteCosts == cost.userCommute){
+      mileMoneyBalance += cost.totalCost;
+      console.log(cost.totalCost);
+      console.log(mileMoneyBalance);
+      }
+    });
+  });
+
+  athleteCommutes.sort(function compare(a, b) {
+    var dateA = new Date(a.commuteDate);
+    var dateB = new Date(b.commuteDate);
+    return dateB - dateA;
+  });
+
+  athleteWishListItems.forEach(item => {
+    if(item.redeemed === true) {
+      console.log(item.itemCost);
+      totalRedeemed += item.itemCost;
+    };
+  })
+  
+  res.render('commuteCostNew', { user: req.user, athlete, totalRedeemed, mileMoneyBalance});
 });
 
 app.get('/commute-costs-delete', ensureAuthenticated, async (req, res) => {
@@ -632,6 +691,9 @@ app.get('/commute-edit', ensureAuthenticated, async (req, res) => {
   const person = await Athlete.findOne({ 'id': req.user.id  });
   console.log(person.commuteCosts[0]);
   const commute = athlete[0].commutes[0];
+  
+
+
   res.render('commuteEdit', { user: req.user, commute, person });
 });
 

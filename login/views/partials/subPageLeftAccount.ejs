@@ -3,88 +3,54 @@
             <img src="https://graph.facebook.com/656033073/picture?height=256&width=256">
         </div>
         <div class="card-inner athlete-card-inner">
-            <h2 class="athlete-card-inner--profile-name">Scott Schubert</h2>
-            <p class="athlete-card-inner--profile-location">Adelaide, Australia</p>
+            <h2 class="athlete-card-inner--profile-name"><%= user.displayName %></h2>
+            <p class="athlete-card-inner--profile-location"><%= athlete.city %>, <%= athlete.country %></p>
             <div class="athlete-card-inner-stats">
             <div class="icon-value-label athlete-card-inner-stats-commutes">
                 <i class="icon material-icons mdc-list-item__graphic" aria-hidden="true">accessibility_new</i>
-                <span class="value commutes-value">55</span>
+                <% let commutes = athlete.commutes.length; %>
+                <span class="value commutes-value"><%= commutes %></span>
                 <span class="label commutes-label">Commutes</span>
             </div>
             <div class="icon-value-label athlete-card-inner-stats-commutes">
                 <i class="icon material-icons mdc-list-item__graphic" aria-hidden="true">accessibility_new</i>
-                <span class="value commutes-value"><span>$</span>371.25</span>
+                <span class="value commutes-value"><span>$</span><%= mileMoneyBalance - totalRedeemed %></span>
                 <span class="label commutes-label">Mile Money</span>
             </div>
             </div>
-            <span class="strava-link">View on Strava</span>
+            <a href="https://www.strava.com/athletes/<%= athlete.id %>"><span class="strava-link">View on Strava</span></a>
         </div>
-    </div>
-    <h2 class="yellowBg">Commute Costs</h2>
+    </div><h2 class="yellowBg">Commute Costs</h2>
     <div class="commute-costs-wrapper">
-        <div class="commute-costs-layout">
-            <div class="mdc-card commute-cost-card">
-                <a href="#" class="delete-item"><i class="material-icons">clear</i></a>
-                <div class="card-inner commute-cost-card-inner">
-                    <div class="icon-wrapper"><i class="material-icons">commute</i></div>
-                    <h4>Train to work costs</h4>
-                    <div class="icon-value-label icon-value-label-centre">
-                        <i class="commute-cost-icon icon material-icons mdc-list-item__graphic" aria-hidden="true">commute</i>
-                        <span class="value commutes-value"><span>$</span>3.25</span>
-                        <span class="label commutes-label">Per trip</span>
-                    </div>
-                </div>
-                <a href="#">
-                    <div class="mdc-card__actions">
-                        <div class="mdc-card__action-icons">
-                        <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon" title="Edit">edit</button>
-                        </div>
-                    </div>
-                    </a>
-                </div>
-                <div class="mdc-card commute-cost-card">
-                <a href="#" class="delete-item"><i class="material-icons">clear</i></a>
-                <div class="card-inner commute-cost-card-inner">
-                    <div class="icon-wrapper"><i class="material-icons">commute</i></div>
-                    <h4>Train to work costs</h4>
-                    <div class="icon-value-label icon-value-label-centre">
-                        <i class="commute-cost-icon icon material-icons mdc-list-item__graphic" aria-hidden="true">commute</i>
-                        <span class="value commutes-value"><span>$</span>3.25</span>
-                        <span class="label commutes-label">Per trip</span>
-                    </div>
-                </div>
-                <a href="#">
-                    <div class="mdc-card__actions">
-                        <div class="mdc-card__action-icons">
-                        <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon" title="Edit">edit</button>
-                        </div>
-                    </div>
-                    </a>
-                </div>
-                <div class="mdc-card commute-cost-card">
-                    <a href="#" class="delete-item"><i class="material-icons">clear</i></a>
-                    <div class="card-inner commute-cost-card-inner">
-                    <div class="icon-wrapper"><i class="material-icons">commute</i></div>
-                    <h4>Train to work costs</h4>
-                    <div class="icon-value-label icon-value-label-centre">
-                        <i class="commute-cost-icon icon material-icons mdc-list-item__graphic" aria-hidden="true">commute</i>
-                        <span class="value commutes-value"><span>$</span>3.25</span>
-                        <span class="label commutes-label">Per trip</span>
-                    </div>
-                    </div>
-                    <a href="#">
-                    <div class="mdc-card__actions">
-                        <div class="mdc-card__action-icons">
-                        <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon" title="Edit">edit</button>
-                        </div>
-                    </div>
-                    </a>
-                </div>
-                <a href="#">
-                    <div class="mdc-chip commute-cost-chip">
-                    <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">commute</i>
-                    <div class="mdc-chip__text">New commute cost</div>
-                </div>
-                </a>
+      <div class="commute-costs-layout">
+      <% if(athlete && athlete.commuteCosts) { %>
+          <% athlete.commuteCosts.forEach(cost => { %>
+      <div class="mdc-card commute-cost-card">
+          <a href=<%= `/commute-costs-delete?id=${ cost._id }` %> class="delete-item"><i class="material-icons">clear</i></a>
+          <div class="card-inner commute-cost-card-inner">
+            <div class="icon-wrapper"><i class="material-icons">commute</i></div>
+            <h4><%= cost.userCommute %></h4>
+            <div class="icon-value-label icon-value-label-centre">
+                <i class="commute-cost-icon icon material-icons mdc-list-item__graphic" aria-hidden="true">commute</i>
+                <span class="value commutes-value"><span>$</span><%= cost.totalCost %></span>
+                <span class="label commutes-label">Per trip</span>
             </div>
+          </div>
+          <a href=<%= `/commute-costs-edit?id=${ cost._id }` %>>
+              <div class="mdc-card__actions">
+                <div class="mdc-card__action-icons">
+                  <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon" title="Edit">edit</button>
+                </div>
+              </div>
+            </a>
         </div>
+        <% }) } %>
+          
+          <a href="/commute-costs"><div class="mdc-chip commute-cost-chip">
+              <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">commute</i>
+              <div class="mdc-chip__text">New commute cost</div>
+              </div>
+          </a>
+    </div>
+  </div>
+  

@@ -89,6 +89,9 @@ p {
 .top-app-bar--strava {
     width: 120px;
 }
+.mdc-top-app-bar-link {
+    color: white;
+}
 
 .yellowBg {
     position: relative;
@@ -251,7 +254,6 @@ body.login {
         }
         .strava-link {
             font-size: 0.85em;
-            position: absolute;
             bottom:0;
             color: #FC4C02;
         }

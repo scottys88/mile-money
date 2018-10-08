@@ -1,6 +1,6 @@
 **To get started on the application:**
 
-1) npm 1
+1) npm i
 2) run: nodemon app 
     on the login directory
 

@@ -394,7 +394,7 @@ app.post('/webhooks', (req, res, next) => {
 });
 
 //save new activity if commute from webhooks
-app.post('/webhooks', (req, res, next) => {
+app.post('/webhooks', async (req, res, next) => {
 
   StravaApiV3.activities.get({
     'access_token':process.env.STRAVA_ACCESS_TOKEN, 
@@ -423,26 +423,30 @@ app.post('/webhooks', (req, res, next) => {
           },{upsert: true}).exec(); 
           console.log('actvity saved');
           
-          let commuteValue = Athlete.findOne( {id: req.body.owner_id, 'commuteCosts.userCommute': 'Main commute cost' }, function(err, cost){
+          Athlete.findOne( {id: req.body.owner_id }, function(err, cost){
+            console.log(cost);
+          if(cost.settings.autoUpdateCommutes == true){
+
           let userCommuteCosts = cost.commuteCosts;
           let totalCost = 0;
             userCommuteCosts.forEach(item => {
               if(item.userCommute === "Main commute cost"){
                 totalCost = item.totalCost;
-                console.log(totalCost);
                 return totalCost;
               }
             })
+
               StravaApiV3.activities.update({access_token: process.env.STRAVA_ACCESS_TOKEN, id: req.body.object_id, name: `#MileMoney.io $${totalCost} saved with this commute`},function(err,payload,limits){
               if(!err) {
-                console.log(payload)
               }
               else {
                 console.log(err);
               }
             })
           
-          });
+          } else {
+            console.log('Athlete auto update settings are off');
+          }});
           
 
         };

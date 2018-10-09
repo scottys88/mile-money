@@ -118,7 +118,12 @@ app.get('/', ensureAuthenticated, async (req, res, next) => {
     gender: req.user._json.sex,
     email: req.user._json.email,
     shoes: [],
-    bikes: []
+    bikes: [],
+    $setOnInsert: {
+      "settings.autoUpdateCommutes": false,
+      "settings.emailMarketing": false,
+      "settings.emailNotifications": false
+    }
   }, { upsert: true} ).exec();
 
 
@@ -540,7 +545,7 @@ app.get('/notifications', ensureAuthenticated, async function(req, res, next){
     // const athleteAccounts = athlete.accounts[0];
     let totalRedeemed = 0;
     let mileMoneyBalance = 0;
-  
+
 
   athleteCommutes.forEach(commute => {
     commuteCosts.forEach(cost => {

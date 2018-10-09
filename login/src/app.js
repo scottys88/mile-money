@@ -120,7 +120,7 @@ const commuteTotal = document.querySelector('.commute-total');
 function calculateTotal() {
     let total = Number(0);
     commuteValue.forEach(field => {
-        total += (parseInt(field.value) || 0);
+        total += (parseFloat(field.value) || 0);
 
     });
     commuteTotal.value = parseFloat(total);

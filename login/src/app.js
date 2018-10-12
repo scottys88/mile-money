@@ -138,55 +138,55 @@ commuteValue.forEach(input => input.addEventListener('input', calculateTotal));
 
 ////////////////////////////////Moving tab content for mobile and tablet < 992px
 
-var mobileCommutesTab = document.querySelector('.commutes-mobile-tab');
-var desktopCommutesCol = document.querySelector('.commutes-wrapper');
-var wishListDesktop = document.querySelector('.wishlist-wrapper');
-var wishListMobileTab = document.querySelector('.wishlist-mobile-tab');
-var commuteCostsDesktop = document.querySelector('.commute-costs-wrapper');
-var commuteCostsMobileTab = document.querySelector('.commuteCosts-mobile-tab');
+// var mobileCommutesTab = document.querySelector('.commutes-mobile-tab');
+// var desktopCommutesCol = document.querySelector('.commutes-wrapper');
+// var wishListDesktop = document.querySelector('.wishlist-wrapper');
+// var wishListMobileTab = document.querySelector('.wishlist-mobile-tab');
+// var commuteCostsDesktop = document.querySelector('.commute-costs-wrapper');
+// var commuteCostsMobileTab = document.querySelector('.commuteCosts-mobile-tab');
 
-// Define our viewportWidth variable
-var viewportWidth;
-// Set/update the viewportWidth value
-var setViewportWidth = function () {
-	viewportWidth = window.innerWidth || document.documentElement.clientWidth;
-}
+// // Define our viewportWidth variable
+// var viewportWidth;
+// // Set/update the viewportWidth value
+// var setViewportWidth = function () {
+// 	viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+// }
 
-// Log the viewport width into the console
-var logWidth = function () {
-	if (viewportWidth < 991) {
-		while (desktopCommutesCol.childNodes.length > 0) {
-            mobileCommutesTab.appendChild(desktopCommutesCol.childNodes[0]);
-        }
-        while (wishListDesktop.childNodes.length > 0) {
-            wishListMobileTab.appendChild(wishListDesktop.childNodes[0]);
-        }
-        while (commuteCostsDesktop.childNodes.length > 0) {
-            commuteCostsMobileTab.appendChild(commuteCostsDesktop.childNodes[0]);
-        }
-	} else {
-        while (mobileCommutesTab.childNodes.length > 0) {
-            desktopCommutesCol.appendChild(mobileCommutesTab.childNodes[0]);
-        }
-        while (wishListMobileTab.childNodes.length > 0) {
-            wishListDesktop.appendChild(wishListMobileTab.childNodes[0]);
-        }
-        while (commuteCostsMobileTab.childNodes.length > 0) {
-            commuteCostsDesktop.appendChild(commuteCostsMobileTab.childNodes[0]);
-        }
-    }
-    // Set our initial width and log it
-setViewportWidth();
-logWidth();
-    }
+// // Log the viewport width into the console
+// var logWidth = function () {
+// 	if (viewportWidth < 991) {
+// 		while (desktopCommutesCol.childNodes.length > 0) {
+//             mobileCommutesTab.appendChild(desktopCommutesCol.childNodes[0]);
+//         }
+//         while (wishListDesktop.childNodes.length > 0) {
+//             wishListMobileTab.appendChild(wishListDesktop.childNodes[0]);
+//         }
+//         while (commuteCostsDesktop.childNodes.length > 0) {
+//             commuteCostsMobileTab.appendChild(commuteCostsDesktop.childNodes[0]);
+//         }
+// 	} else {
+//         while (mobileCommutesTab.childNodes.length > 0) {
+//             desktopCommutesCol.appendChild(mobileCommutesTab.childNodes[0]);
+//         }
+//         while (wishListMobileTab.childNodes.length > 0) {
+//             wishListDesktop.appendChild(wishListMobileTab.childNodes[0]);
+//         }
+//         while (commuteCostsMobileTab.childNodes.length > 0) {
+//             commuteCostsDesktop.appendChild(commuteCostsMobileTab.childNodes[0]);
+//         }
+//     }
+//     // Set our initial width and log it
+// setViewportWidth();
+// logWidth();
+//     }
 
 
 
-// On resize events, recalculate and log
-window.addEventListener('resize', function () {
-	setViewportWidth();
-	logWidth();
-}, false);
+// // On resize events, recalculate and log
+// window.addEventListener('resize', function () {
+// 	setViewportWidth();
+// 	logWidth();
+// }, false);
 
 
 //////////hiding and showing content for tabs on

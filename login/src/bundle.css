@@ -4353,11 +4353,24 @@ body.login {
       grid-template-rows: 80px 80px;
       grid-gap: 20px;
       justify-content: center;
+      justify-items: center;
       margin: 10px 0; }
+      .wishlist-layout .wishlist-card .wishlist-card-inner .wishlist-card-inner--item-name {
+        padding: 50px 20px 20px 20px; }
+        .wishlist-layout .wishlist-card .wishlist-card-inner .wishlist-card-inner--item-name i {
+          position: absolute;
+          top: 5px;
+          left: 5px; }
       .wishlist-layout .wishlist-card .wishlist-card-inner .wishlist-card-inner-stats {
         display: grid;
         grid-gap: 30px;
-        grid-template-columns: auto auto; }
+        grid-template-columns: auto auto;
+        padding: 30px 20px 20px 20px;
+        margin-top: 20px; }
+      .wishlist-layout .wishlist-card .wishlist-card-inner .wishlist-card-link-wrapper a {
+        color: black; }
+      .wishlist-layout .wishlist-card .wishlist-card-inner .redeem-chip {
+        max-width: 90%; }
 
 .commute-layout {
   display: grid;

@@ -358,6 +358,18 @@ app.get('/notification', async(req, res) => {
   res.status(200).send({'notification' : 'notification page'});
 })
 
+app.get('/about', ensureAuthenticated, async (req, res) => {
+
+  res.render('about', {user: req.user});
+});
+
+app.post('/profile', ensureAuthenticated, async (req, res) => {
+  await Athlete.deleteOne({ id: req.user.id });
+  req.logout();
+  res.redirect('/');
+});
+
+
 app.get('/profile', ensureAuthenticated, async (req, res) => {
   let athlete = await Athlete.findOne({'id': req.user.id});
   const commuteCosts = athlete.commuteCosts;

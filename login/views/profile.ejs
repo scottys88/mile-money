@@ -6,6 +6,10 @@
             <div class="mdc-card main-content-card">
          
                 <h2 class="yellowBg">Your profile</h2>
+                <p>This button will delete your profile and kick you back to the login screen. Note that all of your commute costs, wishlist items and settings will be deleted.</p>
+                <form method="POST" action="/profile">
+                    <button type="submit">Delete your profile</button>
+                </form>
                 <p><img src="<%= user.photos[0].value %>"></p>
                 <p>ID: <%= user.id %></p>
                 <p>Name: <%= user.displayName %></p>
@@ -17,6 +21,7 @@
                 <p>Auto Update Commutes: <%= athlete.settings.autoUpdateCommutes %></p>
                 <p>Email Marketing: <%= athlete.settings.emailMarketing %></p>
                 <p>Email notifications: <%= athlete.settings.emailNotifications %></p>
+
                 <h4>Your gear</h4>
                 <% athlete.shoes.forEach(shoe => { %>
                     <h5><%= shoe.name %></h5>

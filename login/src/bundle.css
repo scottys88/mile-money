@@ -4164,6 +4164,8 @@ body.login {
     text-align: center; }
   .wrapper .mobile-tabs {
     display: none; }
+  .wrapper .commutes-wrapper.mobile, .wrapper .commute-costs-wrapper.mobile, .wrapper .wishlist-wrapper.mobile {
+    display: none; }
   @media only screen and (max-width: 1199px) {
     .wrapper {
       grid-template-columns: [left] 220px [main] 1fr [right] 220px; } }
@@ -4176,7 +4178,9 @@ body.login {
       .wrapper .left {
         display: none; }
       .wrapper .right {
-        display: none; } }
+        display: none; }
+      .wrapper .commutes-wrapper.mobile, .wrapper .commute-costs-wrapper.mobile, .wrapper .wishlist-wrapper.mobile {
+        display: inline-block; } }
   .wrapper .athlete-card {
     min-height: 300px;
     max-width: 300px;

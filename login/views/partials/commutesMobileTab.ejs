@@ -1,0 +1,78 @@
+<div class="commutes-wrapper mobile">
+    <div class="commute-layout">
+<% if(athlete && athlete.commutes) { %>
+    <% const commutes = athlete.commutes %>
+    <% commutes.forEach(commute => { %>
+      <div class="mdc-card commute-card">
+          <div class="commute-card-inner">
+            <div class="commute-card-inner-visible-stats">
+              <div class="icon-wrapper"><i class="material-icons">directions_bike</i></div>
+              <span class="commute-card-inner-visible-stats--date">
+                <%= commute.commuteDate %>
+              </span>
+              <!-- <i class="material-icons share-commute">share</i> -->
+              <h4>Mile Money</h4>
+              <% athlete.commuteCosts.forEach(cost => { %>
+                <% if(cost.userCommute == commute.commuteCosts) { %>
+                    <div class="commute-card-inner-visible-stats--mile-money"><span>$</span><%= cost.totalCost %></div>
+                <% } } ) %>
+              
+              <div class="expand-commute"><i class="material-icons">keyboard_arrow_down</i></div>
+            </div>
+            <div class="commute-card-inner-hidden-stats">
+                <ul class="mdc-list mdc-list--two-line" aria-orientation="vertical">
+                    <li class="mdc-list-item">
+                      <span class="mdc-list-item__text">
+                        <span class="mdc-list-item__primary-text">Mile Money Account</span>
+                        <span class="mdc-list-item__secondary-text"><%= commute.account %></span>
+                      </span>
+                    </li>
+                    <li class="mdc-list-item">
+                      <span class="mdc-list-item__text">
+                        <span class="mdc-list-item__primary-text">Commute Cost Type</span>
+                        <span class="mdc-list-item__secondary-text"><%= commute.commuteCosts %></span>
+                      </span>
+                    </li>
+                    <li class="mdc-list-item">
+                      <span class="mdc-list-item__text">
+                        <span class="mdc-list-item__primary-text">Commute name</span>
+                        <span class="mdc-list-item__secondary-text"><%= commute.commuteName %></span>
+                      </span>
+                    </li>
+                    <li class="mdc-list-item">
+                        <span class="mdc-list-item__text">
+                          <span class="mdc-list-item__primary-text">Commute type</span>
+                          <span class="mdc-list-item__secondary-text commute-type"><%= commute.commuteType %></span>
+                        </span>
+                      </li>
+                      <li class="mdc-list-item">
+                        <span class="mdc-list-item__text">
+                          <span class="mdc-list-item__primary-text">Commute distance</span>
+                          <span class="mdc-list-item__secondary-text"><%= commute.distance / 1000 %></span>
+                        </span>
+                      </li>
+                      <li class="mdc-list-item">
+                        <span class="mdc-list-item__text">
+                          <span class="mdc-list-item__primary-text">Commute Elapsed Time</span>
+                          <span class="mdc-list-item__secondary-text"><%= commute.elapsedTime %></span>
+                        </span>
+                      </li>
+                      <li class="mdc-list-item">
+                          <span class="mdc-list-item__text">
+                            <span class="mdc-list-item__primary-text">Commute Moving Time</span>
+                            <span class="mdc-list-item__secondary-text"><%= commute.movingTime %></span>
+                          </span>
+                        </li>
+                  </ul>
+            </div>
+            <div class="mdc-card__actions">
+                <div class="mdc-card__action-icons">
+                  <a href=<%= `/commute-edit?id=${ commute.commuteId }` %>><button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon" title="Edit">edit</button></a>
+                </div>
+            </div>
+          </div>
+      </div>
+      <% }) %>
+      <% } %>
+    </div>
+  </div>

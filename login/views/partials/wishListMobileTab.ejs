@@ -1,0 +1,56 @@
+<div class="wishlist-wrapper mobile">
+    <div class="wishlist-layout">
+  <% if(athlete && athlete.wishList) { %>
+      <% const wishListItems = athlete.wishList %>
+      <% wishListItems.forEach(item => { %>
+        <div class="mdc-card wishlist-card">
+            <a href=<%= `/wishlist/delete/${ item._id }` %> class="delete-item"><i class="material-icons">clear</i></a>
+            <div class="card-inner wishlist-card-inner">
+              <div class="wishlist-card-inner--item-name">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">shopping_cart</i>
+                <h4 class="wishlist-card-inner--item-name"><%= item.itemName %></h4>
+              </div>
+              <div class="wishlist-card-inner-stats">
+                <div class="icon-value-label">
+                    <i class="icon material-icons mdc-list-item__graphic" aria-hidden="true">attach_money</i>
+                    <span class="value wishlist-value"><%= item.itemCost %></span>
+                    <span class="label wishlist-label">Item cost</span>
+                </div>
+                <div class="icon-value-label">
+                    <i class="icon material-icons mdc-list-item__graphic" aria-hidden="true">accessibility_new</i>
+                    <span class="value commutes-required">55</span>
+                    <span class="label commutes-label">Commutes required</span>
+                </div>
+              </div>
+              <div class="wishlist-card-link-wrapper">
+                  <a target="_blank" href=<%= `${item.itemURL}` %>><button class="mdc-icon-button material-icons" title="Edit">open_in_new</button>
+                  <span>Item link</span></a>
+            </div>
+            <% if(item.redeemed) { %>
+              <div class="mdc-chip redeem-chip redeemed">
+                  <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">check_circle_outline</i>
+                  <div class="mdc-chip__text">Redeemed</div>
+                </div>
+                <% } else { %>
+            <div class="mdc-chip redeem-chip">
+                <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">card_giftcard</i>
+                <a href=<%= `/wishlist/redeem/${ item._id }` %>><div class="mdc-chip__text">Redeem <span class="redeem-chip-redeem-value">$<%= item.itemCost %></span> Mile Money</div></a>
+              </div>
+              <% } %>
+              <div class="mdc-card__actions">
+                  <div class="mdc-card__action-icons">
+                    <a href=<%= `/wishlist-edit?id=${ item._id }` %>><button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon" title="Edit">edit</button></a>
+                  </div>
+              </div>
+          </div>
+        </div>
+        <% }) %>
+      <% } %>
+        
+        <a class="add-new-link" href="/wishlist">
+          <div class="mdc-card account-card card-new">
+                  <i class="material-icons mdc-list-item__graphic" aria-hidden="true">library_add</i>
+          </div>
+        </a>
+    </div>
+  </div>

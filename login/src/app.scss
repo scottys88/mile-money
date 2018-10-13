@@ -204,6 +204,9 @@ body.login {
     .mobile-tabs {
         display: none;
     }
+    .commutes-wrapper.mobile, .commute-costs-wrapper.mobile, .wishlist-wrapper.mobile {
+        display: none;
+    }
     @media only screen and (max-width: 1199px){
         grid-template-columns: [left] 220px [main] 1fr [right] 220px;
     }
@@ -223,6 +226,9 @@ body.login {
         }
         .right {
             display: none;
+        }
+        .commutes-wrapper.mobile, .commute-costs-wrapper.mobile, .wishlist-wrapper.mobile {
+            display: inline-block;
         }
     }
     .athlete-card {

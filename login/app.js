@@ -381,7 +381,7 @@ app.get('/webhooks', (req, res) => {
   console.log(typeof(finalResponse));
   
   console.log(finalResponse);
-    app.get('https://api.strava.com/api/v3/push_subscriptions?client_id=22264&client_secret=f31774d980e2f6e97403b8fd404deecff420201a&callback_url=http://8a0f50cc.ngrok.io&verify_token=STRAVA', (req, res) => {
+    app.get('https://api.strava.com/api/v3/push_subscriptions?client_id=22264&client_secret=f31774d980e2f6e97403b8fd404deecff420201a&callback_url=http://e0520cdb.ngrok.io&verify_token=STRAVA', (req, res) => {
       res.send(finalResponse);
     })
   res.status(200).send({"hub.challenge": hub});
@@ -1005,7 +1005,7 @@ var options = { method: 'POST',
   qs: 
    { client_id: '22264',
      client_secret: 'f31774d980e2f6e97403b8fd404deecff420201a',
-     callback_url: 'http://8a0f50cc.ngrok.io/webhooks',
+     callback_url: 'http://e0520cdb.ngrok.io/webhooks',
      verify_token: 'STRAVA' },
   headers: 
    { 'Postman-Token': '816d7fdf-57f4-4ffa-885f-61fedfe989b7',
@@ -1014,7 +1014,7 @@ var options = { method: 'POST',
   formData: 
    { client_id: '22264',
      client_secret: 'f31774d980e2f6e97403b8fd404deecff420201a',
-     callback_url: 'http://8a0f50cc.ngrok.io/webhooks',
+     callback_url: 'http://e0520cdb.ngrok.io/webhooks',
      verify_token: 'STRAVA' } };
 
 request(options, function (error, response, body) {

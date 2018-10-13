@@ -363,6 +363,8 @@ app.get('/about', ensureAuthenticated, async (req, res) => {
   res.render('about', {user: req.user});
 });
 
+
+//This route is used for deleting a users profile on the profile page
 app.post('/profile', ensureAuthenticated, async (req, res) => {
   await Athlete.deleteOne({ id: req.user.id });
   req.logout();
@@ -370,6 +372,7 @@ app.post('/profile', ensureAuthenticated, async (req, res) => {
 });
 
 
+//Used for  displaying the profile page
 app.get('/profile', ensureAuthenticated, async (req, res) => {
   let athlete = await Athlete.findOne({'id': req.user.id});
   const commuteCosts = athlete.commuteCosts;

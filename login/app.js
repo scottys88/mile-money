@@ -359,8 +359,38 @@ app.get('/notification', async(req, res) => {
 })
 
 app.get('/profile', ensureAuthenticated, async (req, res) => {
-  
-  res.render('profile', { user: req.user});
+  let athlete = await Athlete.findOne({'id': req.user.id});
+  const commuteCosts = athlete.commuteCosts;
+  const athleteCommutes = athlete.commutes;
+  const athleteWishListItems = athlete.wishList;
+  // const athleteAccounts = athlete.accounts[0];
+  let totalRedeemed = 0;
+  let mileMoneyBalance = 0;
+
+
+athleteCommutes.forEach(commute => {
+  commuteCosts.forEach(cost => {
+    if(commute.commuteCosts == cost.userCommute){
+    mileMoneyBalance += cost.totalCost;
+    console.log(cost.totalCost);
+    console.log(mileMoneyBalance);
+    }
+  });
+});
+
+athleteCommutes.sort(function compare(a, b) {
+  var dateA = new Date(a.commuteDate);
+  var dateB = new Date(b.commuteDate);
+  return dateB - dateA;
+});
+
+athleteWishListItems.forEach(item => {
+  if(item.redeemed === true) {
+    console.log(item.itemCost);
+    totalRedeemed += item.itemCost;
+  };
+})
+res.render('profile', {user: req.user, athlete, mileMoneyBalance, totalRedeemed});
 });
 
 //This route acts as the get request for the webooks. It will return the important hub.challenge code back to validate subscription

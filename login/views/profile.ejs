@@ -1,4 +1,82 @@
-<p><img src="<%= user.photos[0].value %>"></p>
-<p>ID: <%= user.id %></p>
-<p>Name: <%= user.displayName %></p>
-<p>City: <%= user._json.city %></p>
+<div class="wrapper">
+    <div class="left">
+            <%- include('./partials/subPageLeftAccount'); -%>       
+    </div>
+        <div class="main main-content">
+            <div class="mdc-card main-content-card">
+         
+                <h2 class="yellowBg">Your profile</h2>
+                <p><img src="<%= user.photos[0].value %>"></p>
+                <p>ID: <%= user.id %></p>
+                <p>Name: <%= user.displayName %></p>
+                <p>City: <%= user._json.city %></p>
+                <p>State: <%= athlete.state %></p>
+                <p>Email: <%= athlete.email %></p>
+                <p>Gender: <%= athlete.gender %></p>
+                <h4>Notification settings</h4>
+                <p>Auto Update Commutes: <%= athlete.settings.autoUpdateCommutes %></p>
+                <p>Email Marketing: <%= athlete.settings.emailMarketing %></p>
+                <p>Email notifications: <%= athlete.settings.emailNotifications %></p>
+                <h4>Your gear</h4>
+                <% athlete.shoes.forEach(shoe => { %>
+                    <h5><%= shoe.name %></h5>
+                    <p><%= shoe.distance %></p>
+                    <p><%= shoe.id %></p>
+                <% }) %>
+                <% athlete.bikes.forEach(bike => { %>
+                    <h5><%= bike.name %></h5>
+                    <p><%= bike.distance %></p>
+                    <p><%= bike.id %></p>
+                <% }) %>
+                <h4>Your commute costs</h4>
+                <% athlete.commuteCosts.forEach(cost => { %>
+                    <h5><%= cost.userCommute %></h5>
+                    <p>Fuel: <%= cost.fuel || 0 %></p>
+                    <p>Bus: <%= cost.bus || 0 %></p>
+                    <p>Parking: <%= cost.parking || 0 %></p>
+                    <p>Train: <%= cost.train || 0 %></p>
+                    <p>Other costs: <%= cost.other || 0 %></p>
+                    <p>Total: <%= cost.totalCost || 0 %></p>
+                <% }) %>
+                <h4>Your wishlist items</h4>
+                <% athlete.wishList.forEach(item => { %>
+                    <h5><%= item.itemName %></h5>
+                    <p>Cost: <%= item.itemCost || 0 %></p>
+                    <p>URL: <%= item.itemURL || 0 %></p>
+                    <p>Redeemed: <%= item.redeemed || false %></p>
+                <% }) %>
+                <h4>Your commutes</h4>
+                <% athlete.commutes.forEach(commute => { %>
+                    <h5><%= commute.commuteDate %></h5>
+                    <p>start lat/long: <%= commute.start_latlng %> <%= commute.start_latlng %></p>
+                    <p>end lat/long: <%= commute.end_latlng %> <%= commute.end_latlng %></p>
+                    <p>Account: <%= commute.account %></p>
+                    <p>Commute cost: <%= commute.commuteCosts %></p>
+                    <p>Activity id: <%= commute.commuteId %></p>
+                    <p>Commute type: <%= commute.commuteType %></p>
+                    <p>Commute name: <%= commute.commuteName %></p>
+                    <p>Commute start date local: <%= commute.startDateLocal %></p>
+                    <p>Commute distance: <%= commute.distance %></p>
+                    <p>Commute moving time: <%= commute.movingTime %></p>
+                    <p>Commute elapsed time: <%= commute.elapsedTime %></p>
+                <% }) %>
+            </div>
+            
+        </div>
+        <div class="right">
+            <div class="commute-layout">
+                <h2>About your details</h2>
+                <div class="mdc-card right-tips-card">
+                        <h3>Your privacy and data</h3>
+                        <p>Show on this profile page is ALL of the data that is collected for your profile. Should you wish to delete your data you can do so from this page.</p>
+                        <p>Note that all of your commute data will still reside within Strava.</p>
+                </div>
+                <div class="mdc-card right-tips-card">
+                    <h3>What is this data used for?</h3>
+                    <p>Read about this further in the <a href="/privacy">privacy policy.</a></p>
+                    <p>Want to alter your notification settings? This is all controlled via the <a href="/notifications">notifications page.</a></p>
+            </div>
+            </div>
+    
+    
+    

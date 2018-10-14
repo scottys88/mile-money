@@ -336,19 +336,9 @@ import {MDCSwitch} from '@material/switch';
 let notificationSwitches = Array.from(document.querySelectorAll('.mdc-switch'));
 notificationSwitches.forEach(a => { a =  new MDCSwitch(a)});
 
+//Add login class to body on login page
 
-// function toggleNotificationSwitch(e){
-//     //get the checkbox within the mdc switch div
-//     const checkBox = e.currentTarget.querySelector('[type="checkbox"]');
- 
-//     if(e.currentTarget.classList.contains('mdc-switch--checked')) {
-//         checkBox.setAttribute('checked','false');
-//     }
-//     else {
-//         checkBox.setAttribute('checked','true');
-//     }
-//     return;
-   
-// }
-
-// notificationSwitches.forEach(toggle => toggle.addEventListener('click', toggleNotificationSwitch));
+if(window.location.pathname != '/login'){
+    document.body.classList.remove('login');
+    document.body.removeAttribute('style', 'background-image');
+}

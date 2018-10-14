@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+    <link rel='stylesheet' href='bundle.css'>
+    <script src="bundle.js" async></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,900" rel="stylesheet">
+		<title>Mile Money</title>
+  </head>
+  
+
+  <body class="login" style="background-image: url('images/loginBg.jpg')">
+    <aside class="mdc-drawer mdc-drawer--temporary mdc-typography">
+        <nav class="mdc-drawer__drawer">
+      
+          <div class="mdc-drawer__toolbar-spacer"></div>
+      
+          <nav class="mdc-drawer__content mdc-list">
+            <a class="mdc-list-item mdc-list-item--activated mdc-ripple-surface--primary my-surface" href="#">
+              <i class="material-icons mdc-list-item__graphic" aria-hidden="true">account_circle</i>Account
+            </a>
+            <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="#">
+              <i class="material-icons mdc-list-item__graphic" aria-hidden="true">commute</i>Commute Costs
+            </a>
+            <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="#">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">account_balance_wallet</i>Accounts
+            </a>
+            <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="#">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">shopping_cart</i>Wishlist
+            </a>
+            <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="#">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">contact_support</i>FAQ's
+            </a>
+            <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="#">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">multiline_chart</i>Your stats
+            </a>
+            <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="#">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">face</i>About and Contact
+            </a>
+          </nav>
+        </nav>
+      </aside>
+      <header class="mdc-top-app-bar">
+          <div class="mdc-top-app-bar__row">
+            <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+              <a href="#" class="menu material-icons mdc-top-app-bar__navigation-icon">menu</a>
+              <h1 class="mdc-top-app-bar__title">Mile Money</h1>
+            </section>
+            <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end">
+                <img class="top-app-bar--strava" src="images/poweredByStrava.svg">
+                <a href="#" class="menu material-icons mdc-top-app-bar__navigation-icon"><i class="account-button material-icons mdc-list-item__graphic" aria-hidden="true">account_circle</i></a>
+                <a href=""><p class="logout">Log out</p></a>
+            </section>
+          </div>
+        </header>
+    <div class="login-wrapper">
+      <div class="loginPanel">
+        <div class="innerContent">
+          <h1 class="yellowBg">Mile Money</h1>
+          <a href="/login"><img src="images/connectStrava.svg"></a>
+          <div class="iconRow">
+            <img src="images/baseline_directions_run_white_18dp.png">
+            <img src="images/baseline_directions_bike_white_18dp.png">
+            <img src="images/baseline_directions_walk_white_18dp.png">
+          </div>
+          <p class="introText">Connect to Strava, enter your commutes costs and start making Mile Money.</p>
+        </div>
+        <img class="poweredByStrava" src="images/poweredByStrava.svg">
+      </div>
+    </div>
+
+      
+	</body>
+</html>

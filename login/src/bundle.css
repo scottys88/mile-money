@@ -4521,3 +4521,11 @@ form .form-helper {
     min-width: 250px;
     max-width: 350px;
     align-self: center; }
+
+.menu-social-icons {
+  text-align: center;
+  font-size: 25px;
+  color: black;
+  padding-top: 20px; }
+  .menu-social-icons ion-icon {
+    color: black; }

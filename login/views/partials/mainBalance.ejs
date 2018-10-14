@@ -5,6 +5,7 @@
         <div class="main-balance-inner">
           <h1 class="yellowBg"><span class="main-balance-inner--name"><%= user.displayName %></span></h1>
           <p class="main-balance-inner-location"><%= athlete.city %>, <%= athlete.country %></p>
+          <a style="color: #FC4C02;" href="https://www.strava.com/athletes/<%= athlete.id %>"><span class="strava-link">View on Strava</span></a>
           <div class="main-balance-inner-stats">
           <p>You total Mile Money balance is:</p>
           <h2 class="yellowBg"><span>$</span><%= mileMoneyBalance - totalRedeemed %></h2><br>

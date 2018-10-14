@@ -358,9 +358,14 @@ app.get('/notification', async(req, res) => {
   res.status(200).send({'notification' : 'notification page'});
 })
 
-app.get('/about', ensureAuthenticated, async (req, res) => {
+app.get('/about', async (req, res) => {
 
   res.render('about', {user: req.user});
+});
+
+app.get('/privacy', async (req, res) => {
+
+  res.render('privacy', {user: req.user});
 });
 
 

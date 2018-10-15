@@ -120,13 +120,15 @@ app.get('/', ensureAuthenticated, async (req, res, next) => {
     shoes: [],
     bikes: [],
     $setOnInsert: {
+      commuteCosts: [{ 
+        userCommute: "Main commute cost",
+        totalCost: 0
+    }],
       "settings.autoUpdateCommutes": false,
       "settings.emailMarketing": false,
       "settings.emailNotifications": false
     }
   }, { upsert: true} ).exec();
-
-
   // await athlete.save();
   next();
 

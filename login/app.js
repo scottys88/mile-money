@@ -1012,13 +1012,19 @@ app.get('/wishlist/delete/:id', ensureAuthenticated, async (req, res) => {
 app.get('/wishlist/redeem/:id', ensureAuthenticated, async (req, res) => {
   console.log(req.params);
   console.log(req.body);
+  
 
   const redeemedItem = await Athlete.updateOne({ 'wishList._id': req.params.id},
-    {
+    { 
+      $currentDate: { "wishList.$.updatedAt": { $type: "date" } },
+      
       $set: {
-        "wishList.$.redeemed": true 
-      }
-    });
+        "wishList.$.redeemed": true,
+      },
+      
+    }
+     
+    );
     req.flash('info', 'Wishlist item redeemed! Great work!');
   res.redirect('/');
 });

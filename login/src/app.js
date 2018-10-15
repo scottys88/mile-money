@@ -336,7 +336,7 @@ import {MDCSwitch} from '@material/switch';
 let notificationSwitches = Array.from(document.querySelectorAll('.mdc-switch'));
 notificationSwitches.forEach(a => { a =  new MDCSwitch(a)});
 
-//Add login class to body on login page
+//Remove the login class from pages that are accessible without logging in
 
 if(window.location.pathname != '/login'){
     document.body.classList.remove('login');

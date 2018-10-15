@@ -103,7 +103,15 @@ const wishListSchema = new Schema({
     },
     itemURL: String,
     tags: [String],
-    redeemed: Boolean
+    redeemed: Boolean,
+    createdAt: {
+        type: Date,
+        default: Date.now()
+    },
+    updatedAt: { 
+        type: Date,
+        default: Date.now()
+    }
 });
 
 const athleteSettingsSchema = new Schema({

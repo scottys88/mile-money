@@ -4370,7 +4370,7 @@ body.login {
       .wishlist-layout .wishlist-card .wishlist-card-inner .wishlist-card-link-wrapper a {
         color: black; }
       .wishlist-layout .wishlist-card .wishlist-card-inner .redeem-chip {
-        max-width: 90%; }
+        width: 100%; }
 
 .commute-layout {
   display: grid;

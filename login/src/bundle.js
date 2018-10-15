@@ -8170,7 +8170,7 @@ notificationSwitches.forEach(a => {
     a = new __WEBPACK_IMPORTED_MODULE_11__material_switch__["a" /* MDCSwitch */](a);
 });
 
-//Add login class to body on login page
+//Remove the login class from pages that are accessible without logging in
 
 if (window.location.pathname != '/login') {
     document.body.classList.remove('login');

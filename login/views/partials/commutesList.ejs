@@ -1,3 +1,4 @@
+<% var options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }; %>
 <h2 class="yellowBg">Commutes</h2>
           <div class="commutes-wrapper">
             <div class="commute-layout">
@@ -9,7 +10,7 @@
                     <div class="commute-card-inner-visible-stats">
                       <div class="icon-wrapper"><i class="material-icons">directions_bike</i></div>
                       <span class="commute-card-inner-visible-stats--date">
-                        <%= commute.commuteDate %>
+                        <%= (commute.commuteDate).toLocaleDateString("en-US", options) %>                      
                       </span>
                       <!-- <i class="material-icons share-commute">share</i> -->
                       <h4>Mile Money</h4>

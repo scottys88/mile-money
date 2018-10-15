@@ -1,3 +1,4 @@
+<% var options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' }; %>
 <div class="main-mobile-profile-image">
         <img src="<%= user.photos[0].value %>">
     </div>
@@ -28,7 +29,7 @@
                     <% const wishListItems = athlete.wishList %>
                     <% wishListItems.forEach(item => { %>
                       <% if(item.redeemed === true) { %>
-                        <li>$<%= item.itemCost %>, <%= item.itemName %></li>
+                        <li>$<%= item.itemCost %>, <%= item.itemName %>, Date redeemed: <%= (item.updatedAt).toLocaleDateString("en-US", options) %></li>
                       <% } %>
                     <% }) %>
                 <% } %>

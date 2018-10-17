@@ -4107,7 +4107,6 @@ header.mdc-top-app-bar {
 body.login {
   background-size: cover;
   margin: 0;
-  overflow-y: hidden;
   display: grid; }
 
 .login-wrapper {
@@ -4121,9 +4120,12 @@ body.login {
     .login-wrapper .loginPanel .innerContent {
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
       align-content: center; }
+      @media only screen and (min-width: 1199px) {
+        .login-wrapper .loginPanel .innerContent {
+          justify-content: center; } }
       .login-wrapper .loginPanel .innerContent .iconRow {
         display: flex;
         justify-content: space-between; }
@@ -4175,6 +4177,8 @@ body.login {
       grid-template-columns: 1fr; }
       .wrapper .mobile-tabs {
         display: inline-block; }
+        .wrapper .mobile-tabs .mdc-tab {
+          padding: 0; }
       .wrapper .left {
         display: none; }
       .wrapper .right {
@@ -4270,6 +4274,9 @@ body.login {
     background-color: #dadada;
     font-weight: 200;
     border: 1px solid black; }
+    @media only screen and (max-width: 1199px) {
+      .main .main-balance .main-balance-inner .main-chip {
+        margin-top: 10px; } }
 
 .main .main-balance .redeemed-items-list {
   display: none;
@@ -4314,7 +4321,8 @@ body.login {
   grid-gap: 20px; }
   @media only screen and (max-width: 1199px) {
     .accounts-layout {
-      grid-gap: 10px; } }
+      grid-gap: 10px;
+      grid: auto-flow / 100%; } }
   .accounts-layout .account-card {
     min-height: 150px;
     position: relative;
@@ -4340,7 +4348,8 @@ body.login {
   grid-gap: 20px; }
   @media only screen and (max-width: 1199px) {
     .wishlist-layout {
-      grid-gap: 10px; } }
+      grid-gap: 10px;
+      grid: auto-flow / 100%; } }
   .wishlist-layout .wishlist-card {
     width: 300px;
     min-height: 250px;
@@ -4357,6 +4366,9 @@ body.login {
       margin: 10px 0; }
       .wishlist-layout .wishlist-card .wishlist-card-inner .wishlist-card-inner--item-name {
         padding: 50px 20px 20px 20px; }
+        @media only screen and (max-width: 1199px) {
+          .wishlist-layout .wishlist-card .wishlist-card-inner .wishlist-card-inner--item-name {
+            padding: 0; } }
         .wishlist-layout .wishlist-card .wishlist-card-inner .wishlist-card-inner--item-name i {
           position: absolute;
           top: 5px;
@@ -4471,7 +4483,7 @@ form .form-helper {
     .mobile-tab.active-tab .commute-layout {
       justify-content: center; }
     .mobile-tab.active-tab .wishlist-layout {
-      grid: auto-flow/minmax(100px, 200px);
+      grid: auto-flow/minmax(100px, 100%);
       justify-content: center; }
       .mobile-tab.active-tab .wishlist-layout .wishlist-card {
         min-width: 300px; }

@@ -10,6 +10,7 @@
     <!-- End Google Tag Manager -->
     <link rel='stylesheet' href='bundle.css'>
     <script src="bundle.js" async></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,900" rel="stylesheet">
     <script src="https://unpkg.com/ionicons@4.4.2/dist/ionicons.js"></script>
@@ -27,70 +28,128 @@
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WGNHK6W"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
+  <aside class="mdc-drawer mdc-drawer--temporary mdc-typography">
+      <nav class="mdc-drawer__drawer">
+    
+        <div class="mdc-drawer__toolbar-spacer"></div>
+    
+        <nav class="mdc-drawer__content mdc-list">
+            <a class="mdc-list-item mdc-list-item--activated mdc-ripple-surface--primary my-surface" href="/">
+              <i class="material-icons mdc-list-item__graphic" aria-hidden="true">dashboard</i>Dashboard
+            </a>
+            <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="/notifications">
+              <i class="material-icons mdc-list-item__graphic" aria-hidden="true">notifications</i>Notifications
+            </a>
+          <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="/profile">
+            <i class="material-icons mdc-list-item__graphic" aria-hidden="true">account_circle</i>Your profile
+          </a>
+          <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="/commute-costs">
+            <i class="material-icons mdc-list-item__graphic" aria-hidden="true">commute</i>Commute Costs
+          </a>
+          <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="/wishlist">
+              <i class="material-icons mdc-list-item__graphic" aria-hidden="true">shopping_cart</i>Wishlist
+          </a>
+          <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="/faqs">
+              <i class="material-icons mdc-list-item__graphic" aria-hidden="true">contact_support</i>FAQ's
+          </a>
+          <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="/stats">
+              <i class="material-icons mdc-list-item__graphic" aria-hidden="true">multiline_chart</i>Your stats
+          </a>
+          <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="/about">
+              <i class="material-icons mdc-list-item__graphic" aria-hidden="true">face</i>About and Contact
+          </a>
+          <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="/privacy">
+            <i class="material-icons mdc-list-item__graphic" aria-hidden="true">info</i>Privacy
+        </a>
+        <div class="menu-social-icons">
+            <a target="_blank" href="https://twitter.com/MileMoneyApp"><ion-icon name="logo-twitter"></ion-icon></a>
+            <a target="_blank" href="https://www.instagram.com/milemoneyapp/"><ion-icon name="logo-instagram"></ion-icon></a>
+            <a target="_blank" href="https://www.facebook.com/milemoney"><ion-icon name="logo-facebook"></ion-icon></a>
+        </div>
+        </nav>
+      </nav>
+    </aside>
+    <header class="mdc-top-app-bar">
+        <div class="mdc-top-app-bar__row">
+          <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+            <a href="#" class="menu material-icons mdc-top-app-bar__navigation-icon">menu</a>
+            <h1 class="mdc-top-app-bar__title"><a class="mdc-top-app-bar-link" href="/">Mile Money</a></h1>
+          </section>
+          <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end">
+              <a target="_blank" href="https://www.strava.com/?utm_source=mile%20money&utm_campaign=mile%20money%20io&utm_content=login%20link"><img class="top-app-bar--strava" src="images/poweredByStrava.svg"></a>
+          </section>
+        </div>
+  </header>
+  <%- body %>
+
+    
+</body>
+</html>
   <% } else { %>
 	<body>
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WGNHK6W"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
-   <% } %>
-    <aside class="mdc-drawer mdc-drawer--temporary mdc-typography">
-        <nav class="mdc-drawer__drawer">
-      
-          <div class="mdc-drawer__toolbar-spacer"></div>
-      
-          <nav class="mdc-drawer__content mdc-list">
-              <a class="mdc-list-item mdc-list-item--activated mdc-ripple-surface--primary my-surface" href="/">
-                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">dashboard</i>Dashboard
-              </a>
-              <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="/notifications">
-                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">notifications</i>Notifications
-              </a>
-            <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="/profile">
-              <i class="material-icons mdc-list-item__graphic" aria-hidden="true">account_circle</i>Your profile
-			      </a>
-            <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="/commute-costs">
-              <i class="material-icons mdc-list-item__graphic" aria-hidden="true">commute</i>Commute Costs
+  <aside class="mdc-drawer mdc-drawer--temporary mdc-typography">
+      <nav class="mdc-drawer__drawer">
+    
+        <div class="mdc-drawer__toolbar-spacer"></div>
+    
+        <nav class="mdc-drawer__content mdc-list">
+            <a class="mdc-list-item mdc-list-item--activated mdc-ripple-surface--primary my-surface" href="/">
+              <i class="material-icons mdc-list-item__graphic" aria-hidden="true">dashboard</i>Dashboard
             </a>
-            <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="/wishlist">
-                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">shopping_cart</i>Wishlist
+            <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="/notifications">
+              <i class="material-icons mdc-list-item__graphic" aria-hidden="true">notifications</i>Notifications
             </a>
-            <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="/faqs">
-                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">contact_support</i>FAQ's
-            </a>
-            <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="/stats">
-                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">multiline_chart</i>Your stats
-            </a>
-            <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="/about">
-                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">face</i>About and Contact
-            </a>
-            <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="/privacy">
-              <i class="material-icons mdc-list-item__graphic" aria-hidden="true">info</i>Privacy
+          <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="/profile">
+            <i class="material-icons mdc-list-item__graphic" aria-hidden="true">account_circle</i>Your profile
           </a>
-          <div class="menu-social-icons">
-              <a target="_blank" href="https://twitter.com/MileMoneyApp"><ion-icon name="logo-twitter"></ion-icon></a>
-              <a target="_blank" href="https://www.instagram.com/milemoneyapp/"><ion-icon name="logo-instagram"></ion-icon></a>
-              <a target="_blank" href="https://www.facebook.com/milemoney"><ion-icon name="logo-facebook"></ion-icon></a>
-          </div>
-          </nav>
+          <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="/commute-costs">
+            <i class="material-icons mdc-list-item__graphic" aria-hidden="true">commute</i>Commute Costs
+          </a>
+          <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="/wishlist">
+              <i class="material-icons mdc-list-item__graphic" aria-hidden="true">shopping_cart</i>Wishlist
+          </a>
+          <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="/faqs">
+              <i class="material-icons mdc-list-item__graphic" aria-hidden="true">contact_support</i>FAQ's
+          </a>
+          <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="/stats">
+              <i class="material-icons mdc-list-item__graphic" aria-hidden="true">multiline_chart</i>Your stats
+          </a>
+          <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="/about">
+              <i class="material-icons mdc-list-item__graphic" aria-hidden="true">face</i>About and Contact
+          </a>
+          <a class="mdc-list-item mdc-ripple-surface--primary my-surface" href="/privacy">
+            <i class="material-icons mdc-list-item__graphic" aria-hidden="true">info</i>Privacy
+        </a>
+        <div class="menu-social-icons">
+            <a target="_blank" href="https://twitter.com/MileMoneyApp"><ion-icon name="logo-twitter"></ion-icon></a>
+            <a target="_blank" href="https://www.instagram.com/milemoneyapp/"><ion-icon name="logo-instagram"></ion-icon></a>
+            <a target="_blank" href="https://www.facebook.com/milemoney"><ion-icon name="logo-facebook"></ion-icon></a>
+        </div>
         </nav>
-      </aside>
-      <header class="mdc-top-app-bar">
-          <div class="mdc-top-app-bar__row">
-            <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
-              <a href="#" class="menu material-icons mdc-top-app-bar__navigation-icon">menu</a>
-              <h1 class="mdc-top-app-bar__title"><a class="mdc-top-app-bar-link" href="/">Mile Money</a></h1>
-            </section>
-            <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end">
-                <a target="_blank" href="https://www.strava.com/?utm_source=mile%20money&utm_campaign=mile%20money%20io&utm_content=login%20link"><img class="top-app-bar--strava" src="images/poweredByStrava.svg"></a>
-                <a href="/" class="menu material-icons mdc-top-app-bar__navigation-icon"><i class="account-button material-icons mdc-list-item__graphic" aria-hidden="true">account_circle</i></a>
-                <a href="/logout"><p class="logout">Log out</p></a>
-            </section>
-          </div>
-		</header>
-		<%- body %>
+      </nav>
+    </aside>
+    <header class="mdc-top-app-bar">
+        <div class="mdc-top-app-bar__row">
+          <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+            <a href="#" class="menu material-icons mdc-top-app-bar__navigation-icon">menu</a>
+            <h1 class="mdc-top-app-bar__title"><a class="mdc-top-app-bar-link" href="/">Mile Money</a></h1>
+          </section>
+          <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end">
+              <a target="_blank" href="https://www.strava.com/?utm_source=mile%20money&utm_campaign=mile%20money%20io&utm_content=login%20link"><img class="top-app-bar--strava" src="images/poweredByStrava.svg"></a>
+              <a href="/" class="mdc-top-app-bar-account-circle material-icons mdc-top-app-bar__navigation-icon"><i class="account-button material-icons mdc-list-item__graphic" aria-hidden="true">account_circle</i></a>
+              <a href="/logout"><p class="logout mdc-top-app-bar-logout">Log out</p></a>
+          </section>
+        </div>
+  </header>
+  <%- body %>
 
-      
-	</body>
+    
+</body>
 </html>
+   <% } %>
+    
 

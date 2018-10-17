@@ -93,6 +93,7 @@ p {
     color: white;
 }
 
+
 .yellowBg {
     position: relative;
 }
@@ -127,7 +128,6 @@ body.login {
     // background: url('./images/loginBg.jpg');
     background-size: cover;
     margin: 0;
-    overflow-y: hidden;
     display: grid;
 }
 .login-wrapper {
@@ -143,9 +143,12 @@ body.login {
         .innerContent {
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             align-content: center;
+            @media only screen and (min-width: 1199px){
+                justify-content: center;
+            }
             
             .iconRow {
                 display: flex;
@@ -219,6 +222,9 @@ body.login {
         grid-template-columns: 1fr;
         .mobile-tabs {
             display: inline-block;
+            .mdc-tab {
+                padding: 0;
+            }
         }
         .left {
             display: none;
@@ -345,6 +351,9 @@ body.login {
                 background-color: rgb(218, 218, 218);
                 font-weight: 200;
                 border: 1px solid black;
+                @media only screen and (max-width: 1199px){
+                    margin-top: 10px;
+                }
             }
         }
         .redeemed-items-list {
@@ -398,7 +407,7 @@ body.login {
     grid-gap: 20px;
     @media only screen and (max-width: 1199px){
         grid-gap: 10px;
-        
+        grid: auto-flow / 100%;
     }
     .account-card {
         min-height: 150px;
@@ -429,6 +438,7 @@ body.login {
     grid-gap: 20px;
     @media only screen and (max-width: 1199px){
         grid-gap: 10px;
+        grid: auto-flow / 100%;
     }
     .wishlist-card {
         width: 300px;
@@ -446,6 +456,9 @@ body.login {
             margin: 10px 0;
             .wishlist-card-inner--item-name {
                 padding: 50px 20px 20px 20px;
+                @media only screen and (max-width: 1199px){
+                    padding: 0;
+                }
                 i {
                     position: absolute;
                     top: 5px;
@@ -598,7 +611,7 @@ form {
             justify-content: center;
         }
         .wishlist-layout {
-            grid: auto-flow / minmax(100px, 200px);
+            grid: auto-flow / minmax(100px, 100%);
             justify-content: center;
             .wishlist-card {
                 min-width: 300px;

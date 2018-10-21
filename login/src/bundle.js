@@ -7855,6 +7855,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__material_floating_label__ = __webpack_require__(55);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__material_select__ = __webpack_require__(138);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__material_switch__ = __webpack_require__(151);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_os__ = __webpack_require__(158);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_os___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12_os__);
 
 
 
@@ -8165,6 +8167,7 @@ if (flashPanel) {
 //Switches for the notifications opt in and opt out
 
 
+
 let notificationSwitches = Array.from(document.querySelectorAll('.mdc-switch'));
 notificationSwitches.forEach(a => {
     a = new __WEBPACK_IMPORTED_MODULE_11__material_switch__["a" /* MDCSwitch */](a);
@@ -8176,6 +8179,68 @@ if (window.location.pathname != '/login') {
     document.body.classList.remove('login');
     document.body.removeAttribute('style', 'background-image');
 }
+
+// Chart JS
+
+let dates = [];
+let graphData = [];
+var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+let uniqueCommutes = document.querySelectorAll('.right .commute-card');
+
+function getUniqueMonths() {
+    uniqueCommutes.forEach(activity => {
+        let activityMonth = new Date(activity.querySelector('.commute-card-inner-visible-stats--date').innerHTML).getMonth();
+        let activityYear = new Date(activity.querySelector('.commute-card-inner-visible-stats--date').innerHTML).getFullYear();
+        let activityCost = activity.querySelector('.commute-card-inner-visible-stats--mile-money').innerHTML;
+
+        parseFloat(activityCost);
+        let noSpan = activityCost.split('</span>');
+        let dollarValue = parseFloat(noSpan[1]);
+
+        let month = monthNames[activityMonth];
+
+        dates.push(month);
+        graphData.push({ x: month, y: dollarValue });
+    });
+}
+getUniqueMonths();
+
+const reduced = graphData.reduce(function (m, d) {
+    if (!m[d.x]) {
+        m[d.x] = d.y;
+        return m;
+    }
+
+    m[d.x] += d.y;
+    return m;
+}, {});
+
+let monthValues = Object.values(reduced);
+console.log(monthValues);
+
+let uniqueMonths = [...new Set(dates)];
+
+var ctx = document.getElementById('myChart').getContext('2d');
+var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'bar',
+
+    // The data for our dataset
+    data: {
+        labels: uniqueMonths,
+        datasets: [{
+            label: "Mile Money",
+            backgroundColor: 'rgba(254, 199, 47, 0.73)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: monthValues
+        }]
+    },
+
+    // Configuration options go here
+    options: {
+        responsive: true
+    }
+});
 
 /***/ }),
 /* 74 */
@@ -20926,6 +20991,73 @@ const strings = {
 };
 
 
+
+/***/ }),
+/* 158 */
+/***/ (function(module, exports) {
+
+exports.endianness = function () {
+    return 'LE';
+};
+
+exports.hostname = function () {
+    if (typeof location !== 'undefined') {
+        return location.hostname;
+    } else return '';
+};
+
+exports.loadavg = function () {
+    return [];
+};
+
+exports.uptime = function () {
+    return 0;
+};
+
+exports.freemem = function () {
+    return Number.MAX_VALUE;
+};
+
+exports.totalmem = function () {
+    return Number.MAX_VALUE;
+};
+
+exports.cpus = function () {
+    return [];
+};
+
+exports.type = function () {
+    return 'Browser';
+};
+
+exports.release = function () {
+    if (typeof navigator !== 'undefined') {
+        return navigator.appVersion;
+    }
+    return '';
+};
+
+exports.networkInterfaces = exports.getNetworkInterfaces = function () {
+    return {};
+};
+
+exports.arch = function () {
+    return 'javascript';
+};
+
+exports.platform = function () {
+    return 'browser';
+};
+
+exports.tmpdir = exports.tmpDir = function () {
+    return '/tmp';
+};
+
+exports.EOL = '\n';
+
+exports.homedir = function () {
+    return '/';
+};
 
 /***/ })
 /******/ ]);

@@ -3962,7 +3962,7 @@ a.mdc-list-item {
 
 .flash-msg {
   padding: 10px;
-  background-color: #00FF00;
+  background-color: #00FF01;
   position: relative; }
   .flash-msg .flash-msg-clear {
     position: absolute;
@@ -4173,7 +4173,7 @@ body.login {
       grid-template-columns: [left] 220px [main] 1fr [right] 220px; } }
   @media only screen and (max-width: 991px) {
     .wrapper {
-      grid-template-areas: "main" "left" "right";
+      grid-template-areas: "main" "left" "right";
       grid-template-columns: 1fr; }
       .wrapper .mobile-tabs {
         display: inline-block; }
@@ -4222,7 +4222,7 @@ body.login {
 .icon-value-label {
   display: grid;
   width: 100%;
-  grid-template-areas: "icon value" "label label";
+  grid-template-areas: "icon value" "label label";
   grid-template-columns: 30px 30px; }
   .icon-value-label .icon {
     grid-area: icon; }

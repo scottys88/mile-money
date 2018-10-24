@@ -1111,7 +1111,7 @@ app.get('/logout', function(req, res){
   res.redirect('/');
 });
 
-app.listen(process.env.PORT_NUMBER || 3000);
+app.listen(process.env.PORT || 3000);
 
 
 // Simple route middleware to ensure user is authenticated.

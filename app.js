@@ -1063,7 +1063,7 @@ var options = { method: 'POST',
   qs: 
    { client_id: '22264',
      client_secret: 'f31774d980e2f6e97403b8fd404deecff420201a',
-     callback_url: 'http:/www./milemoney.io/webhooks',
+     callback_url: 'http:/www.milemoney.io/webhooks',
      verify_token: 'STRAVA' },
   headers: 
    { 'Postman-Token': '816d7fdf-57f4-4ffa-885f-61fedfe989b7',

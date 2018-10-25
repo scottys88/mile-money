@@ -64,7 +64,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new StravaStrategy({
     clientID: process.env.STRAVA_CLIENT_ID,
     clientSecret: process.env.STRAVA_CLIENT_SECRET,
-    callbackURL: `http://127.0.0.1:${PORT_NUMBER_LISTEN}/auth/strava/callback`
+    callbackURL: `http://milemoney.io/auth/strava/callback`
   },
   function(accessToken, refreshToken, profile, done) {
     // asynchronous verification, for effect...

@@ -9,6 +9,7 @@ var flash = require('connect-flash')
   , path = require('path')
   , ejs = require('ejs')
   , schedule = require('node-schedule')
+  , axios = require('axios')
   , mocha = require('mocha');
 const Athlete = require('./models/athlete');
 const Shoe = require('./models/athlete');
@@ -27,7 +28,9 @@ require('dotenv').config({ path: 'process.env' });
 var STRAVA_CLIENT_ID = process.env.STRAVA_CLIENT_ID;
 var STRAVA_CLIENT_SECRET = process.env.STRAVA_CLIENT_SECRET;
 var DB_CONNECTION_STRING = process.env.DB_CONNECTION_STRING;
-var PORT_NUMBER_LISTEN = process.env.PORT_NUMBER;
+var PORT_NUMBER_LISTEN = process.env.PORT;
+var STRAVA_WEBHOOK_CALLBACK = process.env.STRAVA_WEBHOOK_CALLBACK;
+var STRAVA_REDIRECT_URI = process.env.STRAVA_REDIRECT_URI;
 
 //Connect to the Dabatase
 
@@ -64,7 +67,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new StravaStrategy({
     clientID: process.env.STRAVA_CLIENT_ID,
     clientSecret: process.env.STRAVA_CLIENT_SECRET,
-    callbackURL: `http://www.milemoney.io/auth/strava/callback`
+    callbackURL: `http://127.0.0.1:${PORT_NUMBER_LISTEN}/auth/strava/callback`
   },
   function(accessToken, refreshToken, profile, done) {
     // asynchronous verification, for effect...
@@ -136,52 +139,52 @@ app.get('/', ensureAuthenticated, async (req, res, next) => {
 );
 
 //Adds new shoes to the athlete. If shoe already exists then updates it
-app.get('/', ensureAuthenticated, async (req, res, next) => {
+// app.get('/', ensureAuthenticated, async (req, res, next) => {
 
-const stravaShoes = req.user._json.shoes;
+// const stravaShoes = req.user._json.shoes;
 
-if(req.user) {
-    const stravaShoes = req.user._json.shoes;
-      stravaShoes.forEach(shoe => {
-      let athlete = Athlete.update({ id: req.user.id}, 
-        { $addToSet:
-          { shoes: { $each: [ { 
-              name: shoe.name,
-              distance: shoe.distance,
-              id: shoe.id
-        }] } } 
-      }).exec();
-    }
-  )
-  next();
-}
-
-
-
-});
+// if(req.user) {
+//     const stravaShoes = req.user._json.shoes;
+//       stravaShoes.forEach(shoe => {
+//       let athlete = Athlete.update({ id: req.user.id}, 
+//         { $addToSet:
+//           { shoes: { $each: [ { 
+//               name: shoe.name,
+//               distance: shoe.distance,
+//               id: shoe.id
+//         }] } } 
+//       }).exec();
+//     }
+//   )
+//   next();
+// }
 
 
-//Adds new bikes ot the db if bike already exists then updates it
-app.get('/', ensureAuthenticated, async (req, res, next) => {
 
-    if(req.user) {
-        const stravaBikes = req.user._json.bikes;
-          stravaBikes.forEach(bike => {
-          let athlete = Athlete.update({ id: req.user.id}, 
-            { $addToSet:
-              { bikes: { $each: [ { 
-                  name: bike.name,
-                  distance: bike.distance,
-                  id: bike.id
-            }] } } 
-          }).exec();
-        }
+// });
 
-    )
-    next();
-  }
 
-});
+// //Adds new bikes ot the db if bike already exists then updates it
+// app.get('/', ensureAuthenticated, async (req, res, next) => {
+
+//     if(req.user) {
+//         const stravaBikes = req.user._json.bikes;
+//           stravaBikes.forEach(bike => {
+//           let athlete = Athlete.update({ id: req.user.id}, 
+//             { $addToSet:
+//               { bikes: { $each: [ { 
+//                   name: bike.name,
+//                   distance: bike.distance,
+//                   id: bike.id
+//             }] } } 
+//           }).exec();
+//         }
+
+//     )
+//     next();
+//   }
+
+// });
 
 
 //This middleware will collect the strava athletes activities
@@ -433,7 +436,7 @@ app.get('/webhooks', (req, res) => {
   console.log(typeof(finalResponse));
   
   console.log(finalResponse);
-    app.get('https://api.strava.com/api/v3/push_subscriptions?client_id=22264&client_secret=f31774d980e2f6e97403b8fd404deecff420201a&callback_url=http://www.milemoney.io&verify_token=STRAVA', (req, res) => {
+    app.get(`https://api.strava.com/api/v3/push_subscriptions?client_id=22264&client_secret=f31774d980e2f6e97403b8fd404deecff420201a&callback_url=${STRAVA_WEBHOOK_CALLBACK}&verify_token=STRAVA`, (req, res) => {
       res.send(finalResponse);
     })
   res.status(200).send({"hub.challenge": hub});
@@ -454,7 +457,7 @@ app.post('/webhooks', (req, res, next) => {
 app.post('/webhooks', async (req, res, next) => {
 
   StravaApiV3.activities.get({
-    'access_token':process.env.STRAVA_ACCESS_TOKEN, 
+    'access_token':process.env.STRAVA_ACCESS_TOKEN,  //THIS NEEDS TO BE UPDATED TO THE ACCESS TOKEN FROM THE USER
     //req.body here is the object returned from the webhooks it is used to query the database
     id: req.body.object_id}, function(err, payload, limits){
       //payload here is the actual activity id
@@ -539,7 +542,7 @@ app.post('/webhooks', async (req, res, next) => {
   if (req.body.aspect_type === 'update') {
 
    StravaApiV3.activities.get({
-    'access_token':process.env.STRAVA_ACCESS_TOKEN, 
+    'access_token':process.env.STRAVA_ACCESS_TOKEN,   //THIS NEEDS TO BE UPDATED TO THE ACCESS TOKEN FROM THE USER
     //req.body here is the object returned from the webhooks 
     id: req.body.object_id}, function(err, payload, limits){
       //payload here is the actual activity id
@@ -564,7 +567,7 @@ app.post('/webhooks', async (req, res, next) => {
 //delete commute from database triggered from webhooks only if updated activity is NOT A COMMUTE
 app.post('/webhooks', async (req, res, next) => {
   StravaApiV3.activities.get({
-    'access_token':process.env.STRAVA_ACCESS_TOKEN, 
+    'access_token':process.env.STRAVA_ACCESS_TOKEN,   //THIS NEEDS TO BE UPDATED TO THE ACCESS TOKEN FROM THE USER
     //req.body here is the object returned from the webhooks 
     id: req.body.object_id}, function(err, payload, limits){
       //payload here is the actual activity id
@@ -1063,7 +1066,7 @@ var options = { method: 'POST',
   qs: 
    { client_id: '22264',
      client_secret: 'f31774d980e2f6e97403b8fd404deecff420201a',
-     callback_url: 'http://www.milemoney.io/webhooks',
+     callback_url: STRAVA_WEBHOOK_CALLBACK,
      verify_token: 'STRAVA' },
   headers: 
    { 'Postman-Token': '816d7fdf-57f4-4ffa-885f-61fedfe989b7',
@@ -1072,7 +1075,7 @@ var options = { method: 'POST',
   formData: 
    { client_id: '22264',
      client_secret: 'f31774d980e2f6e97403b8fd404deecff420201a',
-     callback_url: 'http://www.milemoney.io/webhooks',
+     callback_url: STRAVA_WEBHOOK_CALLBACK,
      verify_token: 'STRAVA' } };
 
 request(options, function (error, response, body) {
@@ -1089,7 +1092,7 @@ request(options, function (error, response, body) {
 //   redirecting the user to strava.com.  After authorization, Strava
 //   will redirect the user back to this application at /auth/strava/callback
 app.get('/auth/strava',
-  passport.authenticate('strava', { scope: ['write'] }),
+  passport.authenticate('strava', { scope: ['activity:write,activity:read'] }),
   function(req, res){
     // The request will be redirected to Strava for authentication, so this
     // function will not be called.
@@ -1102,8 +1105,24 @@ app.get('/auth/strava',
 //   which, in this example, will redirect the user to the home page.
 app.get('/auth/strava/callback', 
   passport.authenticate('strava', { failureRedirect: '/login' }),
-  function(req, res) {
-    res.redirect('/');
+  function(req, res, next) {
+  const accessCode = req.query.code;
+
+  axios({
+    method: 'post',
+    url: `https://www.strava.com/oauth/token?code=${accessCode}&client_id=${process.env.STRAVA_CLIENT_ID}&client_secret=${process.env.STRAVA_CLIENT_SECRET}`,
+    headers: {
+      accept: 'application/json'
+    }
+
+  }).then((response) => {
+    console.log(response);
+    res.redirect(`/`);
+  })
+
+    
+    
+    
   });
 
 app.get('/logout', function(req, res){

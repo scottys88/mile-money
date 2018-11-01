@@ -120,7 +120,6 @@ app.get('/', ensureAuthenticated, async (req, res, next) => {
     country: req.user._json.country,
     gender: req.user._json.sex,
     email: req.user._json.email,
-    shoes: [],
     bikes: [],
     $setOnInsert: {
       commuteCosts: [{ 
@@ -1115,8 +1114,23 @@ app.get('/auth/strava/callback',
       accept: 'application/json'
     }
 
+
   }).then((response) => {
-    console.log(response);
+    console.log(response.data.athlete.id+ ' ' + response.data.token_type + ' ' + response.data.expires_at + ' ' + response.data.refresh_token + ' ' + response.data.access_token);
+    Athlete.updateOne({'id': response.data.athlete.id}, {
+         $set: 
+          {
+          'tokens.accessToken': response.data.access_token,
+          'tokens.refreshToken': response.data.refresh_token,
+          'tokens.AccessTokenExpiry': response.data.expires_at,
+          'tokens.tokenType': response.data.token_type
+          
+        }
+      },
+    { upsert: true }
+    ).exec()
+    
+
     res.redirect(`/`);
   })
 

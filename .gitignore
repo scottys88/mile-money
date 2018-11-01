@@ -2,3 +2,4 @@ login/node_modules/
 login/src/node_modules/
 .vscode/
 login/process.env
+node_modules/

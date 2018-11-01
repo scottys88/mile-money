@@ -129,6 +129,13 @@ const athleteSettingsSchema = new Schema({
     }
 })
 
+const stravaTokenSchema = new Schema({
+    accessToken: String,
+    refreshToken: String,
+    AccessTokenExpiry: String,
+    tokenType: String
+});    
+
 // const accountSchema = new Schema({
 //     accountName: {
 //         type: String,
@@ -164,7 +171,8 @@ const athleteSchema = new Schema({
         type: String
     },
     settings: athleteSettingsSchema,
-    email: String
+    email: String,
+    tokens: stravaTokenSchema
 });
 
 

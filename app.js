@@ -454,9 +454,10 @@ app.post('/webhooks', (req, res, next) => {
 
 //save new activity if commute from webhooks
 app.post('/webhooks', async (req, res, next) => {
+  let owner = await Athlete.findOne({ id:  req.body.owner_id });
 
   StravaApiV3.activities.get({
-    'access_token':process.env.STRAVA_ACCESS_TOKEN,  //THIS NEEDS TO BE UPDATED TO THE ACCESS TOKEN FROM THE USER
+    'access_token':owner.tokens.accessToken,  //THIS NEEDS TO BE UPDATED TO THE ACCESS TOKEN FROM THE USER
     //req.body here is the object returned from the webhooks it is used to query the database
     id: req.body.object_id}, function(err, payload, limits){
       //payload here is the actual activity id
@@ -495,7 +496,7 @@ app.post('/webhooks', async (req, res, next) => {
               }
             })
 
-              StravaApiV3.activities.update({access_token: process.env.STRAVA_ACCESS_TOKEN, id: req.body.object_id, name: `#MileMoney.io $${totalCost} saved with this commute`},function(err,payload,limits){
+              StravaApiV3.activities.update({'access_token':owner.tokens.accessToken, id: req.body.object_id, name: `#MileMoney.io $${totalCost} saved with this commute`},function(err,payload,limits){
               if(!err) {
               }
               else {
@@ -517,7 +518,7 @@ app.post('/webhooks', async (req, res, next) => {
 
 //delete commute from database triggered from webhooks
 app.post('/webhooks', async (req, res, next) => {
-     
+    
      if (req.body.aspect_type === 'delete') {
 
       let athlete = await Athlete.update( { 'commutes.commuteId': req.body.object_id}, 
@@ -537,11 +538,11 @@ app.post('/webhooks', async (req, res, next) => {
 
 //update commute from database triggered from webhooks
 app.post('/webhooks', async (req, res, next) => {
-     
+  let owner = await Athlete.findOne({ id:  req.body.owner_id });
   if (req.body.aspect_type === 'update') {
 
    StravaApiV3.activities.get({
-    'access_token':process.env.STRAVA_ACCESS_TOKEN,   //THIS NEEDS TO BE UPDATED TO THE ACCESS TOKEN FROM THE USER
+    'access_token':owner.tokens.accessToken,   //THIS NEEDS TO BE UPDATED TO THE ACCESS TOKEN FROM THE USER
     //req.body here is the object returned from the webhooks 
     id: req.body.object_id}, function(err, payload, limits){
       //payload here is the actual activity id
@@ -566,7 +567,7 @@ app.post('/webhooks', async (req, res, next) => {
 //delete commute from database triggered from webhooks only if updated activity is NOT A COMMUTE
 app.post('/webhooks', async (req, res, next) => {
   StravaApiV3.activities.get({
-    'access_token':process.env.STRAVA_ACCESS_TOKEN,   //THIS NEEDS TO BE UPDATED TO THE ACCESS TOKEN FROM THE USER
+    'access_token':owner.tokens.accessToken,   //THIS NEEDS TO BE UPDATED TO THE ACCESS TOKEN FROM THE USER
     //req.body here is the object returned from the webhooks 
     id: req.body.object_id}, function(err, payload, limits){
       //payload here is the actual activity id

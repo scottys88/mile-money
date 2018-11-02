@@ -8220,6 +8220,9 @@ console.log(monthValues);
 
 let uniqueMonths = [...new Set(dates)];
 
+uniqueMonths.reverse();
+monthValues.reverse();
+
 var ctx = document.getElementById('myChart').getContext('2d');
 var chart = new Chart(ctx, {
     // The type of chart we want to create
@@ -8238,7 +8241,12 @@ var chart = new Chart(ctx, {
 
     // Configuration options go here
     options: {
-        responsive: true
+        responsive: true,
+        tooltips: {
+            callbacks: {
+                label: item => `${item.yLabel} Mile Money`
+            }
+        }
     }
 });
 

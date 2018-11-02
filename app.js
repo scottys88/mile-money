@@ -349,6 +349,43 @@ var j = schedule.scheduleJob({hour: 21, minute: 33, dayOfWeek: 2}, async functio
 
 });
 
+var refreshTokenSchedule = schedule.scheduleJob('* */6 * * *', async function(){
+  let athletes = await Athlete.find({});
+  athletes.forEach(athlete => {
+    const refreshToken = athlete.tokens.refreshToken;
+
+    if(!refreshToken){
+      return;
+    }
+    else {
+    axios({
+      method: 'post',
+      url: `https://www.strava.com/oauth/token?client_id=${STRAVA_CLIENT_ID}&client_secret=${STRAVA_CLIENT_SECRET}&grant_type=refresh_token&refresh_token=${athlete.tokens.refreshToken}`,
+      headers: {
+        accept: 'application/json'
+      }
+  
+  
+    }).then((response) => {
+      console.log(`schedule run at ${new Date}`);
+
+      Athlete.updateOne({'id': athlete.id}, {
+           $set: 
+            {
+            'tokens.accessToken': response.data.access_token,
+            'tokens.refreshToken': response.data.refresh_token,
+            'tokens.AccessTokenExpiry': response.data.expires_at,
+            'tokens.tokenType': response.data.token_type
+          }
+        },
+      { upsert: true }
+      ).exec()
+      })
+    }
+  })
+});
+ 
+
 
 //test route for the mail transport
 app.get('/notification', async(req, res) => { 

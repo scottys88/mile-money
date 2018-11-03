@@ -349,7 +349,7 @@ var j = schedule.scheduleJob({hour: 21, minute: 33, dayOfWeek: 2}, async functio
 
 });
 
-var refreshTokenSchedule = schedule.scheduleJob('* */6 * * *', async function(){
+var refreshTokenSchedule = schedule.scheduleJob('0 */6 * * *', async function(){
   let athletes = await Athlete.find({});
   athletes.forEach(athlete => {
     const refreshToken = athlete.tokens.refreshToken;

@@ -7,11 +7,19 @@
                 <form method="POST" action="/commute-costs/edit/<%= commuteCostEdit._id %>" class="commute-cost-form"> 
                     <!--commute cost name-->
                     <div class="mdc-text-field mdc-text-field--with-trailing-icon">
+                        <% if(commuteCostEdit.userCommute === 'Main commute cost'){ %>
                             <input type="text" value="<%= commuteCostEdit.userCommute %>" name="userCommute" id="userCommute" class="mdc-text-field__input"
                                 aria-controls="userform-helper-text"
-                                aria-describedby="userform-helper-text" autofocus required>
+                                aria-describedby="userform-helper-text" autofocus required readonly>
+                                <label for="userCommute" class="mdc-floating-label" >Main Commute Cost (read only)</label>
+                                <i class="material-icons mdc-text-field__icon MDCTextFieldIconFoundation" tabindex="0" role="button">grade</i>
+                        <% } else { %>
+                            <input type="text" value="<%= commuteCostEdit.userCommute %>" name="userCommute" id="userCommute" class="mdc-text-field__input"
+                            aria-controls="userform-helper-text"
+                            aria-describedby="userform-helper-text" autofocus required>
                             <label for="userCommute" class="mdc-floating-label" >Commute Cost Name</label>
                             <i class="material-icons mdc-text-field__icon MDCTextFieldIconFoundation" tabindex="0" role="button">commute</i>
+                        <% } %>
                         <div class="mdc-line-ripple"></div>
                     </div>
                     <p class="form-helper mdc-text-field-helper-text mdc-text-field-helper-text--persistent" aria-hidden="true">
@@ -97,6 +105,10 @@
         <div class="right">
             <div class="commute-layout">
                 <h2>Commute Cost Tips</h2>
+                    <div class="mdc-card right-tips-card">
+                            <h3>Default commute cost</h3>
+                            <p>All commutes will default to the Main Commute Cost. This is the default setting and cannot be changed yet. You can manually update commutes to select the correct commute cost though.</p>
+                    </div>
                     <div class="mdc-card right-tips-card">
                             <h3>Mulitple commute costs</h3>
                             <p>Use multiple commute costs for your different methods of commuting. Then update your commutes to get an accurate idea of your Mile Money</p>

@@ -9,7 +9,7 @@
           <a style="color: #FC4C02;" href="https://www.strava.com/athletes/<%= athlete.id %>"><span class="strava-link">View on Strava</span></a>
           <div class="main-balance-inner-stats">
           <p>You total Mile Money balance is:</p>
-          <h2 class="yellowBg"><span>$</span><%= mileMoneyBalance - totalRedeemed %></h2><br>
+          <h2 class="yellowBg main-balance-inner-stats--balance"><span>$</span><%= mileMoneyBalance - totalRedeemed %></h2><br>
           <div class="mdc-chip main-chip">
               <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">accessibility_new</i>
               <div class="mdc-chip__text"><%= athlete.commutes.length %> Commutes</div>

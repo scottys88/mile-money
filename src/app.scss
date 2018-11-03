@@ -343,9 +343,13 @@ body.login {
             display: flex;
             flex-direction: column;
             align-items: center;
+
             .main-card-inner-stats {
                 display: grid;
                 justify-content: center;
+            }
+            .main-balance-inner-stats--balance {
+                font-size: 50px;
             }
             .main-chip {
                 background-color: rgb(218, 218, 218);

@@ -4270,6 +4270,8 @@ body.login {
   .main .main-balance .main-balance-inner .main-card-inner-stats {
     display: grid;
     justify-content: center; }
+  .main .main-balance .main-balance-inner .main-balance-inner-stats--balance {
+    font-size: 50px; }
   .main .main-balance .main-balance-inner .main-chip {
     background-color: #dadada;
     font-weight: 200;

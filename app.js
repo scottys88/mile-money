@@ -67,7 +67,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new StravaStrategy({
     clientID: process.env.STRAVA_CLIENT_ID,
     clientSecret: process.env.STRAVA_CLIENT_SECRET,
-    callbackURL: `http://www.milemoney.io/auth/strava/callback`
+    callbackURL: `http://127.0.0.1:${PORT_NUMBER_LISTEN}/auth/strava/callback`
   },
   function(accessToken, refreshToken, profile, done) {
     // asynchronous verification, for effect...
@@ -491,6 +491,7 @@ app.post('/webhooks', (req, res, next) => {
 
 //save new activity if commute from webhooks
 app.post('/webhooks', async (req, res, next) => {
+  console.log('saved');
   let owner = await Athlete.findOne({ id:  req.body.owner_id });
 
   StravaApiV3.activities.get({

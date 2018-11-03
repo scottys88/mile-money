@@ -86,22 +86,3 @@
         </div>
     </div>
 
-<form action="/commute/edit/<%= commute.commuteId %>" method="POST" class="commute-form">
-    <label for="commuteDate">Commute date</label>
-    <input type="text" name="commuteDate" value="<%= commute.commuteDate %>"readonly>
-    <label for="account">Account</label>
-    <input type="text" name="account" readonly>
-    <label for="commuteCosts">Cost for this commute</label>
-    <select name=commuteCosts>
-      <% person.commuteCosts.forEach(cost => { %>
-        <option  value="<%= cost.userCommute %>"> <%= cost.userCommute %></option>
-      <% }) %>
-    </select>
-    <label for="commuteName">Commute Name</label>
-    <input type="text" name="commuteName" value="<%= commute.commuteName %>" readonly>
-    <label for="commuteType">Commute Type</label>
-    <input type="text" name="commuteType" value="<%= commute.commuteType %>" readonly>
-    <label for="distance">Commute Distance</label>
-    <input type="text" name="distance" value="<%= commute.distance %>" readonly>
-    <input type="submit" value="Save" class="button">
-</form>

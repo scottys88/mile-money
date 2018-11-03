@@ -545,6 +545,9 @@ body.login {
                     top: 0;
                     transition: all 1s;
                     text-align: left;
+                    .mdc-list-item__secondary-text {
+                        white-space: initial;
+                    }
                     i {
                         transform: rotate(180deg);
                     }

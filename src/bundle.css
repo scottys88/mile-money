@@ -4432,6 +4432,8 @@ body.login {
         top: 0;
         transition: all 1s;
         text-align: left; }
+        .commute-layout .commute-card .commute-card-inner .commute-card-inner-hidden-stats.expanded .mdc-list-item__secondary-text {
+          white-space: initial; }
         .commute-layout .commute-card .commute-card-inner .commute-card-inner-hidden-stats.expanded i {
           -webkit-transform: rotate(180deg);
                   transform: rotate(180deg); }

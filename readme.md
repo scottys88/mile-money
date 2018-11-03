@@ -23,3 +23,22 @@ In the existing dev environment, the application will work only when ./ngrok htt
 
 The ./ngrok file will need to be placed in this directory for both mac and windows.
 
+**Deploying to Heroku / Working in dev environment**
+
+Heroku has all of the environment variables stored within it. The only thing that needs updating for deploying to Heroku is the Strava callback url.
+
+IF in Dev this callback line will be:
+callbackURL: `http://127.0.0.1:${PORT_NUMBER_LISTEN}/auth/strava/callback`
+
+If deploying to production then the callback line will be:
+
+callbackURL: `http://www.milemoney.io/auth/strava/callback`
+
+
+**Deploy Commands**
+
+login to Heroku on CL: $ heroku login 
+(use details from LastPass)
+
+Run the below command. Note that Prod is the active branch:
+$ git push heroku Prod:master

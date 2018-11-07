@@ -32,7 +32,7 @@ callbackURL: `http://127.0.0.1:${PORT_NUMBER_LISTEN}/auth/strava/callback`
 
 If deploying to production then the callback line will be:
 
-callbackURL: `http://www.milemoney.io/auth/strava/callback`
+callbackURL: `https://milemoney.io/auth/strava/callback`
 
 
 **Deploy Commands**

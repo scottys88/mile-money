@@ -67,7 +67,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new StravaStrategy({
     clientID: process.env.STRAVA_CLIENT_ID,
     clientSecret: process.env.STRAVA_CLIENT_SECRET,
-    callbackURL: `http://www.milemoney.io/auth/strava/callback`
+    callbackURL: `https://milemoney.io/auth/strava/callback`
   },
   function(accessToken, refreshToken, profile, done) {
     // asynchronous verification, for effect...
@@ -120,7 +120,6 @@ app.get('/', ensureAuthenticated, async (req, res, next) => {
     country: req.user._json.country,
     gender: req.user._json.sex,
     email: req.user._json.email,
-    bikes: [],
     $setOnInsert: {
       commuteCosts: [{ 
         userCommute: "Main commute cost",
@@ -349,7 +348,9 @@ var j = schedule.scheduleJob({hour: 21, minute: 33, dayOfWeek: 2}, async functio
 
 });
 
-var refreshTokenSchedule = schedule.scheduleJob('0 */6 * * *', async function(){
+
+
+var refreshTokenSchedule = schedule.scheduleJob('0 0 */6 * * *', async function(){
   let athletes = await Athlete.find({});
   athletes.forEach(athlete => {
     const refreshToken = athlete.tokens.refreshToken;

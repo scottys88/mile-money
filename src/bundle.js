@@ -7873,10 +7873,10 @@ const topAppBar = new __WEBPACK_IMPORTED_MODULE_1__material_top_app_bar_index__[
 const drawer = new __WEBPACK_IMPORTED_MODULE_0__material_drawer__["a" /* MDCTemporaryDrawer */](document.querySelector('.mdc-drawer--temporary'));
 document.querySelector('.menu').addEventListener('click', () => drawer.open = true);
 
-const surface = document.querySelectorAll('.my-surface');
-if (surface) {
-    surface.forEach(item => new __WEBPACK_IMPORTED_MODULE_2__material_ripple__["a" /* MDCRipple */](item));
-};
+// const surface = document.querySelectorAll('.my-surface');
+// if(surface){
+// surface.forEach(item => new MDCRipple(item));
+// };
 
 //Mobile tabs
 

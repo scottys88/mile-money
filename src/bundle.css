@@ -4073,7 +4073,11 @@ p {
   margin-top: 20px; }
 
 .top-app-bar--strava {
-  width: 120px; }
+  display: none; }
+  @media only screen and (min-width: 576px) {
+    .top-app-bar--strava {
+      width: 120px;
+      display: inline-block; } }
 
 .mdc-top-app-bar-link {
   color: white; }

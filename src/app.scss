@@ -87,7 +87,11 @@ p {
 }
 
 .top-app-bar--strava {
+    display: none;
+    @media only screen and (min-width: 576px){
     width: 120px;
+    display: inline-block;
+    }
 }
 .mdc-top-app-bar-link {
     color: white;

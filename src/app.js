@@ -19,7 +19,7 @@ if(surface){
 surface.forEach(item => new MDCRipple(item));
 };
 
-Mobile tabs
+// Mobile tabs
 
 import {MDCTabBar} from '@material/tab-bar';
 import {MDCTab} from '@material/tab';

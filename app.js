@@ -67,7 +67,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new StravaStrategy({
     clientID: process.env.STRAVA_CLIENT_ID,
     clientSecret: process.env.STRAVA_CLIENT_SECRET,
-    callbackURL: `https://milemoney.io/auth/strava/callback`
+    callbackURL: `http://127.0.0.1:${PORT_NUMBER_LISTEN}/auth/strava/callback`
   },
   function(accessToken, refreshToken, profile, done) {
     // asynchronous verification, for effect...
@@ -120,15 +120,7 @@ app.get('/', ensureAuthenticated, async (req, res, next) => {
     country: req.user._json.country,
     gender: req.user._json.sex,
     email: req.user._json.email,
-    $setOnInsert: {
-      commuteCosts: [{ 
-        userCommute: "Main commute cost",
-        totalCost: 1
-    }],
-      "settings.autoUpdateCommutes": false,
-      "settings.emailMarketing": false,
-      "settings.emailNotifications": false
-    }
+    
   }, { upsert: true} ).exec();
   // await athlete.save();
   next();
@@ -1171,7 +1163,15 @@ app.get('/auth/strava/callback',
           'tokens.refreshToken': response.data.refresh_token,
           'tokens.AccessTokenExpiry': response.data.expires_at,
           'tokens.tokenType': response.data.token_type
-          
+        },
+        $setOnInsert: {
+          commuteCosts: [{ 
+            userCommute: "Main commute cost",
+            totalCost: 1
+        }],
+          "settings.autoUpdateCommutes": false,
+          "settings.emailMarketing": false,
+          "settings.emailNotifications": false
         }
       },
     { upsert: true }

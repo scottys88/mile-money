@@ -163,8 +163,6 @@ const athleteSchema = new Schema({
     gender: String,
     commutes: [commuteSchema],
     commuteCosts: [commuteCostSchema],
-    shoes: [shoeSchema],
-    bikes: [bikeSchema],
     wishList: [wishListSchema],
     accounts: {
         accountName: "Main",

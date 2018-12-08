@@ -10,6 +10,7 @@ var flash = require('connect-flash')
   , ejs = require('ejs')
   , schedule = require('node-schedule')
   , axios = require('axios')
+  , favicon = require('express-favicon')
   , mocha = require('mocha');
 const Athlete = require('./models/athlete');
 const Shoe = require('./models/athlete');
@@ -89,6 +90,7 @@ var app = express.createServer();
 
 // configure Express
 app.configure(function() {
+  app.use(favicon(path.join(__dirname, 'src', 'images', 'favicon.ico')));
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
   app.use(express.logger());
@@ -103,8 +105,10 @@ app.configure(function() {
   app.use(passport.session({cookie: { maxAge: 60000 }}));
   app.use(flash());
   app.use(app.router);
+ 
   app.use(express.static(path.join(__dirname + '/src')));
 });
+
 
 //Finds and updates an athlete if one is not found in the db
 app.get('/', ensureAuthenticated, async (req, res, next) => {
@@ -1115,7 +1119,7 @@ var options = { method: 'POST',
      client_secret: 'f31774d980e2f6e97403b8fd404deecff420201a',
      callback_url: STRAVA_WEBHOOK_CALLBACK,
      verify_token: 'STRAVA' } };
-
+ 
 request(options, function (error, response, body) {
   if (error) throw new Error(error);
 

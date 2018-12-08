@@ -14,6 +14,7 @@
     "ejs": ">= 0.0.0",
     "es6-promisify": "^6.0.0",
     "express": "2.x.x",
+    "express-favicon": "^2.0.1",
     "express-flash": "git://github.com/RGBboy/express-flash.git",
     "gulp-sass": "^4.0.1",
     "html-to-text": "^4.0.0",

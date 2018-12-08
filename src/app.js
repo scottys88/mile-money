@@ -346,72 +346,76 @@ if(window.location.pathname != '/login'){
 
 // Chart JS
 
-let dates = [];
-let graphData = [];
-var monthNames = ["January", "February", "March", "April", "May","June","July", "August", "September", "October", "November","December"];
-let uniqueCommutes = document.querySelectorAll('.right .commute-card');
 
-function getUniqueMonths() { uniqueCommutes.forEach(activity => {
-    let activityMonth = new Date(activity.querySelector('.commute-card-inner-visible-stats--date').innerHTML).getMonth();
-    let activityYear = new Date(activity.querySelector('.commute-card-inner-visible-stats--date').innerHTML).getFullYear();
-    let activityCost = activity.querySelector('.commute-card-inner-visible-stats--mile-money').innerHTML;
+    let dates = [];
+    let graphData = [];
+    var monthNames = ["January", "February", "March", "April", "May","June","July", "August", "September", "October", "November","December"];
+    let uniqueCommutes = document.querySelectorAll('.right .commute-card');
 
-    parseFloat(activityCost);
-    let noSpan = activityCost.split('</span>')
-    let dollarValue = parseFloat(noSpan[1]);
+    function getUniqueMonths() { uniqueCommutes.forEach(activity => {
+        let activityMonth = new Date(activity.querySelector('.commute-card-inner-visible-stats--date').innerHTML).getMonth();
+        let activityYear = new Date(activity.querySelector('.commute-card-inner-visible-stats--date').innerHTML).getFullYear();
+        let activityCost = activity.querySelector('.commute-card-inner-visible-stats--mile-money').innerHTML;
 
-    let month = monthNames[activityMonth];
+        parseFloat(activityCost);
+        let noSpan = activityCost.split('</span>')
+        let dollarValue = parseFloat(noSpan[1]);
 
-    dates.push(month);
-    graphData.push({x: month, y: dollarValue});
-})}
-getUniqueMonths();
+        let month = monthNames[activityMonth];
 
-
-const reduced = graphData.reduce(function(m, d){
-    if(!m[d.x]){
-      m[d.x] = d.y;
-      return m;
-    }
-
-    m[d.x] += d.y;
-    return m;
- },{});
+        dates.push(month);
+        graphData.push({x: month, y: dollarValue});
+    })}
+    getUniqueMonths();
 
 
+    const reduced = graphData.reduce(function(m, d){
+        if(!m[d.x]){
+        m[d.x] = d.y;
+        return m;
+        }
 
-let monthValues = Object.values(reduced);
-console.log(monthValues);
-
-let uniqueMonths = [...new Set(dates)]; 
-
-uniqueMonths.reverse();
-monthValues.reverse();
+        m[d.x] += d.y;
+        return m;
+    },{});
 
 
-var ctx = document.getElementById('myChart').getContext('2d');
-var chart = new Chart(ctx, {
-    // The type of chart we want to create
-    type: 'bar',
 
-    // The data for our dataset
-    data: { 
-        labels: uniqueMonths,
-        datasets: [{
-            label: "Mile Money",
-            backgroundColor: 'rgba(254, 199, 47, 0.73)',
-            borderColor: 'rgb(255, 99, 132)',
-            data: monthValues,
-        }]
-    },
+    let monthValues = Object.values(reduced);
+    console.log(monthValues);
 
-    // Configuration options go here
-    options: {
-        responsive: true,
-        tooltips: {
-            callbacks: {
-              label: (item) => `${item.yLabel} Mile Money`,
+    let uniqueMonths = [...new Set(dates)]; 
+
+    uniqueMonths.reverse();
+    monthValues.reverse();
+
+    if(document.querySelector('#myChart')){
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'bar',
+
+        // The data for our dataset
+        data: { 
+            labels: uniqueMonths,
+            datasets: [{
+                label: "Mile Money",
+                backgroundColor: 'rgba(254, 199, 47, 0.73)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: monthValues,
+            }]
+        },
+
+        // Configuration options go here
+        options: {
+            responsive: true,
+            tooltips: {
+                callbacks: {
+                label: (item) => `${item.yLabel} Mile Money`,
+                },
             },
-          },
+        }
     }
-});
+
+    );
+}

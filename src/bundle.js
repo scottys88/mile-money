@@ -8182,6 +8182,7 @@ if (window.location.pathname != '/login') {
 
 // Chart JS
 
+
 let dates = [];
 let graphData = [];
 var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -8223,32 +8224,34 @@ let uniqueMonths = [...new Set(dates)];
 uniqueMonths.reverse();
 monthValues.reverse();
 
-var ctx = document.getElementById('myChart').getContext('2d');
-var chart = new Chart(ctx, {
-    // The type of chart we want to create
-    type: 'bar',
+if (document.querySelector('#myChart')) {
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'bar',
 
-    // The data for our dataset
-    data: {
-        labels: uniqueMonths,
-        datasets: [{
-            label: "Mile Money",
-            backgroundColor: 'rgba(254, 199, 47, 0.73)',
-            borderColor: 'rgb(255, 99, 132)',
-            data: monthValues
-        }]
-    },
+        // The data for our dataset
+        data: {
+            labels: uniqueMonths,
+            datasets: [{
+                label: "Mile Money",
+                backgroundColor: 'rgba(254, 199, 47, 0.73)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: monthValues
+            }]
+        },
 
-    // Configuration options go here
-    options: {
-        responsive: true,
-        tooltips: {
-            callbacks: {
-                label: item => `${item.yLabel} Mile Money`
+        // Configuration options go here
+        options: {
+            responsive: true,
+            tooltips: {
+                callbacks: {
+                    label: item => `${item.yLabel} Mile Money`
+                }
             }
         }
-    }
-});
+    });
+}
 
 /***/ }),
 /* 74 */

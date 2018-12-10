@@ -1018,7 +1018,7 @@ app.get('/wishlist-edit', ensureAuthenticated, async (req, res) => {
       totalRedeemed += item.itemCost;
     };
   })
-  res.render('wishlistEdit', { user: req.user, wishListItem, athlete, totalRedeemed, mileMoneyBalance });
+  res.render('wishListEdit', { user: req.user, wishListItem, athlete, totalRedeemed, mileMoneyBalance });
 });
 
 

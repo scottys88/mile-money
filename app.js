@@ -68,7 +68,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new StravaStrategy({
     clientID: process.env.STRAVA_CLIENT_ID,
     clientSecret: process.env.STRAVA_CLIENT_SECRET,
-    callbackURL: `https://milemoney.io/auth/strava/callback`
+    callbackURL: `http://127.0.0.1:${PORT_NUMBER_LISTEN}/auth/strava/callback`
   },
   function(accessToken, refreshToken, profile, done) {
     // asynchronous verification, for effect...
@@ -517,21 +517,50 @@ app.post('/webhooks', async (req, res, next) => {
           }] } } 
           },{upsert: true}).exec(); 
           console.log('actvity saved');
-          
+
+          // Start update for each commute 
           Athlete.findOne( {id: req.body.owner_id }, function(err, cost){
-            console.log(cost);
+            const commuteCosts = cost.commuteCosts;
+            const athleteCommutes = cost.commutes;
+            const athleteWishListItems = cost.wishList;
+            // const athleteAccounts = athlete.accounts[0];
+            let totalRedeemed = 0;
+            let mileMoneyBalance = 0;
           if(cost.settings.autoUpdateCommutes == true){
 
           let userCommuteCosts = cost.commuteCosts;
           let totalCost = 0;
-            userCommuteCosts.forEach(item => {
-              if(item.userCommute === "Main commute cost"){
-                totalCost = item.totalCost;
-                return totalCost;
-              }
-            })
 
-              StravaApiV3.activities.update({'access_token':owner.tokens.accessToken, id: req.body.object_id, name: `#MileMoney.io $${totalCost} saved with this commute`},function(err,payload,limits){
+
+          athleteCommutes.forEach(commute => {
+            commuteCosts.forEach(cost => {
+              if(commute.commuteCosts == cost.userCommute){
+              mileMoneyBalance += cost.totalCost;
+              }
+            });
+          });
+        
+
+        
+          athleteWishListItems.forEach(item => {
+            if(item.redeemed === true) {
+              totalRedeemed += item.itemCost;
+            };
+          })
+
+          const totalBalance = mileMoneyBalance - totalRedeemed;
+          
+
+
+
+            // userCommuteCosts.forEach(item => {
+            //   if(item.userCommute === "Main commute cost"){
+            //     totalCost = item.totalCost;
+            //     return totalCost;
+            //   }
+            // })
+
+              StravaApiV3.activities.update({'access_token':owner.tokens.accessToken, id: req.body.object_id, name: `$${totalBalance.toFixed(2)} saved with #MileMoney.io`},function(err,payload,limits){
               if(!err) {
               }
               else {

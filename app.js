@@ -10,7 +10,7 @@ var flash = require('connect-flash')
   , ejs = require('ejs')
   , schedule = require('node-schedule')
   , axios = require('axios')
-  , favicon = require('express-favicon')
+  , favicon = require('serve-favicon')
   , mocha = require('mocha');
 const Athlete = require('./models/athlete');
 const Shoe = require('./models/athlete');
@@ -68,7 +68,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new StravaStrategy({
     clientID: process.env.STRAVA_CLIENT_ID,
     clientSecret: process.env.STRAVA_CLIENT_SECRET,
-    callbackURL: `https://milemoney.io/auth/strava/callback`
+    callbackURL: `http://127.0.0.1:${PORT_NUMBER_LISTEN}/auth/strava/callback`
   },
   function(accessToken, refreshToken, profile, done) {
     // asynchronous verification, for effect...
@@ -90,11 +90,9 @@ var app = express.createServer();
 
 // configure Express
 app.configure(function() {
-  app.use(favicon(path.join(__dirname, 'src', 'images', 'favicon.ico')));
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
   app.use(express.logger());
-  
   app.use(express.cookieParser('secretString'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());

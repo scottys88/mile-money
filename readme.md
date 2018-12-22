@@ -1,8 +1,8 @@
 **To get started on the application:**
 
 1) npm i
-2) run: nodemon app 
-    on the login directory
+2) run: nodemon app OR npm run nodemon
+    on the root directory
 
 To get started on the front end:
 

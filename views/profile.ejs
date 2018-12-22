@@ -13,27 +13,32 @@
                 <p><img src="<%= user.photos[0].value %>"></p>
                 <p>ID: <%= user.id %></p>
                 <p>Name: <%= user.displayName %></p>
-                <p>City: <%= user._json.city %></p>
-                <p>State: <%= athlete.state %></p>
-                <p>Email: <%= athlete.email %></p>
-                <p>Gender: <%= athlete.gender %></p>
+                <p>City: <% if(user._json.city) { %><%= user._json.city %><% } %></p>
+                <p>State: <% if(athlete.state) { %><%= athlete.state %><% } %></p>
+                <p>Email: <% if(athlete.email) { %><%= athlete.email %><% } %></p>
+                <p>Gender: <% if(athlete.gender) { %><%= athlete.gender %><% } %></p>
                 <h4>Notification settings</h4>
-                <p>Auto Update Commutes: <%= athlete.settings.autoUpdateCommutes %></p>
-                <p>Email Marketing: <%= athlete.settings.emailMarketing %></p>
-                <p>Email notifications: <%= athlete.settings.emailNotifications %></p>
+                <p>Auto Update Commutes: <% if(athlete.settings.autoUpdateCommutes) { %><%= athlete.settings.autoUpdateCommutes %><% } %></p>
+                <p>Email Marketing: <% if(athlete.settings.emailMarketing) { %><%= athlete.settings.emailMarketing %><% } %></p>
+                <p>Email notifications: <% if(athlete.settings.emailNotifications) { %><%= athlete.settings.emailNotifications %><% } %></p>
 
                 <h4>Your gear</h4>
+                <% if(user.shoes) { %>
                 <% athlete.shoes.forEach(shoe => { %>
                     <h5><%= shoe.name %></h5>
                     <p><%= shoe.distance %></p>
                     <p><%= shoe.id %></p>
                 <% }) %>
+                <% } %>
+                <% if(user.bikes) { %>
                 <% athlete.bikes.forEach(bike => { %>
                     <h5><%= bike.name %></h5>
                     <p><%= bike.distance %></p>
                     <p><%= bike.id %></p>
                 <% }) %>
+                <% } %>
                 <h4>Your commute costs</h4>
+                <% if(athlete.commuteCosts) { %>
                 <% athlete.commuteCosts.forEach(cost => { %>
                     <h5><%= cost.userCommute %></h5>
                     <p>Fuel: <%= cost.fuel || 0 %></p>
@@ -43,14 +48,18 @@
                     <p>Other costs: <%= cost.other || 0 %></p>
                     <p>Total: <%= cost.totalCost || 0 %></p>
                 <% }) %>
+                <% } %>
                 <h4>Your wishlist items</h4>
+                <% if(athlete.wishList) { %>
                 <% athlete.wishList.forEach(item => { %>
                     <h5><%= item.itemName %></h5>
                     <p>Cost: <%= item.itemCost || 0 %></p>
                     <p>URL: <%= item.itemURL || 0 %></p>
                     <p>Redeemed: <%= item.redeemed || false %></p>
                 <% }) %>
+                <% } %>
                 <h4>Your commutes</h4>
+                <% if(athlete.commutes) { %>
                 <% athlete.commutes.forEach(commute => { %>
                     <h5><%= commute.commuteDate %></h5>
                     <p>start lat/long: <%= commute.start_latlng %> <%= commute.start_latlng %></p>
@@ -65,6 +74,7 @@
                     <p>Commute moving time: <%= commute.movingTime %></p>
                     <p>Commute elapsed time: <%= commute.elapsedTime %></p>
                 <% }) %>
+                <% } %>
             </div>
             
         </div>

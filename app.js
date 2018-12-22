@@ -68,7 +68,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new StravaStrategy({
     clientID: process.env.STRAVA_CLIENT_ID,
     clientSecret: process.env.STRAVA_CLIENT_SECRET,
-    callbackURL: `https://milemoney.io/auth/strava/callback`
+    callbackURL: `http://127.0.0.1:${PORT_NUMBER_LISTEN}/auth/strava/callback`
   },
   function(accessToken, refreshToken, profile, done) {
     // asynchronous verification, for effect...
@@ -1161,7 +1161,7 @@ request(options, function (error, response, body) {
 //   redirecting the user to strava.com.  After authorization, Strava
 //   will redirect the user back to this application at /auth/strava/callback
 app.get('/auth/strava',
-  passport.authenticate('strava', { scope: ['activity:write,activity:read'] }),
+  passport.authenticate('strava', { scope: ['activity:write,activity:read_all'] }),
   function(req, res){
     // The request will be redirected to Strava for authentication, so this
     // function will not be called.
